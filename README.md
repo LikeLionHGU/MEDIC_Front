@@ -1,1 +1,0 @@
-# MEDIC_Front
