@@ -47,6 +47,15 @@ const Email = styled.div`
   margin-top: 13.24px;
 `;
 
+const GEmail = styled.div`
+  font-family: "Pretendard-Regular";
+  color: black;
+  font-size: 14px;
+  width: 570px;
+  margin-bottom: 6px;
+  margin-top: 20.24px;
+`;
+
 const UserFrame = styled.div`
   display: flex;
   flex-direction: column;
@@ -68,6 +77,13 @@ const ErrorMessage = styled.div`
   visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
 `;
 
+const Error = styled.div`
+  width: 570px;
+  margin-top: 3px;
+  margin-bottom: 7px;
+  color: #a1a1a1;
+`;
+
 const ArrowImage = styled.img`
   position: absolute;
   top: 11px;
@@ -82,7 +98,7 @@ const ArrowImage = styled.img`
 
 const HashtagContainer = styled.div`
   position: relative;
-  width: 580px;
+  width: 579px;
 `;
 
 const HashtagInput = styled.input`
@@ -110,11 +126,8 @@ const HashtagInput = styled.input`
 `;
 
 const DropDownList = styled.ul`
-  position: absolute;
-  top: 42px;
-  left: 0;
   border: 1px solid #b2d23e;
-  width: 100%;
+  width: 576px;
   height: 109.5px;
   border-radius: 7.5px;
   background-color: white;
@@ -128,7 +141,23 @@ const DropDownList = styled.ul`
   align-content: space-evenly;
   justify-items: center;
   text-align: center;
-  line-height: 2;
+`;
+
+const ListItem = styled.li`
+  background-color: ${({ isActive }) => (isActive ? "#effaca" : "#ececec")};
+  border-radius: 7.5px;
+  cursor: pointer;
+  height: 32px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: ${({ isActive }) => (isActive ? "bold" : "normal")};
+  margin-right: 10px;
+  &:hover {
+    background-color: #effaca;
+    font-weight: bold;
+  }
 `;
 
 const GenderList = styled.ul`
@@ -137,17 +166,6 @@ const GenderList = styled.ul`
   border-radius: 7.5px;
   width: 578px;
   padding: 0;
-`;
-
-const ListItem = styled.li`
-  background-color: #effaca;
-  border-radius: 7.5px;
-  cursor: pointer;
-  height: 32px;
-  padding: 0 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const GListItem = styled.li`
@@ -168,6 +186,13 @@ const GListItem = styled.li`
   &:active {
     background-color: #effaca;
   }
+`;
+
+const Tag = styled.div`
+  border: 1px solid #b2d23e;
+  border-radius: 10px;
+  padding: 8px;
+  color: #b2d23e;
 `;
 
 const SignUpPage = () => {
@@ -399,7 +424,7 @@ const SignUpPage = () => {
           )}
         </HashtagContainer>
 
-        <Email>건강 맞춤형 해시태그</Email>
+        <GEmail>건강 맞춤형 해시태그</GEmail>
         <HashtagContainer ref={hashtagDropDownRef}>
           <HashtagInput
             onFocus={() => setIsHashtagFocused(true)}
@@ -409,11 +434,16 @@ const SignUpPage = () => {
             value={"해시태그"}
             readOnly
           />
+
           <ArrowImage src={arrow} alt="Arrow" isFocused={isHashtagFocused} />
           {isOpenHashtag && (
             <DropDownList>
               {hashtagList.map((value, index) => (
-                <ListItem key={index} onClick={() => handleHashtagClick(value)}>
+                <ListItem
+                  key={index}
+                  isActive={userInfo.hashtags.includes(value)}
+                  onClick={() => handleHashtagClick(value)}
+                >
                   {userInfo.hashtags.includes(value)
                     ? `${userInfo.hashtags.indexOf(value) + 1} | ${value}`
                     : value}
@@ -422,7 +452,14 @@ const SignUpPage = () => {
             </DropDownList>
           )}
           {userInfo.hashtags.map((hashtag, index) => (
-            <div key={index} style={{ display: "inline-block", margin: "4px" }}>
+            <Tag
+              key={index}
+              style={{
+                display: "inline-block",
+                marginTop: "5px",
+                marginRight: "14px",
+              }}
+            >
               <span>{`${hashtag}`}</span>
               <span
                 style={{ cursor: "pointer", marginLeft: "4px" }}
@@ -430,9 +467,12 @@ const SignUpPage = () => {
               >
                 X
               </span>
-            </div>
+            </Tag>
           ))}
         </HashtagContainer>
+        {userInfo.hashtags.length === 0 && (
+          <Error>최소 1개, 최대 3개의 해시태그를 선택해주세요.</Error>
+        )}
 
         <SignUpButton
           text="가입하기"
