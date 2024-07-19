@@ -269,6 +269,7 @@ const SignUpPage = () => {
     supplementDropDownRef,
     false
   );
+
   const handleSupplementClick = (supplement) => {
     setUserInfo((userInfo) => {
       let newSupplements;
@@ -284,8 +285,13 @@ const SignUpPage = () => {
       }
       return { ...userInfo, supplements: newSupplements };
     });
-    setIsOpenSupplement(false);
+    setIsOpenSupplement(false); // 드롭다운 닫기
   };
+
+  const handleSupplementInputClick = () => {
+    setIsOpenSupplement(!isOpenSupplement); // 드롭다운 열기/닫기
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserInfo((userInfo) => ({
@@ -533,10 +539,10 @@ const SignUpPage = () => {
                 ? "없음"
                 : userInfo.supplements.join(", ")
             }
-            onFocus={() => setIsOpenSupplement(!isOpenSupplement)}
-            onChange={() => {}}
+            onClick={handleSupplementInputClick} // 인풋 클릭 시 드롭다운 열기/닫기
             readOnly
           />
+
           <ArrowImage src={arrow} alt="arrow" />
           {isOpenSupplement && (
             <SupplementsList>
