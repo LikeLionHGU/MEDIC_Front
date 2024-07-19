@@ -97,7 +97,7 @@ const HashtagContainer = styled.div`
 const TagContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 10px;
+  width: 579px;
 `;
 
 const HashtagInput = styled.input`
@@ -555,7 +555,15 @@ const SignUpPage = () => {
 
         <TagContainer>
           {userInfo.supplements.map((supplement, index) => (
-            <Tag key={index} onClick={() => handleSupplementClick(supplement)}>
+            <Tag
+              key={index}
+              onClick={() => handleSupplementClick(supplement)}
+              style={{
+                display: "inline-block",
+                marginTop: "5px",
+                marginRight: "14px",
+              }}
+            >
               {supplement} x
             </Tag>
           ))}
