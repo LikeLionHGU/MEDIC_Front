@@ -14,8 +14,8 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   background-image: url(${backgroundImage});
   background-size: cover;
   background-position: center;
@@ -28,10 +28,10 @@ const Logo = styled.div`
 `;
 
 const LogoImage = styled.img`
-  width: 52.56px;
-  height: 58.4px;
+  width: 58px;
+  height: 64px;
   margin-right: 8px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   margin-top: 0px;
 `;
 
@@ -39,21 +39,21 @@ const Title = styled.div`
   color: #b2d23e;
   font-family: "GongGothicMedium";
   font-size: 70px;
-  margin-bottom: 24px;
+  margin-bottom: 0px;
 `;
 
 const SubTitle = styled.div`
   font-family: "KIMM_Bold";
   color: #cbcbcb;
   font-size: 20px;
-  margin-bottom: 27.76px;
+  margin-bottom: 38px;
 `;
 
 const SubTitle2 = styled.div`
   font-family: "KIMM_Bold";
   color: #ffffff;
   font-size: 20px;
-  margin-bottom: 27.76px;
+  margin-bottom: 38px;
 `;
 
 const Email = styled.div`
@@ -62,7 +62,7 @@ const Email = styled.div`
   font-size: 14px;
   width: 430px;
   margin-bottom: 0;
-  margin-top: 30.24px;
+  margin-top: 13.24px;
 `;
 
 const UserFrame = styled.div`
@@ -78,6 +78,7 @@ const UserFrame = styled.div`
 const ErrorMessage = styled.div`
   width: 430px;
   margin-top: 3px;
+  margin-bottom: 7px;
   color: ${({ isInvalid, touched }) => {
     if (!touched) return "#C5C5C5";
     return isInvalid ? "#B2D23E" : "#A1A1A1";
@@ -98,6 +99,7 @@ const Div = styled.div`
   font-size: 14px;
   color: white;
   margin-right: 20px;
+  margin-bottom: 20px;
 `;
 const SignButton = styled.button`
   background: none;
@@ -108,6 +110,7 @@ const SignButton = styled.button`
   font-size: 14px;
   font-family: "Pretendard-Regular";
   padding: 8px;
+  margin-bottom: 20px;
 
   &:hover {
     text-decoration: underline;
@@ -123,7 +126,7 @@ const ActionButton = styled.button`
   font-family: "Pretendard-Regular";
   text-align: start;
   width: 430px;
-  margin-top: 26.98px;
+  margin-top: 16.98px;
   padding-left: 0px;
 
   &:hover {
@@ -183,7 +186,7 @@ const LoginPage = () => {
 
   // 회원가입 페이지 이동
   const goSignupPage = () => {
-    navigate("/medic/signup");
+    navigate("/Medic/SignUpPage");
   };
 
   // fetch : 로그인 버튼 클릭 시 메인 페이지로 이동
