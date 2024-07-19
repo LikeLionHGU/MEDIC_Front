@@ -8,36 +8,34 @@ import useDetectClose from "../components/SignUpPage/UseDetectClose";
 import arrow from "../img/arrow.png";
 
 const Container = styled.div`
-  position: fixed;
-  top: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding-top: 20px; /* Add some padding to the top */
+  overflow: auto;
 `;
-
 const Logo = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 20px; /* Add some margin to the bottom */
 `;
-
 const LogoImage = styled.img`
   width: 45px;
   height: 52px;
   margin-right: 4px;
-  margin-bottom: 39.26px;
-  margin-top: 0px;
+  /* margin-bottom: 39.26px; */
+  margin-top: 32px;
 `;
-
 const Title = styled.div`
   color: #b2d23e;
   font-family: "GongGothicMedium";
   font-size: 50.26px;
-  margin-bottom: 34.26px;
+  margin-top: 40px;
+  /* margin-bottom: 34.26px; */
 `;
-
 const Email = styled.div`
   font-family: "Pretendard-Regular";
   color: black;
@@ -46,7 +44,6 @@ const Email = styled.div`
   margin-bottom: 6px;
   margin-top: 13.24px;
 `;
-
 const GEmail = styled.div`
   font-family: "Pretendard-Regular";
   color: black;
@@ -55,7 +52,6 @@ const GEmail = styled.div`
   margin-bottom: 6px;
   margin-top: 20.24px;
 `;
-
 const UserFrame = styled.div`
   display: flex;
   flex-direction: column;
@@ -65,25 +61,22 @@ const UserFrame = styled.div`
   font-size: 14px;
   font-family: "Pretendard-Regular";
 `;
-
 const ErrorMessage = styled.div`
   width: 570px;
   margin-top: 3px;
   margin-bottom: 7px;
   color: ${({ isInvalid, touched }) => {
     if (!touched) return "#C5C5C5";
-    return isInvalid ? "#B2D23E" : "#A1A1A1";
+    return isInvalid ? "#E45D5D" : "#A1A1A1";
   }};
   visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
 `;
-
 const Error = styled.div`
   width: 570px;
   margin-top: 3px;
   margin-bottom: 7px;
   color: #a1a1a1;
 `;
-
 const ArrowImage = styled.img`
   position: absolute;
   top: 11px;
@@ -101,15 +94,22 @@ const HashtagContainer = styled.div`
   width: 579px;
 `;
 
+const TagContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+`;
+
 const HashtagInput = styled.input`
   font-family: "Pretendard-Regular";
   background-color: transparent;
-  width: 100%;
+  width: 570px;
   border-radius: 7.5px;
   height: 40px;
   border: 1px solid black;
   text-align: start;
-  padding-left: 10px;
+  padding-left: 5px;
+  margin-bottom: 5px;
   cursor: pointer;
 
   &:focus {
@@ -124,23 +124,21 @@ const HashtagInput = styled.input`
     }
   }
 `;
-
 const DropDownList = styled.ul`
   border: 1px solid #b2d23e;
-  width: 576px;
-  height: 109.5px;
   border-radius: 7.5px;
   background-color: white;
   z-index: 10;
   list-style: none;
-  padding: 0;
+  padding: 10px;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
   align-items: center;
-  align-content: space-evenly;
-  justify-items: center;
-  text-align: center;
+  width: fit-content;
+  box-sizing: border-box;
 `;
 
 const ListItem = styled.li`
@@ -151,9 +149,37 @@ const ListItem = styled.li`
   padding: 0 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  font-size: 14px;
+  box-sizing: border-box;
   font-weight: ${({ isActive }) => (isActive ? "bold" : "normal")};
-  margin-right: 10px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:hover {
+    background-color: #effaca;
+    font-weight: bold;
+  }
+`;
+
+const SupplementsList = styled.ul`
+  border: 1px solid #b2d23e;
+  margin: 0px;
+  border-radius: 7.5px;
+  width: 578px;
+  padding: 0;
+`;
+const SupplementItem = styled.li`
+  background-color: #fff;
+  border-radius: 7.5px;
+  cursor: pointer;
+  height: 37px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-weight: ${({ isActive }) => (isActive ? "bold" : "normal")};
+
   &:hover {
     background-color: #effaca;
     font-weight: bold;
@@ -162,9 +188,10 @@ const ListItem = styled.li`
 
 const GenderList = styled.ul`
   border: 1px solid #b2d23e;
-  margin-top: 3px;
+  margin: 0px;
   border-radius: 7.5px;
   width: 578px;
+  height: 75px;
   padding: 0;
 `;
 
@@ -172,7 +199,7 @@ const GListItem = styled.li`
   background-color: #fff;
   border-radius: 7.5px;
   cursor: pointer;
-  height: 32px;
+  height: 37px;
   padding: 0 15px;
   display: flex;
   align-items: center;
@@ -203,6 +230,7 @@ const SignUpPage = () => {
     birthYear: "",
     gender: "",
     hashtags: [],
+    supplements: [],
   });
 
   const [emailTouched, setEmailTouched] = useState(false);
@@ -213,19 +241,21 @@ const SignUpPage = () => {
   const [isHashtagFocused, setIsHashtagFocused] = useState(false);
 
   const genderList = ["남성", "여성"];
+  const supplementList = ["없음", "닥터 비타민D 2000IU", "밀크씨슬"];
   const hashtagList = [
-    "관절뼈건강",
-    "기억력개선",
-    "면역기능개선",
-    "운동수행능력",
-    "체지방 감소",
     "피부건강",
-    "혈당조절",
+    "혈당 조절",
+    "기억력개선",
+    "체지방 감소",
+    "관절/뼈건강",
+    "면역기능개선",
+    "운동수행 능력",
     "혈중 중성지방 개선",
   ];
 
   const genderDropDownRef = useRef();
   const hashtagDropDownRef = useRef();
+  const supplementDropDownRef = useRef();
 
   const [isOpenGender, setIsOpenGender] = useDetectClose(
     genderDropDownRef,
@@ -235,7 +265,27 @@ const SignUpPage = () => {
     hashtagDropDownRef,
     false
   );
-
+  const [isOpenSupplement, setIsOpenSupplement] = useDetectClose(
+    supplementDropDownRef,
+    false
+  );
+  const handleSupplementClick = (supplement) => {
+    setUserInfo((userInfo) => {
+      let newSupplements;
+      if (supplement === "없음") {
+        newSupplements = [];
+      } else {
+        newSupplements = [...userInfo.supplements];
+        if (newSupplements.includes(supplement)) {
+          newSupplements.splice(newSupplements.indexOf(supplement), 1);
+        } else {
+          newSupplements.push(supplement);
+        }
+      }
+      return { ...userInfo, supplements: newSupplements };
+    });
+    setIsOpenSupplement(false);
+  };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserInfo((userInfo) => ({
@@ -408,7 +458,7 @@ const SignUpPage = () => {
             onFocus={() => setIsGenderFocused(true)}
             onBlur={() => setIsGenderFocused(false)}
             onClick={() => setIsOpenGender(!isOpenGender)}
-            type="button"
+            type="text"
             value={userInfo.gender || "성별"}
             readOnly
           />
@@ -430,7 +480,7 @@ const SignUpPage = () => {
             onFocus={() => setIsHashtagFocused(true)}
             onBlur={() => setIsHashtagFocused(false)}
             onClick={() => setIsOpenHashtag(!isOpenHashtag)}
-            type="button"
+            type="text"
             value={"해시태그"}
             readOnly
           />
@@ -460,7 +510,7 @@ const SignUpPage = () => {
                 marginRight: "14px",
               }}
             >
-              <span>{`${hashtag}`}</span>
+              <span>{hashtag}</span>
               <span
                 style={{ cursor: "pointer", marginLeft: "4px" }}
                 onClick={() => handleHashtagRemove(hashtag)}
@@ -474,6 +524,42 @@ const SignUpPage = () => {
           <Error>최소 1개, 최대 3개의 해시태그를 선택해주세요.</Error>
         )}
 
+        <GEmail>복용 중인 약 혹은 건강기능식품</GEmail>
+        <HashtagContainer ref={supplementDropDownRef}>
+          <HashtagInput
+            type="text"
+            value={
+              userInfo.supplements.length === 0
+                ? "없음"
+                : userInfo.supplements.join(", ")
+            }
+            onFocus={() => setIsOpenSupplement(!isOpenSupplement)}
+            onChange={() => {}}
+            readOnly
+          />
+          <ArrowImage src={arrow} alt="arrow" />
+          {isOpenSupplement && (
+            <SupplementsList>
+              {supplementList.map((supplement, index) => (
+                <SupplementItem
+                  key={index}
+                  isActive={userInfo.supplements.includes(supplement)}
+                  onClick={() => handleSupplementClick(supplement)}
+                >
+                  {supplement}
+                </SupplementItem>
+              ))}
+            </SupplementsList>
+          )}
+        </HashtagContainer>
+
+        <TagContainer>
+          {userInfo.supplements.map((supplement, index) => (
+            <Tag key={index} onClick={() => handleSupplementClick(supplement)}>
+              {supplement} x
+            </Tag>
+          ))}
+        </TagContainer>
         <SignUpButton
           text="가입하기"
           disabled={!isValid}

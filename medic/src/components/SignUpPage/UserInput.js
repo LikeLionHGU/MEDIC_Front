@@ -1,8 +1,8 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Input = styled.input`
-  background-color: transparent; // 배경을 투명하게 설정
+  background-color: transparent;
   border: 1px solid black;
   border-radius: 7.5px;
   width: 570px;
@@ -11,15 +11,29 @@ const Input = styled.input`
   padding-bottom: 0px;
   padding-left: 5px;
   font-family: "Pretendard-Regular";
+  transition: border-color 0.3s;
+
+  ${({ isInvalid }) =>
+    isInvalid &&
+    css`
+      border-color: #e45d5d;
+    `}
 
   &:focus {
     font-family: "Pretendard-Regular";
-    outline: none; // 포커스 시 기본 아웃라인 제거
-    border-color: #b2d23e; // 포커스 시에도 아래쪽 테두리만 표시
+    outline: none;
+    border-color: ${({ isInvalid }) => (isInvalid ? "#e45d5d" : "#b2d23e")};
   }
 `;
 
-const UserInput2 = ({ type, placeholder, value, name, onChange }) => {
+const UserInput2 = ({
+  type,
+  placeholder,
+  value,
+  name,
+  onChange,
+  isInvalid,
+}) => {
   return (
     <Input
       type={type}
@@ -27,6 +41,7 @@ const UserInput2 = ({ type, placeholder, value, name, onChange }) => {
       onChange={onChange}
       value={value}
       name={name}
+      isInvalid={isInvalid}
     />
   );
 };
