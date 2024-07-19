@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import SignUpButton from "../components/SignUpPage/SignUpButton";
@@ -285,13 +285,31 @@ const SignUpPage = () => {
       }
       return { ...userInfo, supplements: newSupplements };
     });
-    setIsOpenSupplement(false); // 드롭다운 닫기
+    // setIsOpenSupplement(false); // 클릭 시 닫히는 부분을 제거
   };
 
   const handleSupplementInputClick = () => {
     setIsOpenSupplement(!isOpenSupplement); // 드롭다운 열기/닫기
   };
 
+  const toggleDropdown = (e) => {
+    if (
+      isOpenSupplement &&
+      supplementDropDownRef.current &&
+      !supplementDropDownRef.current.contains(e.target)
+    ) {
+      setIsOpenSupplement(false);
+    } else {
+      setIsOpenSupplement(true);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", toggleDropdown);
+    return () => {
+      document.removeEventListener("click", toggleDropdown);
+    };
+  }, [isOpenSupplement]);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserInfo((userInfo) => ({
@@ -529,26 +547,27 @@ const SignUpPage = () => {
         {userInfo.hashtags.length === 0 && (
           <Error>최소 1개, 최대 3개의 해시태그를 선택해주세요.</Error>
         )}
-
         <GEmail>복용 중인 약 혹은 건강기능식품</GEmail>
         <HashtagContainer ref={supplementDropDownRef}>
           <HashtagInput
-            type="text"
-            value={
-              userInfo.supplements.length === 0
-                ? "없음"
-                : userInfo.supplements.join(", ")
-            }
-            onClick={handleSupplementInputClick} // 인풋 클릭 시 드롭다운 열기/닫기
+            placeholder="없음"
             readOnly
+            onClick={() => setIsOpenSupplement(!isOpenSupplement)}
+            value={
+              userInfo.supplements.length > 0
+                ? userInfo.supplements.join(", ")
+                : ""
+            }
           />
-
-          <ArrowImage src={arrow} alt="arrow" />
+          <ArrowImage
+            src={arrow}
+            onClick={() => setIsOpenSupplement(!isOpenSupplement)}
+          />
           {isOpenSupplement && (
             <SupplementsList>
-              {supplementList.map((supplement, index) => (
+              {supplementList.map((supplement) => (
                 <SupplementItem
-                  key={index}
+                  key={supplement}
                   isActive={userInfo.supplements.includes(supplement)}
                   onClick={() => handleSupplementClick(supplement)}
                 >
@@ -558,7 +577,6 @@ const SignUpPage = () => {
             </SupplementsList>
           )}
         </HashtagContainer>
-
         <TagContainer>
           {userInfo.supplements.map((supplement, index) => (
             <Tag
