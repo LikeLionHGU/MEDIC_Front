@@ -38,12 +38,13 @@ const Title = styled.div`
 `;
 const Email = styled.div`
   font-family: "Pretendard-Regular";
-  color: black;
+  color: ${({ isInvalid }) => (isInvalid ? "#E45D5D" : "black")};
   font-size: 14px;
   width: 570px;
   margin-bottom: 6px;
   margin-top: 13.24px;
 `;
+
 const GEmail = styled.div`
   font-family: "Pretendard-Regular";
   color: black;
@@ -70,7 +71,11 @@ const ErrorMessage = styled.div`
     return isInvalid ? "#E45D5D" : "#A1A1A1";
   }};
   visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
+  border: none;
+  padding: 5px;
+  box-sizing: border-box;
 `;
+
 const Error = styled.div`
   width: 570px;
   margin-top: 3px;
@@ -233,6 +238,10 @@ const SignUpPage = () => {
     supplements: [],
   });
 
+  const goSignupPage = () => {
+    navigate("/Medic/SignUpPage2");
+  };
+
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [nicknameTouched, setNicknameTouched] = useState(false);
@@ -288,9 +297,26 @@ const SignUpPage = () => {
     // setIsOpenSupplement(false); // 클릭 시 닫히는 부분을 제거
   };
 
-  const handleSupplementInputClick = () => {
-    setIsOpenSupplement(!isOpenSupplement); // 드롭다운 열기/닫기
+  const handleSupplementInputClick = (e) => {
+    e.stopPropagation(); // 이벤트 전파 중단
+    setIsOpenSupplement((prev) => !prev);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        supplementDropDownRef.current &&
+        !supplementDropDownRef.current.contains(event.target)
+      ) {
+        setIsOpenSupplement(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const toggleDropdown = (e) => {
     if (
@@ -397,6 +423,7 @@ const SignUpPage = () => {
         birthYear: userInfo.birthYear,
         gender: userInfo.gender === "여성" ? true : false,
         hashtags: userInfo.hashtags,
+        supplements: userInfo.supplements,
       }),
     })
       .then((response) => response.json())
@@ -416,12 +443,14 @@ const SignUpPage = () => {
           <Title>MEDIC</Title>
         </Logo>
 
-        <Email>아이디</Email>
+        <Email isInvalid={isInvalidEmail}>아이디</Email>
+
         <UserInput2
           type="text"
           placeholder=""
           value={userInfo.userEmail}
           name="userEmail"
+          isInvalid={isInvalidEmail}
         />
         <ErrorMessage
           isInvalid={isInvalidEmail}
@@ -431,13 +460,15 @@ const SignUpPage = () => {
           이메일 형식으로 입력해주세요.
         </ErrorMessage>
 
-        <Email>비밀번호</Email>
+        <Email isInvalid={isInvalidPassword}>비밀번호</Email>
         <UserInput2
           type="password"
           placeholder=""
           value={userInfo.userPassword}
           name="userPassword"
+          isInvalid={isInvalidPassword}
         />
+
         <ErrorMessage
           isInvalid={isInvalidPassword}
           touched={passwordTouched}
@@ -446,12 +477,13 @@ const SignUpPage = () => {
           영문, 숫자 포함 8자 이내로 입력해주세요.
         </ErrorMessage>
 
-        <Email>닉네임</Email>
+        <Email isInvalid={isInvalidNickname}>닉네임</Email>
         <UserInput2
           type="nickname"
           placeholder=""
           value={userInfo.userNickname}
           name="userNickname"
+          isInvalid={isInvalidNickname}
         />
         <ErrorMessage
           isInvalid={isInvalidNickname}
@@ -461,13 +493,15 @@ const SignUpPage = () => {
           최대 4글자로 입력해주세요.
         </ErrorMessage>
 
-        <Email>생년월일</Email>
+        <Email isInvalid={isInvalidBirthday}>생년월일</Email>
         <UserInput2
           type="birthday"
           placeholder=""
           value={userInfo.birthYear}
           name="birthYear"
+          isInvalid={isInvalidBirthday}
         />
+
         <ErrorMessage
           isInvalid={isInvalidBirthday}
           touched={birthdayTouched}
@@ -552,17 +586,14 @@ const SignUpPage = () => {
           <HashtagInput
             placeholder="없음"
             readOnly
-            onClick={() => setIsOpenSupplement(!isOpenSupplement)}
+            onClick={handleSupplementInputClick}
             value={
               userInfo.supplements.length > 0
                 ? userInfo.supplements.join(", ")
                 : ""
             }
           />
-          <ArrowImage
-            src={arrow}
-            onClick={() => setIsOpenSupplement(!isOpenSupplement)}
-          />
+          <ArrowImage src={arrow} onClick={handleSupplementInputClick} />
           {isOpenSupplement && (
             <SupplementsList>
               {supplementList.map((supplement) => (
@@ -593,9 +624,12 @@ const SignUpPage = () => {
           ))}
         </TagContainer>
         <SignUpButton
+          onClick={() => {
+            goSignupPage();
+            loginProcess();
+          }}
           text="가입하기"
           disabled={!isValid}
-          onClick={loginProcess}
         />
       </UserFrame>
     </Container>

@@ -2,27 +2,22 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const Input = styled.input`
-  background-color: transparent;
-  border: 1px solid black;
-  border-radius: 7.5px;
-  width: 570px;
-  height: 37.5px;
-  color: black;
-  padding-bottom: 0px;
-  padding-left: 5px;
   font-family: "Pretendard-Regular";
-  transition: border-color 0.3s;
-
-  ${({ isInvalid }) =>
-    isInvalid &&
-    css`
-      border-color: #e45d5d;
-    `}
+  background-color: transparent;
+  width: 570px;
+  border-radius: 7.5px;
+  height: 40px;
+  border: 1px solid ${({ isInvalid }) => (isInvalid ? "#E45D5D" : "black")};
+  text-align: start;
+  padding-left: 5px;
+  margin-bottom: 3px;
+  cursor: pointer;
 
   &:focus {
     font-family: "Pretendard-Regular";
+    text-align: start;
     outline: none;
-    border-color: ${({ isInvalid }) => (isInvalid ? "#e45d5d" : "#b2d23e")};
+    border-color: ${({ isInvalid }) => (isInvalid ? "#E45D5D" : "#b2d23e")};
   }
 `;
 
