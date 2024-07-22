@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import img from "../../img/Hashtag.png";
+import search from "../../img/search-engine.png";
 
 const Title = styled.div`
   font-family: "KIMM_Light";
@@ -126,6 +127,10 @@ const MoreTag = styled.div`
   white-space: nowrap;
 `;
 
+const Img = styled.img`
+  margin-left: 8px;
+`;
+
 const Button = styled.button`
   margin-top: 61px;
   padding: 8px 12px;
@@ -138,6 +143,8 @@ const Button = styled.button`
   font-size: 14px;
   width: 102px;
   height: 33px;
+  display: flex;
+  align-items: center;
 `;
 
 const Button2 = styled.button`
@@ -207,7 +214,10 @@ const HashtagSelect = () => {
               <InnerTitle style={{ marginRight: "21px" }}>
                 건강 맞춤형 해시태그
               </InnerTitle>
-              <Button>알아보기 +</Button>
+              <Button>
+                알아보기
+                <Img src={search} alt="search icon" />
+              </Button>
             </Logo>
             <TagBox>
               {tags.slice(0, 5).map((tag) => (

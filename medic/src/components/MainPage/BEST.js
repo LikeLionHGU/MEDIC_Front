@@ -4,6 +4,15 @@ import img from "../../img/Rectangle 5171.png";
 import product1 from "../../img/product1.png";
 import product2 from "../../img/product2.png";
 import product3 from "../../img/product3.png";
+import cart from "../../img/cart.png";
+
+const Div = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 707px; /* 요소들 사이의 간격 조정 */
+`;
 
 const ProductContainer = styled.div`
   margin-bottom: 112px;
@@ -85,8 +94,26 @@ const Subtitle = styled.div`
   font-family: "Pretendard-Regular";
   font-size: 20px;
   color: black;
-  width: 1170px;
   text-align: start;
+`;
+
+const GoContainer = styled.button`
+  display: flex;
+  align-items: center;
+  font-family: "Pretendard-Regular";
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #8c8c8c;
+  width: 150px;
+  height: 33px;
+  justify-content: center;
+  border-radius: 10px;
+  margin-left: 30px;
+  background-color: transparent;
+`;
+
+const Img = styled.img`
+  margin-left: 8px;
 `;
 
 const products = [
@@ -117,7 +144,13 @@ const BestProducts = () => {
   return (
     <>
       <Title>#BEST 추천 상품</Title>
-      <Subtitle>BEST 추천 상품을 만나볼 수 있어요</Subtitle>
+      <Div>
+        <Subtitle>BEST 추천 상품을 만나볼 수 있어요</Subtitle>
+        <GoContainer>
+          전체 제품 보러가기
+          <Img src={cart} alt="cart icon" />
+        </GoContainer>
+      </Div>
       <ProductContainer>
         {products.map((product) => (
           <ProductCard key={product.id}>
