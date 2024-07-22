@@ -14,9 +14,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px; /* Add some padding to the top */
+
   overflow: auto;
 `;
+
 const Logo = styled.div`
   display: flex;
   align-items: center;
