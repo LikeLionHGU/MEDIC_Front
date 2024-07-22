@@ -1,12 +1,14 @@
-import styled from "styled-components";
+import React from "react";
 import HashtagSelect from "../components/MainPage/HashtagSelect";
 import Customization from "../components/MainPage/Customization";
+import Header from "../components/MainPage/Header";
 
 const MainPage = () => {
   return (
     <>
-      <HashtagSelect></HashtagSelect>
-      <Customization></Customization>
+      <Header />
+      <HashtagSelect />
+      <Customization />
     </>
   );
 };
