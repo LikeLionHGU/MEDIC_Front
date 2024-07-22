@@ -27,7 +27,7 @@ const Subtitle = styled.div`
 const CarouselContainer = styled.div`
   margin-top: 12px;
   width: 1170px;
-  height: 450px;
+  height: 420px;
   position: relative;
   overflow: hidden;
   border-radius: 30px;
