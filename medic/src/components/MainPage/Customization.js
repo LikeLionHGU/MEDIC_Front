@@ -3,8 +3,9 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import hongsam from "../../img/hongsam.png";
+import axios from "axios";
 import img from "../../img/Rectangle 5169.png";
+import hongsam from "../../img/hongsam.png";
 
 const Title = styled.div`
   font-family: "KIMM_Light";
@@ -118,16 +119,26 @@ const Customization = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    // const userEmail = localStorage.getItem("userEmail");
+
+    // if (!userEmail) {
+    //   console.warn(
+    //     "No user email found in local storage. Using default email for testing."
+    //   );
+    // }
+
     // axios
-    //   .get("/api/your-endpoint")
+    //   .get(`/api/user/main?userEmail=${userEmail}`)
     //   .then((response) => {
-    //     setData(response.data.data);
+    //     if (response.data.success) {
+    //       setData(response.data.data);
+    //     }
     //   })
     //   .catch((error) => {
     //     console.error("There was an error fetching the data:", error);
     //   });
+    // }, []);
 
-    // 가상 데이터 예제
     const mockData = {
       selectedHealthTags: ["기억력 개선", "혈당조절", "수면질개선"],
       recommendedProducts: [

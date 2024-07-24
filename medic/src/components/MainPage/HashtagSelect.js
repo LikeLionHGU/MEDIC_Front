@@ -160,8 +160,42 @@ const Button2 = styled.button`
   font-size: 14px;
 `;
 
+const RecommendedProducts = styled.div`
+  width: 1170px;
+  margin-top: 20px;
+`;
+
+const ProductCard = styled.div`
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+`;
+
+const ProductImage = styled.img`
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+`;
+
+const ProductName = styled.div`
+  font-family: "Pretendard-Regular";
+  font-size: 16px;
+  margin-top: 10px;
+`;
+
+const ProductPrice = styled.div`
+  font-family: "Pretendard-Regular";
+  font-size: 14px;
+  color: #8c8c8c;
+  margin-top: 5px;
+`;
+
 const HashtagSelect = () => {
   const [selectedTags, setSelectedTags] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   const tags = [
     "관절/뼈 건강",
@@ -186,8 +220,9 @@ const HashtagSelect = () => {
 
   const handleSave = () => {
     const selectedHealthTags = selectedTags;
+    const userEmail = localStorage.getItem("userEmail");
 
-    fetch("/your-backend-endpoint", {
+    fetch(`/api/user/health-tags?userEmail=${userEmail}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -196,7 +231,12 @@ const HashtagSelect = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
+        if (data.success) {
+          console.log("Health tags updated successfully:", data);
+          setRecommendedProducts(data.data.recommendedProducts);
+        } else {
+          console.error("Failed to update health tags:", data.message);
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -231,7 +271,6 @@ const HashtagSelect = () => {
                   {tag}
                 </Tag>
               ))}
-
               <MoreTag>더보기</MoreTag>
             </TagBox>
           </Box1>
@@ -252,6 +291,23 @@ const HashtagSelect = () => {
           <Button2 onClick={handleSave}>저장하기</Button2>
         </div>
       </Container>
+
+      <RecommendedProducts>
+        {recommendedProducts.length > 0 && (
+          <>
+            <Title>추천 제품</Title>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              {recommendedProducts.map((product) => (
+                <ProductCard key={product.productId}>
+                  <ProductImage src={product.image} alt={product.productName} />
+                  <ProductName>{product.productName}</ProductName>
+                  <ProductPrice>{product.price}원</ProductPrice>
+                </ProductCard>
+              ))}
+            </div>
+          </>
+        )}
+      </RecommendedProducts>
     </>
   );
 };

@@ -168,7 +168,7 @@ const ListItem = styled.li`
   }
 `;
 
-const SupplementsList = styled.ul`
+const DrugInUseList = styled.ul`
   border: 1px solid #b2d23e;
   margin: 0px;
   border-radius: 7.5px;
@@ -235,13 +235,9 @@ const SignUpPage = () => {
     userNickname: "",
     birthYear: "",
     gender: "",
-    hashtags: [],
-    supplements: [],
+    healthHashTag: [],
+    drugInUse: [],
   });
-
-  const goSignupPage = () => {
-    navigate("/Medic/SignUpPage2");
-  };
 
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
@@ -249,6 +245,9 @@ const SignUpPage = () => {
   const [birthdayTouched, setBirthdayTouched] = useState(false);
   const [isGenderFocused, setIsGenderFocused] = useState(false);
   const [isHashtagFocused, setIsHashtagFocused] = useState(false);
+
+  // 이메일 중복 검사 상태
+  const [emailExists, setEmailExists] = useState(false);
 
   const genderList = ["남성", "여성"];
   const supplementList = ["없음", "닥터 비타민D 2000IU", "밀크씨슬"];
@@ -282,18 +281,18 @@ const SignUpPage = () => {
 
   const handleSupplementClick = (supplement) => {
     setUserInfo((userInfo) => {
-      let newSupplements;
+      let newdrugInUse;
       if (supplement === "없음") {
-        newSupplements = [];
+        newdrugInUse = [];
       } else {
-        newSupplements = [...userInfo.supplements];
-        if (newSupplements.includes(supplement)) {
-          newSupplements.splice(newSupplements.indexOf(supplement), 1);
+        newdrugInUse = [...userInfo.drugInUse];
+        if (newdrugInUse.includes(supplement)) {
+          newdrugInUse.splice(newdrugInUse.indexOf(supplement), 1);
         } else {
-          newSupplements.push(supplement);
+          newdrugInUse.push(supplement);
         }
       }
-      return { ...userInfo, supplements: newSupplements };
+      return { ...userInfo, drugInUse: newdrugInUse };
     });
     // setIsOpenSupplement(false); // 클릭 시 닫히는 부분을 제거
   };
@@ -337,6 +336,22 @@ const SignUpPage = () => {
       document.removeEventListener("click", toggleDropdown);
     };
   }, [isOpenSupplement]);
+
+  const checkEmailExists = async (userEmail) => {
+    try {
+      const response = await fetch(
+        `/auth/sign-up/validation?userEmail=${userEmail}`,
+        {
+          method: "GET",
+        }
+      );
+      const data = await response.json();
+      setEmailExists(!data.success);
+    } catch (error) {
+      console.error("Error checking email:", error);
+    }
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserInfo((userInfo) => ({
@@ -344,7 +359,10 @@ const SignUpPage = () => {
       [name]: value,
     }));
 
-    if (name === "userEmail") setEmailTouched(true);
+    if (name === "userEmail") {
+      setEmailTouched(true);
+      checkEmailExists(value);
+    }
     if (name === "userPassword") setPasswordTouched(true);
     if (name === "userNickname") setNicknameTouched(true);
     if (name === "birthYear") setBirthdayTouched(true);
@@ -353,19 +371,19 @@ const SignUpPage = () => {
   const handleHashtagRemove = (hashtag) => {
     setUserInfo((userInfo) => ({
       ...userInfo,
-      hashtags: userInfo.hashtags.filter((item) => item !== hashtag),
+      healthHashTag: userInfo.healthHashTag.filter((item) => item !== hashtag),
     }));
   };
 
   const handleHashtagClick = (hashtag) => {
     setUserInfo((userInfo) => {
-      const newHashtags = [...userInfo.hashtags];
-      if (newHashtags.includes(hashtag)) {
-        newHashtags.splice(newHashtags.indexOf(hashtag), 1);
-      } else if (newHashtags.length < 3) {
-        newHashtags.push(hashtag);
+      const newhealthHashTag = [...userInfo.healthHashTag];
+      if (newhealthHashTag.includes(hashtag)) {
+        newhealthHashTag.splice(newhealthHashTag.indexOf(hashtag), 1);
+      } else if (newhealthHashTag.length < 3) {
+        newhealthHashTag.push(hashtag);
       }
-      return { ...userInfo, hashtags: newHashtags };
+      return { ...userInfo, healthHashTag: newhealthHashTag };
     });
   };
 
@@ -379,11 +397,13 @@ const SignUpPage = () => {
 
   const isInvalidEmail =
     emailTouched &&
-    (!userInfo.userEmail.includes("@") || !userInfo.userEmail.includes("."));
+    (!userInfo.userEmail.includes("@") ||
+      !userInfo.userEmail.includes(".") ||
+      emailExists);
 
   const isInvalidPassword =
     passwordTouched &&
-    (userInfo.userPassword.length > 8 ||
+    (userInfo.userPassword.length < 8 ||
       !/[a-zA-Z]/.test(userInfo.userPassword) ||
       !/[0-9]/.test(userInfo.userPassword));
 
@@ -399,20 +419,20 @@ const SignUpPage = () => {
   const isValidPassword = !isInvalidPassword && passwordTouched;
   const isValidNickname = !isInvalidNickname && nicknameTouched;
   const isValidBirthday = !isInvalidBirthday && birthdayTouched;
-  const isValidHashtags =
-    userInfo.hashtags.length >= 1 && userInfo.hashtags.length <= 3;
+  const isValidhealthHashTag =
+    userInfo.healthHashTag.length >= 1 && userInfo.healthHashTag.length <= 3;
 
   const isValid =
     isValidEmail &&
     isValidPassword &&
     isValidNickname &&
     isValidBirthday &&
-    isValidHashtags;
+    isValidhealthHashTag;
 
   const navigate = useNavigate();
 
   const loginProcess = () => {
-    fetch("/data/Login.json", {
+    fetch("/auth/sign-up", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -423,15 +443,15 @@ const SignUpPage = () => {
         userNickname: userInfo.userNickname,
         birthYear: userInfo.birthYear,
         gender: userInfo.gender === "여성" ? true : false,
-        hashtags: userInfo.hashtags,
-        supplements: userInfo.supplements,
+        healthHashTag: userInfo.healthHashTag,
+        drugInUse: userInfo.drugInUse,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.message === "LOGIN SUCCESS") {
+        if (data.message === "SIGNUP SUCCESS") {
           localStorage.setItem("token", data.message);
-          navigate("/medic");
+          navigate("/medic/SignUpPage2");
         }
       });
   };
@@ -458,7 +478,9 @@ const SignUpPage = () => {
           touched={emailTouched}
           isVisible={isInvalidEmail || !emailTouched}
         >
-          이메일 형식으로 입력해주세요.
+          {emailExists
+            ? "이미 존재하는 이메일입니다."
+            : "이메일 형식으로 입력해주세요."}
         </ErrorMessage>
 
         <Email isInvalid={isInvalidPassword}>비밀번호</Email>
@@ -475,7 +497,7 @@ const SignUpPage = () => {
           touched={passwordTouched}
           isVisible={isInvalidPassword || !passwordTouched}
         >
-          영문, 숫자 포함 8자 이내로 입력해주세요.
+          영문, 숫자 포함 8자 이상 입력해주세요.
         </ErrorMessage>
 
         <Email isInvalid={isInvalidNickname}>닉네임</Email>
@@ -550,17 +572,17 @@ const SignUpPage = () => {
               {hashtagList.map((value, index) => (
                 <ListItem
                   key={index}
-                  isActive={userInfo.hashtags.includes(value)}
+                  isActive={userInfo.healthHashTag.includes(value)}
                   onClick={() => handleHashtagClick(value)}
                 >
-                  {userInfo.hashtags.includes(value)
-                    ? `${userInfo.hashtags.indexOf(value) + 1} | ${value}`
+                  {userInfo.healthHashTag.includes(value)
+                    ? `${userInfo.healthHashTag.indexOf(value) + 1} | ${value}`
                     : value}
                 </ListItem>
               ))}
             </DropDownList>
           )}
-          {userInfo.hashtags.map((hashtag, index) => (
+          {userInfo.healthHashTag.map((hashtag, index) => (
             <Tag
               key={index}
               style={{
@@ -579,7 +601,7 @@ const SignUpPage = () => {
             </Tag>
           ))}
         </HashtagContainer>
-        {userInfo.hashtags.length === 0 && (
+        {userInfo.healthHashTag.length === 0 && (
           <Error>최소 1개, 최대 3개의 해시태그를 선택해주세요.</Error>
         )}
         <GEmail>복용 중인 약 혹은 건강기능식품</GEmail>
@@ -589,28 +611,26 @@ const SignUpPage = () => {
             readOnly
             onClick={handleSupplementInputClick}
             value={
-              userInfo.supplements.length > 0
-                ? userInfo.supplements.join(", ")
-                : ""
+              userInfo.drugInUse.length > 0 ? userInfo.drugInUse.join(", ") : ""
             }
           />
           <ArrowImage src={arrow} onClick={handleSupplementInputClick} />
           {isOpenSupplement && (
-            <SupplementsList>
+            <DrugInUseList>
               {supplementList.map((supplement) => (
                 <SupplementItem
                   key={supplement}
-                  isActive={userInfo.supplements.includes(supplement)}
+                  isActive={userInfo.drugInUse.includes(supplement)}
                   onClick={() => handleSupplementClick(supplement)}
                 >
                   {supplement}
                 </SupplementItem>
               ))}
-            </SupplementsList>
+            </DrugInUseList>
           )}
         </HashtagContainer>
         <TagContainer>
-          {userInfo.supplements.map((supplement, index) => (
+          {userInfo.drugInUse.map((supplement, index) => (
             <Tag
               key={index}
               onClick={() => handleSupplementClick(supplement)}
@@ -626,7 +646,6 @@ const SignUpPage = () => {
         </TagContainer>
         <SignUpButton
           onClick={() => {
-            goSignupPage();
             loginProcess();
           }}
           text="가입하기"

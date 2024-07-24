@@ -1,11 +1,10 @@
-import { useState } from "react";
-// import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LoginButton from "../components/SignUpPage2/LoginButton";
 import backgroundImage from "../img/SignUpPage.png";
 import logo from "../img/Logo.png";
-// import axios from "axios"; // 또는 fetch를 사용할 수 있습니다.
+import axios from "axios"; // axios를 사용하여 API 요청
 
 const Container = styled.div`
   position: fixed;
@@ -74,22 +73,26 @@ const Nickname = styled.span`
 
 const SignUpPage2 = () => {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState("건강이"); // 임시로 닉네임을 설정
-  // const [nickname, setNickname] = useState("");
+  const [nickname, setNickname] = useState(""); // 닉네임을 초기 상태로 설정
 
-  // useEffect(() => {
-  //   // 백엔드에서 닉네임을 가져오는 함수
-  //   const fetchNickname = async () => {
-  //     try {
-  //       const response = await axios.get("/api/user/nickname"); // API 엔드포인트는 실제 백엔드 API에 맞게 조정
-  //       setNickname(response.data.nickname);
-  //     } catch (error) {
-  //       console.error("Failed to fetch nickname:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    // 백엔드에서 닉네임을 가져오는 함수
+    const fetchNickname = async () => {
+      try {
+        const userEmail = localStorage.getItem("userEmail"); // 로컬 저장소에서 사용자 이메일 가져오기
+        const response = await axios.get(`/auth/sign-up/welcome/info`, {
+          params: { userEmail },
+        });
+        if (response.data.success) {
+          setNickname(response.data.data.userNickname);
+        }
+      } catch (error) {
+        console.error("Failed to fetch nickname:", error);
+      }
+    };
 
-  //   fetchNickname();
-  // }, []);
+    fetchNickname();
+  }, []);
 
   const goLoginPage = () => {
     navigate("/Medic/LoginPage");
@@ -107,11 +110,16 @@ const SignUpPage2 = () => {
         <SubTitle2>신뢰</SubTitle2>
         <SubTitle>를 더하다</SubTitle>
       </Logo>
-      {nickname && (
+      {/* {nickname && (
         <WelcomeMessage>
           <Nickname>{nickname}</Nickname>님 회원가입이<br></br> 완료되었습니다!
         </WelcomeMessage>
-      )}
+      )} */}
+
+      <WelcomeMessage>
+        <Nickname>건강이</Nickname>님 회원가입이<br></br> 완료되었습니다!
+      </WelcomeMessage>
+
       <LoginButton
         text="로그인하고 맞춤 건강기능식품 추천받기"
         onClick={goLoginPage}

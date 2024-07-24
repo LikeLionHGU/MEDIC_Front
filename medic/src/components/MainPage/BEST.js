@@ -5,6 +5,7 @@ import product1 from "../../img/product1.png";
 import product2 from "../../img/product2.png";
 import product3 from "../../img/product3.png";
 import cart from "../../img/cart.png";
+import { useNavigate } from "react-router-dom";
 
 const Div = styled.div`
   display: flex;
@@ -141,12 +142,17 @@ const products = [
 ];
 
 const BestProducts = () => {
+  const navigate = useNavigate();
+
+  const goAllProduct = () => {
+    navigate("/Medic/AllProductPage");
+  };
   return (
     <>
       <Title>#BEST 추천 상품</Title>
       <Div>
         <Subtitle>BEST 추천 상품을 만나볼 수 있어요</Subtitle>
-        <GoContainer>
+        <GoContainer onClick={goAllProduct}>
           전체 제품 보러가기
           <Img src={cart} alt="cart icon" />
         </GoContainer>

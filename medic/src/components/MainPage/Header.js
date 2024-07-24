@@ -188,7 +188,8 @@ const Header = () => {
     // 백엔드에서 사용자 정보를 가져오는 함수
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch("/api/userinfo"); // 실제 API 경로로 변경 필요
+        const userEmail = localStorage.getItem("userEmail");
+        const response = await fetch(`/api/user/info?userEmail=${userEmail}`);
         const data = await response.json();
         if (data.success) {
           setUserNickname(data.data.userNickname);
