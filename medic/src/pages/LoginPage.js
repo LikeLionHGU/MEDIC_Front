@@ -141,17 +141,17 @@ const ActionButton = styled.button`
 const LoginPage = () => {
   // 유저 정보(ID, PW)
   const [userInfo, setUserInfo] = useState({
-    email: "",
-    password: "",
+    userEmail: "",
+    userPassword: "",
   });
 
   // 이메일, 비번 유효성 검사 메시지 상태
-  const [emailTouched, setEmailTouched] = useState(false);
-  const [passwordTouched, setPasswordTouched] = useState(false);
+  const [userEmailTouched, setuserEmailTouched] = useState(false);
+  const [userPasswordTouched, setuserPasswordTouched] = useState(false);
 
   useEffect(() => {
-    setEmailTouched(false);
-    setPasswordTouched(false);
+    setuserEmailTouched(false);
+    setuserPasswordTouched(false);
   }, []);
 
   // 이메일, 비밀번호 입력 처리
@@ -162,24 +162,24 @@ const LoginPage = () => {
       [name]: value,
     }));
 
-    if (name === "email") setEmailTouched(true);
-    if (name === "password") setPasswordTouched(true);
+    if (name === "userEmail") setuserEmailTouched(true);
+    if (name === "userPassword") setuserPasswordTouched(true);
   };
 
   // 유효성 검사
-  const isInvalidEmail =
-    emailTouched &&
-    (!userInfo.email.includes("@") || !userInfo.email.includes("."));
-  const isInvalidPassword =
-    passwordTouched &&
-    (userInfo.password.length > 8 ||
-      !/[a-zA-Z]/.test(userInfo.password) ||
-      !/[0-9]/.test(userInfo.password));
+  const isInvaliduserEmail =
+    userEmailTouched &&
+    (!userInfo.userEmail.includes("@") || !userInfo.userEmail.includes("."));
+  const isInvaliduserPassword =
+    userPasswordTouched &&
+    (userInfo.userPassword.length < 8 ||
+      !/[a-zA-Z]/.test(userInfo.userPassword) ||
+      !/[0-9]/.test(userInfo.userPassword));
 
-  const isValidEmail = !isInvalidEmail && emailTouched;
-  const isValidPassword = !isInvalidPassword && passwordTouched;
+  const isValiduserEmail = !isInvaliduserEmail && userEmailTouched;
+  const isValiduserPassword = !isInvaliduserPassword && userPasswordTouched;
 
-  const isValid = isValidEmail && isValidPassword;
+  const isValid = isValiduserEmail && isValiduserPassword;
 
   // 페이지 이동
   const navigate = useNavigate();
@@ -189,26 +189,28 @@ const LoginPage = () => {
     navigate("/Medic/SignUpPage");
   };
 
-  // fetch : 로그인 버튼 클릭 시 메인 페이지로 이동
   const loginProcess = () => {
-    fetch("/data/Login.json", {
+    fetch("/auth/log-in", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify({
-        email: userInfo.email,
-        password: userInfo.password,
+        userEmail: userInfo.userEmail,
+        userPassword: userInfo.userPassword,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.message === "LOGIN SUCCESS") {
-          localStorage.setItem("token", data.message);
-          navigate("/medic");
+        if (data.success) {
+          localStorage.setItem("userEmail", userInfo.userEmail);
+          navigate("/main");
         } else {
           alert("가입되지 않은 정보입니다.");
         }
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
       });
   };
 
@@ -233,29 +235,29 @@ const LoginPage = () => {
         <UserInput
           type="text"
           placeholder=""
-          value={userInfo.email}
-          name="email"
+          value={userInfo.userEmail}
+          name="userEmail"
         />
         <ErrorMessage
-          isInvalid={isInvalidEmail}
-          touched={emailTouched}
-          isVisible={isInvalidEmail || !emailTouched}
+          isInvalid={isInvaliduserEmail}
+          touched={userEmailTouched}
+          isVisible={isInvaliduserEmail || !userEmailTouched}
         >
           이메일 주소를 입력해주세요.
         </ErrorMessage>
         <Email>Password</Email>
         <UserInput
-          type="password"
+          type="password" // Corrected type attribute
           placeholder=""
-          value={userInfo.password}
-          name="password"
+          value={userInfo.userPassword}
+          name="userPassword"
         />
         <ErrorMessage
-          isInvalid={isInvalidPassword}
-          touched={passwordTouched}
-          isVisible={isInvalidPassword || !passwordTouched}
+          isInvalid={isInvaliduserPassword}
+          touched={userPasswordTouched}
+          isVisible={isInvaliduserPassword || !userPasswordTouched}
         >
-          영문, 숫자 포함 8자 이내로 입력해주세요.
+          영문, 숫자 포함 8자 이상으로 입력해주세요.
         </ErrorMessage>
         <ActionButton>
           <span>비밀번호</span>를 잊으셨나요?

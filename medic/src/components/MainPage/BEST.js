@@ -5,6 +5,7 @@ import product1 from "../../img/product1.png";
 import product2 from "../../img/product2.png";
 import product3 from "../../img/product3.png";
 import cart from "../../img/cart.png";
+import { useNavigate } from "react-router-dom";
 
 const Div = styled.div`
   display: flex;
@@ -31,6 +32,7 @@ const ProductCard = styled.div`
   overflow: hidden;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.05);
@@ -118,21 +120,21 @@ const Img = styled.img`
 
 const products = [
   {
-    id: 1,
+    productId: 1,
     image: product1,
     title: "베타글루칸",
     price: "32,000원",
     feature: "기억력 개선",
   },
   {
-    id: 2,
+    productId: 2,
     image: product2,
     title: "기억력플러스",
     price: "30,000원",
     feature: "집중력 향상",
   },
   {
-    id: 3,
+    productId: 3,
     image: product3,
     title: "더 좋은 면역",
     price: "28,000원",
@@ -141,19 +143,32 @@ const products = [
 ];
 
 const BestProducts = () => {
+  const navigate = useNavigate();
+
+  const goAllProduct = () => {
+    navigate("/Medic/AllProductPage");
+  };
+
+  const handleProductClick = (productId) => {
+    navigate(`/Medic/InformationPage/${productId}`);
+  };
+
   return (
     <>
       <Title>#BEST 추천 상품</Title>
       <Div>
         <Subtitle>BEST 추천 상품을 만나볼 수 있어요</Subtitle>
-        <GoContainer>
+        <GoContainer onClick={goAllProduct}>
           전체 제품 보러가기
           <Img src={cart} alt="cart icon" />
         </GoContainer>
       </Div>
       <ProductContainer>
         {products.map((product) => (
-          <ProductCard key={product.id}>
+          <ProductCard
+            key={product.productId}
+            onClick={() => handleProductClick(product.productId)}
+          >
             <img src={product.image} alt={product.title} />
             <Overlay className="overlay">
               <ProductTitle>#{product.title}</ProductTitle>
