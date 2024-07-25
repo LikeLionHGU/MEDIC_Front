@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Baguni from "../../img/Baguni.png";
 import img1 from "../../img/1.png";
@@ -136,6 +137,7 @@ const ProductCard = styled.div`
   padding: 20px;
   text-align: center;
   position: relative;
+  cursor: pointer;
 `;
 
 const Button1 = styled.button`
@@ -259,6 +261,7 @@ const Discount = styled.div`
 const Filtering = () => {
   const [products, setProducts] = useState(dummyProducts);
   const [hoveredProduct, setHoveredProduct] = useState(null);
+  const navigate = useNavigate();
 
   const handleFilter = (criteria) => {
     let sortedProducts = [...products];
@@ -280,12 +283,9 @@ const Filtering = () => {
     setProducts(sortedProducts);
   };
 
-  // useEffect(() => {
-  //   fetch("/products?sort=review") // 기본값을 리뷰 많은 순으로 설정
-  //     .then((response) => response.json())
-  //     .then((data) => setProducts(data))
-  //     .catch((error) => console.error("Error fetching data:", error));
-  // }, []);
+  const handleCardClick = (productId) => {
+    navigate(`/Medic/InformationPage/${productId}`);
+  };
 
   return (
     <div>
@@ -298,6 +298,7 @@ const Filtering = () => {
             key={index}
             onMouseEnter={() => setHoveredProduct(index)}
             onMouseLeave={() => setHoveredProduct(null)}
+            onClick={() => handleCardClick(product.productId)}
           >
             <ImageWrapper>
               <ProductImage
@@ -321,7 +322,6 @@ const Filtering = () => {
                   <Tag key={tagIndex}>{tag}</Tag>
                 ))}
             </TagContainer>
-            {/* <p>Reviews: {product.reviewCount}</p> */}
           </ProductCard>
         ))}
       </Container>
