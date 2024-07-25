@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -117,6 +118,7 @@ const Arrow = styled.div`
 
 const Customization = () => {
   const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // const userEmail = localStorage.getItem("userEmail");
@@ -212,6 +214,10 @@ const Customization = () => {
     autoplaySpeed: 3000,
   };
 
+  const handleMoreClick = (productId) => {
+    navigate(`/Medic/InformationPage/${productId}`);
+  };
+
   return (
     <>
       <Title>#나의건강해시태그 맞춤추천 상품</Title>
@@ -233,7 +239,7 @@ const Customization = () => {
                 <Product>#{slide.price}원</Product>
                 <Product>#{slide.tag}</Product>
               </ProductInfo>
-              <More>
+              <More onClick={() => handleMoreClick(slide.productId)}>
                 더보기&nbsp;&nbsp;<Arrow>→</Arrow>
               </More>
             </Slide>

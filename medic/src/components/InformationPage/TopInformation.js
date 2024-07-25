@@ -150,7 +150,7 @@ const Tag = styled.div`
   align-items: center;
 `;
 
-const TotlaPrice = styled.div`
+const TotalPrice = styled.div`
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -158,6 +158,7 @@ const TotlaPrice = styled.div`
   display: flex;
   max-width: 150px;
 `;
+
 const Quantity2 = styled.div`
   color: #8c8c8c;
   font-family: "Pretendard-Regular";
@@ -301,6 +302,14 @@ const TopInformation = ({ productId }) => {
 
   const totalPrice = productData.discountPrice * quantity;
 
+  const handleBuyClick = () => {
+    alert("구매가 완료되었습니다!");
+  };
+
+  const handleGiftClick = () => {
+    alert("선물하기가 완료되었습니다!");
+  };
+
   return (
     <Container>
       {productData ? (
@@ -354,21 +363,26 @@ const TopInformation = ({ productId }) => {
                       <ArrowDown onClick={handleDecrease} />
                     </QuantityArrows>
                   </QuantityInputWrapper>
-                  <TotlaPrice>{totalPrice.toLocaleString()}</TotlaPrice>
+                  <TotalPrice>{totalPrice.toLocaleString()}원</TotalPrice>
                 </QuantityControl>
               </Quantity>
               <TotalAmount>
                 <ProductName style={{ marginLeft: "323px" }}>
                   총 상품 금액 (수량):
                 </ProductName>
-                <TotlaPrice style={{ marginTop: "22px", marginLeft: "4px" }}>
+                <TotalPrice style={{ marginTop: "22px", marginLeft: "4px" }}>
                   {totalPrice.toLocaleString()}원
                   <Quantity2>({quantity}개)</Quantity2>
-                </TotlaPrice>
+                </TotalPrice>
               </TotalAmount>
               <Div>
-                <BuyBtn style={{ marginRight: "10px" }}>구매하기</BuyBtn>
-                <BuyBtn>선물하기</BuyBtn>
+                <BuyBtn
+                  style={{ marginRight: "10px" }}
+                  onClick={handleBuyClick}
+                >
+                  구매하기
+                </BuyBtn>
+                <BuyBtn onClick={handleGiftClick}>선물하기</BuyBtn>
               </Div>
             </ProductDetails>
           </Content>

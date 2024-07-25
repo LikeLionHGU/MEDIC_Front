@@ -234,12 +234,15 @@ const HashtagSelect = () => {
         if (data.success) {
           console.log("Health tags updated successfully:", data);
           setRecommendedProducts(data.data.recommendedProducts);
+          alert("해시태그가 성공적으로 저장되었습니다!");
         } else {
           console.error("Failed to update health tags:", data.message);
+          alert("해시태그 저장에 실패했습니다.");
         }
       })
       .catch((error) => {
         console.error("Error:", error);
+        alert("해시태그 저장 중 오류가 발생했습니다.");
       });
   };
 

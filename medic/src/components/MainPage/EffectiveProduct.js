@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import img1 from "../../img/1.png";
 import img2 from "../../img/2.png";
 import img3 from "../../img/3.png";
@@ -11,6 +12,7 @@ const dummyUser = {
 
 const dummyProducts = [
   {
+    productId: "1",
     name: "맥스컷 다이어트 부스터3",
     originalPrice: 59000,
     discountPrice: 40000,
@@ -18,6 +20,7 @@ const dummyProducts = [
     imageUrl: img1,
   },
   {
+    productId: "2",
     name: "오늘은 잇",
     originalPrice: 42000,
     discountPrice: 32000,
@@ -25,6 +28,7 @@ const dummyProducts = [
     imageUrl: img2,
   },
   {
+    productId: "3",
     name: "절대강자 바나바 퍼펙트케어",
     originalPrice: 32000,
     discountPrice: 22000,
@@ -123,6 +127,7 @@ const ProductContainer = styled.div`
 
 const Product = styled.div`
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 const ProductImage = styled.img`
@@ -188,8 +193,14 @@ const TagContainer = styled.div`
 `;
 
 const EffectiveProduct = () => {
+  const navigate = useNavigate();
+
   const closeModal = () => {
     document.getElementById("modal").style.display = "none";
+  };
+
+  const handleProductClick = (productId) => {
+    navigate(`/Medic/InformationPage/${productId}`);
   };
 
   return (
@@ -204,7 +215,10 @@ const EffectiveProduct = () => {
       </Header>
       <ProductContainer>
         {dummyProducts.map((product, index) => (
-          <Product key={index}>
+          <Product
+            key={index}
+            onClick={() => handleProductClick(product.productId)}
+          >
             <ProductImage src={product.imageUrl} alt={product.name} />
             <ProductName>{product.name}</ProductName>
             <ProductDetails>
