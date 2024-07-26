@@ -363,7 +363,7 @@ const TopInformation = ({ productId }) => {
                       <ArrowDown onClick={handleDecrease} />
                     </QuantityArrows>
                   </QuantityInputWrapper>
-                  <TotalPrice>{totalPrice.toLocaleString()}원</TotalPrice>
+                  <TotalPrice>{totalPrice.toLocaleString()}</TotalPrice>
                 </QuantityControl>
               </Quantity>
               <TotalAmount>
