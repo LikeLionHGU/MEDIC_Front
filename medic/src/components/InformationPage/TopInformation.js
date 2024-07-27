@@ -258,13 +258,34 @@ const TotalAmount = styled.div`
 
 const dummyProductData = {
   productId: "550e8400-e29b-41d4-a716-446655440000",
-  manufacturingCompany: "에스더포뮬러",
-  name: "닥터에스더 면역엔 베타글루칸",
-  originalPrice: 60000,
-  discountPrice: 32000,
-  healthTags: ["#면역기능개선", "#기억력개선"],
-  reviewCount: 120,
-  imageUrl: img1,
+  manufacturingCompany: "콜마비앤에이치(주)음성공장",
+  name: "관절엔 콘드로이친 1200",
+  originalPrice: 297000,
+  salePrice: 171520,
+  healthTags: ["관절/뼈건강"],
+  reportNumber: "200600200031905",
+  registrationDate: "20201203",
+  expirationDate: "제조일로부터 2년",
+  intakeAmount: "1일 1회, 1회 2정을 물과 함께 섭취하십시오.",
+  intakeMethod: "1일 1회, 1회 2정을 물과 함께 섭취하십시오.",
+  precautions: [
+    "특이체질, 알레르기 체질의 경우에는 간혹 개인에 따라 과민반응을 나타낼 수 있으므로 원료를 확인한 후 섭취하십시오.",
+    "유통기한이 경과된 제품은 섭취하지 마십시오.",
+    "영·유아, 어린이, 임산부 및 수유부는 섭취에 주의할 것",
+    "이상사례 발생 시 섭취를 중단하고 전문가와 상담할 것",
+    "특정질환(알레르기 체질 등)이 있는 분은 섭취에 주의할 것",
+    "수술 전후 또는 항응고제, 항혈소판제, 비스테로이드계 항염증약 복용자는 섭취 전 전문의와 상담할 것",
+    "천식이 있는 사람은 섭취 전 전문의와 상담할 것",
+  ],
+  functionalContent: "비타민 C 함유",
+  otherIngredients: [
+    "해조칼슘",
+    "쌀겨추출분말",
+    "유산균혼합분말",
+    "건조효모(비타민D)",
+    "건조효모(아연함유)",
+    "건조효모(셀렌함유)",
+  ],
 };
 
 const TopInformation = ({ productId }) => {
@@ -274,9 +295,7 @@ const TopInformation = ({ productId }) => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/Medic/informationpage/${productId}`
-        );
+        const response = await fetch(`/products/detail/${productId}`);
         const data = await response.json();
         setProductData(data);
       } catch (error) {
@@ -300,7 +319,7 @@ const TopInformation = ({ productId }) => {
     setQuantity(value > 0 ? value : 1);
   };
 
-  const totalPrice = productData.discountPrice * quantity;
+  const totalPrice = productData.salePrice * quantity;
 
   const handleBuyClick = () => {
     alert("구매가 완료되었습니다!");
@@ -315,7 +334,7 @@ const TopInformation = ({ productId }) => {
       {productData ? (
         <>
           <Content>
-            <ProductImg src={productData.imageUrl} alt={productData.name} />
+            <ProductImg src={img1} alt={productData.name} />
             <ProductDetails>
               <Line />
               <Div>
@@ -337,7 +356,7 @@ const TopInformation = ({ productId }) => {
                     {productData.originalPrice.toLocaleString()}원
                   </Fluid2>
                   <Fluid style={{ marginBottom: "5.14px", height: "33px" }}>
-                    {productData.discountPrice.toLocaleString()}원
+                    {productData.salePrice.toLocaleString()}원
                   </Fluid>
                   <Fluid>
                     {productData.healthTags.map((tag, index) => (

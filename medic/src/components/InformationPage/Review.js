@@ -225,50 +225,69 @@ const Review = ({ productId }) => {
 
   useEffect(() => {
     // Fetch reviews from API
-    // axios
-    //   .get(`/api/reviews/${productId}`)
-    //   .then((response) => {
-    //     setReviews(response.data);
-    //   })
-    //   .catch((error) => {
+    // const fetchReviews = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       `/products/detail/${productId}/reviews`
+    //     );
+    //     setReviews(response.data.filteredReviews);
+    //   } catch (error) {
     //     console.error("Error fetching reviews:", error);
-    //   });
+    //   }
+    // };
+    // fetchReviews();
 
     // Using dummy data for now
     setReviews([
       {
-        nickname: "박윤서",
+        nickname: "건강한삶",
         gender: "여성",
-        age: "40",
+        ageGroup: 30,
         rating: 5,
-        productName: "닥터에스더 면역엔 베타글루칸",
-        content:
-          "한 달 먹어보고 후기 작성하는 중입니다!\n 효과가 너무 좋아요~!\n 완전 강추합니다!!",
-        purchaseDate: "24.03.18",
-        reviewDate: "24.04.18",
-        likes: 20,
-      },
-      {
-        nickname: "김철순",
-        gender: "남성",
-        age: "30",
-        rating: 4,
-        productName: "닥터에스더 면역엔 베타글루칸",
-        content: "효과가 조금 있는 것 같아요. 만족합니다.",
-        purchaseDate: "24.02.10",
-        reviewDate: "24.03.15",
+        reviewContent: "정말 효과가 좋아요!",
+        purchaseDate: "2023-01-10",
+        reviewDate: "2023-01-15",
         likes: 15,
       },
       {
-        nickname: "이영애",
+        nickname: "활기찬청춘",
+        gender: "남성",
+        ageGroup: 40,
+        rating: 4,
+        reviewContent: "약간의 효과는 있는 것 같아요.",
+        purchaseDate: "2023-02-05",
+        reviewDate: "2023-02-10",
+        likes: 8,
+      },
+      {
+        nickname: "리얼핵",
         gender: "여성",
-        age: "50",
+        ageGroup: 60,
+        rating: 3,
+        reviewContent: "아직은 잘 모르겠어요.",
+        purchaseDate: "2023-03-12",
+        reviewDate: "2023-03-20",
+        likes: 5,
+      },
+      {
+        nickname: "운동매니아",
+        gender: "남성",
+        ageGroup: 20,
+        rating: 4,
+        reviewContent: "운동 후에 먹으면 좋습니다.",
+        purchaseDate: "2023-04-01",
+        reviewDate: "2023-04-07",
+        likes: 10,
+      },
+      {
+        nickname: "건강챙기기",
+        gender: "여성",
+        ageGroup: 50,
         rating: 5,
-        productName: "닥터에스더 면역엔 베타글루칸",
-        content: "정말 좋은 제품이에요. 추천합니다!",
-        purchaseDate: "24.01.05",
-        reviewDate: "24.02.10",
-        likes: 25,
+        reviewContent: "꾸준히 먹어야 효과를 볼 수 있는 것 같아요.",
+        purchaseDate: "2023-05-18",
+        reviewDate: "2023-05-25",
+        likes: 20,
       },
     ]);
   }, [productId]);
@@ -316,7 +335,7 @@ const Review = ({ productId }) => {
 
   const filteredReviews = reviews.filter((review) => {
     if (appliedAgeGroup && appliedAgeGroup !== "전체") {
-      return review.age === appliedAgeGroup;
+      return review.ageGroup === appliedAgeGroup;
     }
     return true;
   });
@@ -361,46 +380,46 @@ const Review = ({ productId }) => {
                   전체
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === "10대 이하"}
-                  onClick={() => selectAgeGroup("10대 이하")}
+                  isActive={selectedAgeGroup === 10}
+                  onClick={() => selectAgeGroup(10)}
                 >
                   10대 이하
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === "20대"}
-                  onClick={() => selectAgeGroup("20대")}
+                  isActive={selectedAgeGroup === 20}
+                  onClick={() => selectAgeGroup(20)}
                 >
                   20대
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === "30대"}
-                  onClick={() => selectAgeGroup("30대")}
+                  isActive={selectedAgeGroup === 30}
+                  onClick={() => selectAgeGroup(30)}
                 >
                   30대
                 </FilterOption>
               </FilterOptionRow>
               <FilterOptionRow>
                 <FilterOption
-                  isActive={selectedAgeGroup === "40대"}
-                  onClick={() => selectAgeGroup("40대")}
+                  isActive={selectedAgeGroup === 40}
+                  onClick={() => selectAgeGroup(40)}
                 >
                   40대
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === "50대"}
-                  onClick={() => selectAgeGroup("50대")}
+                  isActive={selectedAgeGroup === 50}
+                  onClick={() => selectAgeGroup(50)}
                 >
                   50대
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === "60대"}
-                  onClick={() => selectAgeGroup("60대")}
+                  isActive={selectedAgeGroup === 60}
+                  onClick={() => selectAgeGroup(60)}
                 >
                   60대
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === "70대 이상"}
-                  onClick={() => selectAgeGroup("70대 이상")}
+                  isActive={selectedAgeGroup === 70}
+                  onClick={() => selectAgeGroup(70)}
                 >
                   70대 이상
                 </FilterOption>
@@ -422,7 +441,8 @@ const Review = ({ productId }) => {
                 성별 |&nbsp;<ReviewerDetail2>{review.gender}</ReviewerDetail2>
               </ReviewerDetail>
               <ReviewerDetail>
-                연령대 |&nbsp;<ReviewerDetail2>{review.age}대</ReviewerDetail2>
+                연령대 |&nbsp;
+                <ReviewerDetail2>{review.ageGroup}대</ReviewerDetail2>
               </ReviewerDetail>
               <ReviewerDetail>
                 별점 |&nbsp;
@@ -438,7 +458,7 @@ const Review = ({ productId }) => {
                 제품명 | {review.productName}
               </ReviewerDetail>
               <ReviewerDetail2 style={{ marginBottom: "78.13px" }}>
-                {review.content}
+                {review.reviewContent}
               </ReviewerDetail2>
               <Div>
                 <ReviewerDetail>
