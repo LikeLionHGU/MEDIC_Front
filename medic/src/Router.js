@@ -5,10 +5,12 @@ import SignUpPage2 from "./pages/SignUpPage2";
 import MainPage from "./pages/MainPage";
 import AllProductPage from "./pages/AllProductPage";
 import InformationPage from "./pages/InformationPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function Router() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/Medic/LoginPage" element={<LoginPage />} />
         <Route path="/Medic/SignUpPage" element={<SignUpPage />} />

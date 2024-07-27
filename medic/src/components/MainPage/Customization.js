@@ -106,7 +106,8 @@ const More = styled.button`
   background-color: transparent;
   cursor: pointer;
 
-  &:active {
+  &:active,
+  &:hover {
     border: 1px solid #b2d23e;
     color: #b2d23e;
   }
