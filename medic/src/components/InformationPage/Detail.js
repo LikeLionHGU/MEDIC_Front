@@ -100,8 +100,7 @@ const TableCell2 = styled.td`
   font-size: 22px;
   font-style: normal;
   font-weight: 300;
-  white-space: pre-line; /* 이 부분을 추가합니다 */
-
+  white-space: pre-line;
   &:first-child {
     font-weight: bold;
     border-right: 0.4px solid black;
@@ -109,7 +108,7 @@ const TableCell2 = styled.td`
   }
 `;
 
-const Detail = () => {
+const Detail = ({ productId }) => {
   const [data, setData] = useState({
     manufacturer: "(주)한국씨엔에스팜",
     productName: "닥터에스더 면역엔 베타글루칸",
@@ -125,10 +124,10 @@ const Detail = () => {
   });
 
   // useEffect(() => {
-  //   axios.get('/api/product-details')
+  //   axios.get(`/api/product-details/${productId}`)
   //     .then(response => setData(response.data))
-  //     .catch(error => console.error('Error fetching data:', error));
-  // }, []);
+  //     .catch(error => console.error('Error fetching product details:', error));
+  // }, [productId]);
 
   return (
     <>
