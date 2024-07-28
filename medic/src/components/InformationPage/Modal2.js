@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import closeIcon from "../../img/goOut.svg";
 import profileimg from "../../img/Profile.svg";
 import left from "../../img/left.svg";
@@ -148,6 +149,12 @@ const Tag = styled.div`
 `;
 
 const Modal2 = ({ onClose }) => {
+  const navigate = useNavigate();
+
+  const handleCertificateClick = () => {
+    navigate("/Medic/CertificatePage");
+  };
+
   return (
     <ModalOverlay>
       <ModalContent>
@@ -158,7 +165,7 @@ const Modal2 = ({ onClose }) => {
             김광준 <Tag style={{ marginLeft: "13px" }}>약사</Tag>
           </Information>
           <Information> 메딕약국 </Information>
-          <CertificateBtn>
+          <CertificateBtn onClick={handleCertificateClick}>
             약사 증명서 보기&nbsp; <img src={left} alt="left" />
           </CertificateBtn>
           <img

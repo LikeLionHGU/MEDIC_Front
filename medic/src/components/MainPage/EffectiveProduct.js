@@ -5,7 +5,6 @@ import img1 from "../../img/1.png";
 import img2 from "../../img/2.png";
 import img3 from "../../img/3.png";
 
-// 더미 데이터
 const dummyUser = {
   nickname: "건강이",
 };

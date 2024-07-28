@@ -62,6 +62,7 @@ const UploadBtn = styled.button`
   line-height: normal;
   font-family: "Pretendard-Regular";
   color: white;
+  cursor: pointer;
 `;
 
 const UploadContainer = styled.div`
@@ -147,10 +148,12 @@ const Modal = ({ onClose }) => {
   const [file, setFile] = useState(null);
   const [recommendationContent, setRecommendationContent] = useState("");
   const [hashtags, setHashtags] = useState([]);
+  const [isAnalyzed, setIsAnalyzed] = useState(false);
   const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
+    setIsAnalyzed(false);
   };
 
   const handleUploadClick = () => {
@@ -163,11 +166,16 @@ const Modal = ({ onClose }) => {
         "이 제품의 성분을 하나하나 고려해보았을 때 ~에 사용되는 제품입니다. 이러한 제품들은 일반적으로 ~를 예방하거나 개선하기 위해 사용됩니다. 하지만, 임신부시다 몸과 같은 점을 주의할 필요가 있습니다. ~~"
       );
       setHashtags(["#면역기능개선", "#피부건강개선", "#혈행흐름개선"]);
+      setIsAnalyzed(true);
     }
   };
 
   const handleNavigateToProducts = () => {
-    navigate("/Medic/AllProductPage");
+    if (isAnalyzed) navigate("/Medic/AllProductPage");
+  };
+
+  const handleNavigateToHashtags = () => {
+    if (isAnalyzed) navigate("/Medic/HashtagPage");
   };
 
   return (
@@ -193,7 +201,9 @@ const Modal = ({ onClose }) => {
               onChange={handleFileChange}
             />
             {file && <p>{file.name}</p>}
-            <UploadBtn onClick={handleAnalyzeClick}>분석하기</UploadBtn>
+            {file && (
+              <UploadBtn onClick={handleAnalyzeClick}>분석하기</UploadBtn>
+            )}
           </UploadContainer>
           <RecommendationBox>
             <RecommendationTitle>건강검진 결과에 대한 소견</RecommendationTitle>
@@ -211,11 +221,26 @@ const Modal = ({ onClose }) => {
               ))}
             </HashtagContainer>
             <Div2>
-              <UploadBtn style={{ marginRight: "15px" }}>
+              <UploadBtn
+                style={{
+                  marginRight: "15px",
+                  backgroundColor: isAnalyzed ? "#3e88d2" : "#d3d3d3",
+                  cursor: isAnalyzed ? "pointer" : "not-allowed",
+                }}
+                onClick={handleNavigateToHashtags}
+                disabled={!isAnalyzed}
+              >
                 해시태그 알아보기&nbsp;
                 <img src={search} alt="search" />
               </UploadBtn>
-              <UploadBtn onClick={handleNavigateToProducts}>
+              <UploadBtn
+                onClick={handleNavigateToProducts}
+                disabled={!isAnalyzed}
+                style={{
+                  backgroundColor: isAnalyzed ? "#3e88d2" : "#d3d3d3",
+                  cursor: isAnalyzed ? "pointer" : "not-allowed",
+                }}
+              >
                 관련 제품 보러가기&nbsp;
                 <img src={cart} alt="cart" />
               </UploadBtn>

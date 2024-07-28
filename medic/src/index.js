@@ -9,7 +9,6 @@ const Div = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  /* height: 98vh; */
   align-items: center;
 `;
 
