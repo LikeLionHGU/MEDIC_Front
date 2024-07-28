@@ -17,6 +17,7 @@ const HeaderContainer = styled.div`
 const Logo = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const LogoImage = styled.img`
@@ -181,11 +182,10 @@ const LogoutButton = styled.button`
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("제품");
-  const [userNickname, setUserNickname] = useState("건강이"); // 기본 값 설정
+  const [userNickname, setUserNickname] = useState("건강이");
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 백엔드에서 사용자 정보를 가져오는 함수
     const fetchUserInfo = async () => {
       try {
         const userEmail = localStorage.getItem("userEmail");
@@ -212,7 +212,11 @@ const Header = () => {
   const handleLogout = () => {
     // 로그아웃 로직 추가 (지금은 로컬 스토리지에서 토큰 삭제로 대체)
     localStorage.removeItem("token"); // 백엔드와 연결하기
-    navigate("/Medic/LoginPage"); // 로그인 페이지로 이동
+    navigate("/Medic/LoginPage");
+  };
+
+  const handleLogoClick = () => {
+    navigate("/Medic");
   };
 
   return (
@@ -224,7 +228,9 @@ const Header = () => {
         <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
       </UserContainer>
       <HeaderContainer>
-        <Logo>
+        <Logo onClick={handleLogoClick}>
+          {" "}
+          {/* Logo 클릭 시 이동 */}
           <LogoImage src={logo} alt="Logo" />
           <Title>MEDIC</Title>
         </Logo>

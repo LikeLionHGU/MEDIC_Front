@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = styled.input`
-  background-color: transparent; // 배경을 투명하게 설정
+  background-color: transparent;
   border: none;
   border-bottom: 0.5px solid #fff;
   width: 430px;
@@ -13,8 +13,8 @@ const Input = styled.input`
 
   &:focus {
     font-family: "Pretendard-Regular";
-    outline: none; // 포커스 시 기본 아웃라인 제거
-    border-bottom: 0.5px solid #fff; // 포커스 시에도 아래쪽 테두리만 표시
+    outline: none;
+    border-bottom: 0.5px solid #fff;
   }
 `;
 

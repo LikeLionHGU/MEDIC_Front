@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import img from "../../img/Hashtag.png";
 import search from "../../img/search-engine.png";
 
@@ -194,6 +195,7 @@ const ProductPrice = styled.div`
 `;
 
 const HashtagSelect = () => {
+  const navigate = useNavigate();
   const [selectedTags, setSelectedTags] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
 
@@ -257,7 +259,7 @@ const HashtagSelect = () => {
               <InnerTitle style={{ marginRight: "21px" }}>
                 건강 맞춤형 해시태그
               </InnerTitle>
-              <Button>
+              <Button onClick={() => navigate("/Medic/HashtagPage")}>
                 알아보기
                 <Img src={search} alt="search icon" />
               </Button>

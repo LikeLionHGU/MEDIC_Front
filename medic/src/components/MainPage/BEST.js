@@ -12,7 +12,7 @@ const Div = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 707px; /* 요소들 사이의 간격 조정 */
+  gap: 707px;
 `;
 
 const ProductContainer = styled.div`
@@ -69,7 +69,7 @@ const Overlay = styled.div`
   font-size: 25px;
   padding-left: 37px;
   padding-bottom: 24px;
-  box-sizing: border-box; /* 추가 */
+  box-sizing: border-box;
 `;
 
 const ProductTitle = styled.div`

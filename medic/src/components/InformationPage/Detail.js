@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import img1 from "../../img/Frame 15537.svg";
 import mark from "../../img/Frame 15533.svg";
 import search from "../../img/search.svg";
 import img2 from "../../img/Frame 15538.svg";
-import Modal2 from "./Modal2"; // Modal2 컴포넌트를 임포트 합니다.
+import Modal2 from "./Modal2";
 
 const Img1 = styled.img`
   width: 1169.999px;
@@ -108,8 +108,8 @@ const TableCell2 = styled.td`
   }
 `;
 
-const Detail = ({ productId }) => {
-  const [data, setData] = useState({
+const Detail = () => {
+  const [data] = useState({
     manufacturerName: "콜마비앤에이치(주)음성공장",
     productName: "관절엔 콘드로이친 1200",
     reportNumber: "200600200031905",

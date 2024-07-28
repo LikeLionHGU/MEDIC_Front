@@ -130,6 +130,8 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0px;
+  margin-bottom: 102px;
+  margin-top: 65px;
 `;
 
 const ProductCard = styled.div`
@@ -137,47 +139,6 @@ const ProductCard = styled.div`
   text-align: center;
   position: relative;
   cursor: pointer;
-`;
-
-const Button1 = styled.button`
-  font-family: "Pretendard-Regular";
-  font-size: 18px;
-  width: 100px;
-  border: none;
-  border-right: 1px solid black;
-  background-color: transparent;
-  color: #8c8c8c;
-  margin-left: 10px;
-
-  &:focus {
-    color: black;
-  }
-`;
-
-const Button = styled.button`
-  font-family: "Pretendard-Regular";
-  font-size: 18px;
-  width: 100px;
-  border: none;
-  border-right: 1px solid black;
-  background-color: transparent;
-  color: #8c8c8c;
-
-  &:focus {
-    color: black;
-  }
-`;
-
-const Button2 = styled.button`
-  font-family: "Pretendard-Regular";
-  font-size: 18px;
-  width: 100px;
-  border: none;
-  background-color: transparent;
-  color: #8c8c8c;
-  &:focus {
-    color: black;
-  }
 `;
 
 const ImageWrapper = styled.div`
@@ -257,75 +218,48 @@ const Discount = styled.div`
   padding-bottom: 6px;
 `;
 
-const Filtering = () => {
-  const [products, setProducts] = useState(dummyProducts);
+const ProductList = () => {
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const navigate = useNavigate();
-
-  const handleFilter = (criteria) => {
-    let sortedProducts = [...products];
-
-    switch (criteria) {
-      case "review":
-        sortedProducts.sort((a, b) => b.reviewCount - a.reviewCount);
-        break;
-      case "highPrice":
-        sortedProducts.sort((a, b) => b.discountPrice - a.discountPrice);
-        break;
-      case "lowPrice":
-        sortedProducts.sort((a, b) => a.discountPrice - b.discountPrice);
-        break;
-      default:
-        break;
-    }
-
-    setProducts(sortedProducts);
-  };
 
   const handleCardClick = (productId) => {
     navigate(`/Medic/InformationPage/${productId}`);
   };
 
   return (
-    <div>
-      <Button1 onClick={() => handleFilter("review")}>리뷰 많은순</Button1>
-      <Button onClick={() => handleFilter("highPrice")}>가격 높은순</Button>
-      <Button2 onClick={() => handleFilter("lowPrice")}>가격 낮은순</Button2>
-      <Container>
-        {products.map((product, index) => (
-          <ProductCard
-            key={index}
-            onMouseEnter={() => setHoveredProduct(index)}
-            onMouseLeave={() => setHoveredProduct(null)}
-            onClick={() => handleCardClick(product.productId)}
-          >
-            <ImageWrapper>
-              <ProductImage
-                src={product.imageUrl}
-                alt={product.name}
-                style={{
-                  transform:
-                    hoveredProduct === index ? "scale(1.1)" : "scale(1)",
-                }}
-              />
-              <BaguniImage src={Baguni} alt="Baguni" />
-            </ImageWrapper>
-            <Product>
-              <Name hover={hoveredProduct === index}>{product.name}</Name>
-              <Original>{product.originalPrice.toLocaleString()}원</Original>
-              <Discount>{product.discountPrice.toLocaleString()}원</Discount>
-            </Product>
-            <TagContainer>
-              {product.healthTags &&
-                product.healthTags.map((tag, tagIndex) => (
-                  <Tag key={tagIndex}>{tag}</Tag>
-                ))}
-            </TagContainer>
-          </ProductCard>
-        ))}
-      </Container>
-    </div>
+    <Container>
+      {dummyProducts.map((product, index) => (
+        <ProductCard
+          key={index}
+          onMouseEnter={() => setHoveredProduct(index)}
+          onMouseLeave={() => setHoveredProduct(null)}
+          onClick={() => handleCardClick(product.productId)}
+        >
+          <ImageWrapper>
+            <ProductImage
+              src={product.imageUrl}
+              alt={product.name}
+              style={{
+                transform: hoveredProduct === index ? "scale(1.1)" : "scale(1)",
+              }}
+            />
+            <BaguniImage src={Baguni} alt="Baguni" />
+          </ImageWrapper>
+          <Product>
+            <Name hover={hoveredProduct === index}>{product.name}</Name>
+            <Original>{product.originalPrice.toLocaleString()}원</Original>
+            <Discount>{product.discountPrice.toLocaleString()}원</Discount>
+          </Product>
+          <TagContainer>
+            {product.healthTags &&
+              product.healthTags.map((tag, tagIndex) => (
+                <Tag key={tagIndex}>{tag}</Tag>
+              ))}
+          </TagContainer>
+        </ProductCard>
+      ))}
+    </Container>
   );
 };
 
-export default Filtering;
+export default ProductList;
