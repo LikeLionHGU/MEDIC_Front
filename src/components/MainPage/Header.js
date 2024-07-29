@@ -140,9 +140,7 @@ const SearchButton = styled.button`
   }
 `;
 
-const SearchIcon = styled.img`
-  margin-left: 8px;
-`;
+const SearchIcon = styled.img``;
 
 const UserContainer = styled.div`
   display: flex;
