@@ -101,6 +101,7 @@ const Div = styled.div`
   margin-right: 20px;
   margin-bottom: 20px;
 `;
+
 const SignButton = styled.button`
   background: none;
   border: 1px solid #b2d23e;
@@ -139,13 +140,11 @@ const ActionButton = styled.button`
 `;
 
 const LoginPage = () => {
-  // 유저 정보(ID, PW)
   const [userInfo, setUserInfo] = useState({
     userEmail: "",
     userPassword: "",
   });
 
-  // 이메일, 비번 유효성 검사 메시지 상태
   const [userEmailTouched, setuserEmailTouched] = useState(false);
   const [userPasswordTouched, setuserPasswordTouched] = useState(false);
 
@@ -154,7 +153,6 @@ const LoginPage = () => {
     setuserPasswordTouched(false);
   }, []);
 
-  // 이메일, 비밀번호 입력 처리
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserInfo((userInfo) => ({
@@ -166,7 +164,6 @@ const LoginPage = () => {
     if (name === "userPassword") setuserPasswordTouched(true);
   };
 
-  // 유효성 검사
   const isInvaliduserEmail =
     userEmailTouched &&
     (!userInfo.userEmail.includes("@") || !userInfo.userEmail.includes("."));
@@ -181,16 +178,21 @@ const LoginPage = () => {
 
   const isValid = isValiduserEmail && isValiduserPassword;
 
-  // 페이지 이동
   const navigate = useNavigate();
 
-  // 회원가입 페이지 이동
   const goSignupPage = () => {
     navigate("/Medic/SignUpPage");
   };
 
   const loginProcess = () => {
-    fetch("/auth/log-in", {
+    const apiUrl = `${process.env.REACT_APP_BASE_URL}/auth/log-in`;
+    console.log("Login attempt to URL:", apiUrl);
+    console.log("Login attempt:", {
+      userEmail: userInfo.userEmail,
+      userPassword: userInfo.userPassword,
+    });
+
+    fetch(apiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -200,8 +202,14 @@ const LoginPage = () => {
         userPassword: userInfo.userPassword,
       }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
+        console.log("Response data:", data);
         if (data.success) {
           localStorage.setItem("userEmail", userInfo.userEmail);
           navigate("/main");
@@ -247,7 +255,7 @@ const LoginPage = () => {
         </ErrorMessage>
         <Email>Password</Email>
         <UserInput
-          type="password" // Corrected type attribute
+          type="password"
           placeholder=""
           value={userInfo.userPassword}
           name="userPassword"

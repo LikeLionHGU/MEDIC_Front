@@ -5,6 +5,7 @@ import mark from "../../img/Frame 15533.svg";
 import search from "../../img/search.svg";
 import img2 from "../../img/Frame 15538.svg";
 import Modal2 from "./Modal2";
+import search2 from "../../img/greensearch.svg";
 
 const Img1 = styled.img`
   width: 1169.999px;
@@ -34,9 +35,21 @@ const Pharmacist = styled.button`
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
+  cursor: pointer;
+
+  &:hover {
+    color: #abb43f;
+    border: 1px solid #abb43f;
+
+    img {
+      content: url(${search2});
+    }
+  }
 `;
 
-const SearchIcon = styled.img``;
+const SearchIcon = styled.img`
+  transition: content 0.3s;
+`;
 
 const ProductDetailContainer = styled.div`
   position: relative;

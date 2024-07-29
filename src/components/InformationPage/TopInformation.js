@@ -54,6 +54,10 @@ const BuyBtn = styled.button`
   font-style: normal;
   font-weight: 600;
   font-family: "Pretendard-Regular";
+  &:hover {
+    border: 1px solid #99b82c;
+    background: #99b82c;
+  }
 `;
 
 const Quantity = styled.div`

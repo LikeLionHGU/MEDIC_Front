@@ -19,7 +19,8 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-  font-family: "Pretendard-Regular";
+  font-family: "Pretendard";
+  font-weight: 100;
   font-size: 20px;
   color: black;
   width: 1170px;

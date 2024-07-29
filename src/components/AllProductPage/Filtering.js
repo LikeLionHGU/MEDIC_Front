@@ -152,6 +152,10 @@ const Button1 = styled.button`
   &:focus {
     color: black;
   }
+
+  &:hover {
+    color: black;
+  }
 `;
 
 const Button = styled.button`
@@ -166,6 +170,9 @@ const Button = styled.button`
   &:focus {
     color: black;
   }
+  &:hover {
+    color: black;
+  }
 `;
 
 const Button2 = styled.button`
@@ -176,6 +183,9 @@ const Button2 = styled.button`
   background-color: transparent;
   color: #8c8c8c;
   &:focus {
+    color: black;
+  }
+  &:hover {
     color: black;
   }
 `;

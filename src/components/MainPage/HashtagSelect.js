@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import img from "../../img/Hashtag.png";
-import search from "../../img/search-engine.png";
+import search from "../../img/searchh.svg";
 
 const Title = styled.div`
   font-family: "KIMM_Light";
@@ -15,8 +15,10 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-  font-family: "Pretendard-Regular";
+  font-family: "Pretendard";
   font-size: 20px;
+  font-style: normal;
+  font-weight: 100;
   color: black;
   width: 1170px;
   text-align: start;
@@ -135,14 +137,13 @@ const Img = styled.img`
 const Button = styled.button`
   margin-top: 61px;
   padding: 8px 12px;
-  border: 1px solid #8c8c8c;
+  border: 1px solid #d8d8d8;
   background-color: transparent;
-  color: #8c8c8c;
+  color: #d8d8d8;
   border-radius: 10px;
   cursor: pointer;
   font-family: "Pretendard-Regular";
   font-size: 14px;
-  width: 102px;
   height: 33px;
   display: flex;
   align-items: center;
@@ -150,8 +151,8 @@ const Button = styled.button`
 
 const Button2 = styled.button`
   padding: 8px 12px;
-  border: 1.3px solid #b2d23e;
-  color: #b2d23e;
+  border: 1.3px solid white;
+  color: white;
   background-color: transparent;
   border-radius: 12.33px;
   cursor: pointer;
@@ -159,6 +160,11 @@ const Button2 = styled.button`
   height: 38px;
   font-family: "Pretendard-Regular";
   font-size: 14px;
+
+  &:hover {
+    border: 1.3px solid #b2d23e;
+    color: #b2d23e;
+  }
 `;
 
 const RecommendedProducts = styled.div`
@@ -260,7 +266,7 @@ const HashtagSelect = () => {
                 건강 맞춤형 해시태그
               </InnerTitle>
               <Button onClick={() => navigate("/Medic/HashtagPage")}>
-                알아보기
+                해시태그 알아보기
                 <Img src={search} alt="search icon" />
               </Button>
             </Logo>

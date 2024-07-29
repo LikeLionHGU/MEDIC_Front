@@ -5,7 +5,7 @@ import Header from "../components/MainPage/Header";
 import BEST from "../components/MainPage/BEST";
 import EffectiveProduct from "../components/MainPage/EffectiveProduct";
 
-import modalImage from "../img/Frame 15584.svg";
+import modalImage from "../img/Frame 15595.svg";
 import Modal from "../components/MainPage/Modal";
 
 const MainPage = () => {

@@ -4,7 +4,7 @@ import img from "../../img/Rectangle 5171.png";
 import product1 from "../../img/product1.png";
 import product2 from "../../img/product2.png";
 import product3 from "../../img/product3.png";
-import cart from "../../img/cart.png";
+import cart from "../../img/cart2.svg";
 import { useNavigate } from "react-router-dom";
 
 const Div = styled.div`
@@ -93,7 +93,8 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-  font-family: "Pretendard-Regular";
+  font-family: "Pretendard";
+  font-weight: 100;
   font-size: 20px;
   color: black;
   text-align: start;
@@ -104,6 +105,7 @@ const GoContainer = styled.button`
   align-items: center;
   font-family: "Pretendard-Regular";
   font-size: 14px;
+  font-weight: 400;
   cursor: pointer;
   border: 1px solid #8c8c8c;
   width: 150px;
@@ -112,6 +114,7 @@ const GoContainer = styled.button`
   border-radius: 10px;
   margin-left: 30px;
   background-color: transparent;
+  color: #8c8c8c;
 `;
 
 const Img = styled.img`

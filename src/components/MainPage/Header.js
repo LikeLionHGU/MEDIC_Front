@@ -133,6 +133,10 @@ const SearchButton = styled.button`
   &:focus {
     outline: none;
   }
+
+  &:hover {
+    background-color: #a3c03a;
+  }
 `;
 
 const SearchIcon = styled.img`
@@ -176,6 +180,11 @@ const LogoutButton = styled.button`
 
   &:focus {
     outline: none;
+  }
+
+  &:hover {
+    color: #575757;
+    border: 1px solid #575757;
   }
 `;
 

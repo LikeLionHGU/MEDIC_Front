@@ -54,7 +54,7 @@ const UploadBtn = styled.button`
   justify-content: center;
   border-radius: 10px;
   align-items: center;
-  background: #3e88d2;
+  background: ${(props) => (props.disabled ? "#8C8C8C" : "#3e88d2")};
   border: none;
   font-size: 14px;
   font-style: normal;
@@ -62,7 +62,11 @@ const UploadBtn = styled.button`
   line-height: normal;
   font-family: "Pretendard-Regular";
   color: white;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+
+  &:hover {
+    background-color: ${(props) => (props.disabled ? "#8C8C8C" : "#2668aa")};
+  }
 `;
 
 const UploadContainer = styled.div`
@@ -222,24 +226,20 @@ const Modal = ({ onClose }) => {
             </HashtagContainer>
             <Div2>
               <UploadBtn
-                style={{
-                  marginRight: "15px",
-                  backgroundColor: isAnalyzed ? "#3e88d2" : "#8C8C8C",
-                  cursor: isAnalyzed ? "pointer" : "not-allowed",
-                }}
+                isAnalyzed={isAnalyzed}
                 onClick={handleNavigateToHashtags}
                 disabled={!isAnalyzed}
+                style={{
+                  marginRight: "15px",
+                }}
               >
                 해시태그 알아보기&nbsp;
                 <img src={search} alt="search" />
               </UploadBtn>
               <UploadBtn
+                isAnalyzed={isAnalyzed}
                 onClick={handleNavigateToProducts}
                 disabled={!isAnalyzed}
-                style={{
-                  backgroundColor: isAnalyzed ? "#3e88d2" : "#8C8C8C",
-                  cursor: isAnalyzed ? "pointer" : "not-allowed",
-                }}
               >
                 관련 제품 보러가기&nbsp;
                 <img src={cart} alt="cart" />

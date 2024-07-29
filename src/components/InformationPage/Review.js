@@ -141,6 +141,10 @@ const CompleteButton = styled.button`
   font-weight: 600;
   line-height: normal;
   font-family: "Pretendard-Regular";
+
+  &:hover {
+    background: #99b82c;
+  }
 `;
 
 const ReviewList = styled.div`

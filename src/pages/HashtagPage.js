@@ -5,6 +5,7 @@ import img from "../img/hashtagimg.svg";
 import smallimg from "../img/smallimg.svg";
 import search from "../img/serachbox.svg";
 import cart from "../img/cart.svg";
+import cart2 from "../img/bluecart.svg";
 import search2 from "../img/blacksearch.svg";
 import { useNavigate } from "react-router-dom";
 
@@ -48,6 +49,21 @@ const Button = styled.button`
   border-radius: 10px;
   border: 1px solid var(--white, #fff);
   margin: 90px auto 74px;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid #3e88d2;
+    color: #3e88d2;
+
+    img {
+      content: url(${cart2});
+    }
+  }
+`;
+
+const CartIcon = styled.img`
+  width: 24px;
+  transition: content 0.3s;
 `;
 
 const TabContainer = styled.div`
@@ -702,12 +718,9 @@ const HashtagPage = () => {
               >
                 <SectionTitle>{section.title}</SectionTitle>
                 <SectionContent>{section.content}</SectionContent>
-                <Button
-                  onClick={() => handleButtonClick(section.id)}
-                  style={{ cursor: "pointer" }}
-                >
-                  관련 제품 보러가기{" "}
-                  <img src={cart} alt="cart icon" style={{ width: "24px" }} />
+                <Button onClick={() => handleButtonClick(section.id)}>
+                  관련 제품 보러가기
+                  <CartIcon src={cart} alt="cart icon" />
                 </Button>
               </ContentContainer>
             )
