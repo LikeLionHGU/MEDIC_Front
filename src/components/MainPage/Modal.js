@@ -201,9 +201,9 @@ const Modal = ({ onClose }) => {
               onChange={handleFileChange}
             />
             {file && <p>{file.name}</p>}
-            {file && (
-              <UploadBtn onClick={handleAnalyzeClick}>분석하기</UploadBtn>
-            )}
+            <UploadBtn onClick={file ? handleAnalyzeClick : handleUploadClick}>
+              {file ? "분석하기" : "파일 업로드하기"}
+            </UploadBtn>
           </UploadContainer>
           <RecommendationBox>
             <RecommendationTitle>건강검진 결과에 대한 소견</RecommendationTitle>
@@ -224,7 +224,7 @@ const Modal = ({ onClose }) => {
               <UploadBtn
                 style={{
                   marginRight: "15px",
-                  backgroundColor: isAnalyzed ? "#3e88d2" : "#d3d3d3",
+                  backgroundColor: isAnalyzed ? "#3e88d2" : "#8C8C8C",
                   cursor: isAnalyzed ? "pointer" : "not-allowed",
                 }}
                 onClick={handleNavigateToHashtags}
@@ -237,7 +237,7 @@ const Modal = ({ onClose }) => {
                 onClick={handleNavigateToProducts}
                 disabled={!isAnalyzed}
                 style={{
-                  backgroundColor: isAnalyzed ? "#3e88d2" : "#d3d3d3",
+                  backgroundColor: isAnalyzed ? "#3e88d2" : "#8C8C8C",
                   cursor: isAnalyzed ? "pointer" : "not-allowed",
                 }}
               >
