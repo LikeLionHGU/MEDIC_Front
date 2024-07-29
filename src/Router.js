@@ -15,7 +15,7 @@ export default function Router() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/Medic/LoginPage" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/Medic/SignUpPage" element={<SignUpPage />} />
         <Route path="/Medic/SignUpPage2" element={<SignUpPage2 />} />
         <Route path="/Medic" element={<MainPage />} />
