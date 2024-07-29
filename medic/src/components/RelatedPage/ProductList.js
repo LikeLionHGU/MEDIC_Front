@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Baguni from "../../img/Baguni.png";
 import img1 from "../../img/1.png";
@@ -18,120 +18,142 @@ import img12 from "../../img/12.png";
 const dummyProducts = [
   {
     productId: "550e8400-e29b-41d4-a716-446655440000",
-    name: "닥터에스더 면역엔 베타글루칸",
+    productName: "닥터에스더 면역엔 베타글루칸",
     originalPrice: 60000,
-    discountPrice: 32000,
-    healthTags: ["#면역기능개선", "#기억력개선"],
-    reviewCount: 120,
+    salePrice: 32000,
+    healthHashTag: "면역기능 개선",
     imageUrl: img1,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440001",
-    name: "생생기억력플러스",
+    productName: "생생기억력플러스",
     originalPrice: 50000,
-    discountPrice: 48000,
-    healthTags: ["#기억력개선"],
-    reviewCount: 85,
+    salePrice: 48000,
+    healthHashTag: "기억력 개선",
     imageUrl: img2,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440002",
-    name: "더좋은 면역 베타글루칸",
+    productName: "더좋은 면역 베타글루칸",
     originalPrice: 40000,
-    discountPrice: 30000,
-    healthTags: ["#면역기능개선"],
-    reviewCount: 95,
+    salePrice: 30000,
+    healthHashTag: "면역기능 개선",
     imageUrl: img3,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440003",
-    name: "한달이면 반나바 퍼펙트케어",
+    productName: "한달이면 반나바 퍼펙트케어",
     originalPrice: 30000,
-    discountPrice: 22000,
-    healthTags: ["#간기능개선"],
-    reviewCount: 75,
+    salePrice: 22000,
+    healthHashTag: "간기능 개선",
     imageUrl: img4,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440004",
-    name: "반다요",
+    productName: "반다요",
     originalPrice: 32000,
-    discountPrice: 21000,
-    healthTags: ["#체중조절"],
-    reviewCount: 60,
+    salePrice: 21000,
+    healthHashTag: "체중조절",
     imageUrl: img5,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440005",
-    name: "맥스컷 다이어트 부스터3.1",
+    productName: "맥스컷 다이어트 부스터3.1",
     originalPrice: 50000,
-    discountPrice: 40000,
-    healthTags: ["#체중조절"],
-    reviewCount: 110,
+    salePrice: 40000,
+    healthHashTag: "체중조절",
     imageUrl: img6,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440006",
-    name: "콜레스테롤원 콜레스타",
+    productName: "콜레스테롤원 콜레스타",
     originalPrice: 50000,
-    discountPrice: 32000,
-    healthTags: ["#간기능개선", "#기억력개선"],
-    reviewCount: 130,
+    salePrice: 32000,
+    healthHashTag: "간기능 개선",
     imageUrl: img7,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440007",
-    name: "오늘은 것",
+    productName: "오늘은 것",
     originalPrice: 42000,
-    discountPrice: 32000,
-    healthTags: ["#체중조절"],
-    reviewCount: 140,
+    salePrice: 32000,
+    healthHashTag: "체중조절",
     imageUrl: img8,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440008",
-    name: "콜레스펌",
+    productName: "콜레스펌",
     originalPrice: 22000,
-    discountPrice: 12000,
-    healthTags: ["#간기능개선"],
-    reviewCount: 90,
+    salePrice: 12000,
+    healthHashTag: "간기능 개선",
     imageUrl: img9,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440009",
-    name: "베아제닉 혈당 밸런스",
+    productName: "베아제닉 혈당 밸런스",
     originalPrice: 60000,
-    discountPrice: 32000,
-    healthTags: ["#혈당조절", "#혈중중성지방개선"],
-    reviewCount: 85,
+    salePrice: 32000,
+    healthHashTag: "혈당조절",
     imageUrl: img10,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440010",
-    name: "브리오 혈당 밸런스 알파",
+    productName: "브리오 혈당 밸런스 알파",
     originalPrice: 42000,
-    discountPrice: 32000,
-    healthTags: ["#혈당조절"],
-    reviewCount: 115,
+    salePrice: 32000,
+    healthHashTag: "혈당조절",
     imageUrl: img11,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440011",
-    name: "당 편한 세상",
+    productName: "당 편한 세상",
     originalPrice: 22000,
-    discountPrice: 15000,
-    healthTags: ["#혈당조절"],
-    reviewCount: 100,
+    salePrice: 15000,
+    healthHashTag: "혈당조절",
     imageUrl: img12,
+  },
+  {
+    productId: "550e8400-e29b-41d4-a716-446655440012",
+    productName: "활기찬 하루",
+    originalPrice: 45000,
+    salePrice: 35000,
+    healthHashTag: "운동 수행 능력",
+    imageUrl: img3,
+  },
+  {
+    productId: "550e8400-e29b-41d4-a716-446655440013",
+    productName: "피부 생기 가득",
+    originalPrice: 30000,
+    salePrice: 25000,
+    healthHashTag: "피부 건강",
+    imageUrl: img4,
+  },
+  {
+    productId: "550e8400-e29b-41d4-a716-446655440014",
+    productName: "관절 튼튼",
+    originalPrice: 55000,
+    salePrice: 45000,
+    healthHashTag: "관절/뼈 건강",
+    imageUrl: img5,
   },
 ];
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0px;
   margin-bottom: 102px;
   margin-top: 65px;
+`;
+
+const SectionTitle = styled.h2`
+  font-family: "Pretendard-Regular";
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #3e82d2;
+`;
+
+const ProductGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 `;
 
 const ProductCard = styled.div`
@@ -220,7 +242,13 @@ const Discount = styled.div`
 
 const ProductList = () => {
   const [hoveredProduct, setHoveredProduct] = useState(null);
+  const { state } = useLocation();
+  const sectionTitle = state ? state.sectionTitle : null;
   const navigate = useNavigate();
+
+  const filteredProducts = sectionTitle
+    ? dummyProducts.filter((product) => product.healthHashTag === sectionTitle)
+    : dummyProducts;
 
   const handleCardClick = (productId) => {
     navigate(`/Medic/InformationPage/${productId}`);
@@ -228,36 +256,38 @@ const ProductList = () => {
 
   return (
     <Container>
-      {dummyProducts.map((product, index) => (
-        <ProductCard
-          key={index}
-          onMouseEnter={() => setHoveredProduct(index)}
-          onMouseLeave={() => setHoveredProduct(null)}
-          onClick={() => handleCardClick(product.productId)}
-        >
-          <ImageWrapper>
-            <ProductImage
-              src={product.imageUrl}
-              alt={product.name}
-              style={{
-                transform: hoveredProduct === index ? "scale(1.1)" : "scale(1)",
-              }}
-            />
-            <BaguniImage src={Baguni} alt="Baguni" />
-          </ImageWrapper>
-          <Product>
-            <Name hover={hoveredProduct === index}>{product.name}</Name>
-            <Original>{product.originalPrice.toLocaleString()}원</Original>
-            <Discount>{product.discountPrice.toLocaleString()}원</Discount>
-          </Product>
-          <TagContainer>
-            {product.healthTags &&
-              product.healthTags.map((tag, tagIndex) => (
-                <Tag key={tagIndex}>{tag}</Tag>
-              ))}
-          </TagContainer>
-        </ProductCard>
-      ))}
+      <ProductGrid>
+        {filteredProducts.map((product, index) => (
+          <ProductCard
+            key={product.productId}
+            onMouseEnter={() => setHoveredProduct(index)}
+            onMouseLeave={() => setHoveredProduct(null)}
+            onClick={() => handleCardClick(product.productId)}
+          >
+            <ImageWrapper>
+              <ProductImage
+                src={product.imageUrl}
+                alt={product.productName}
+                style={{
+                  transform:
+                    hoveredProduct === index ? "scale(1.1)" : "scale(1)",
+                }}
+              />
+              <BaguniImage src={Baguni} alt="Baguni" />
+            </ImageWrapper>
+            <Product>
+              <Name hover={hoveredProduct === index}>
+                {product.productName}
+              </Name>
+              <Original>{product.originalPrice.toLocaleString()}원</Original>
+              <Discount>{product.salePrice.toLocaleString()}원</Discount>
+            </Product>
+            <TagContainer>
+              <Tag>{product.healthHashTag}</Tag>
+            </TagContainer>
+          </ProductCard>
+        ))}
+      </ProductGrid>
     </Container>
   );
 };

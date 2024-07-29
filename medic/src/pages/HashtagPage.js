@@ -665,10 +665,8 @@ const HashtagPage = () => {
   ];
 
   const handleButtonClick = (sectionId) => {
-    const sectionTitle = sections.find(
-      (section) => section.id === sectionId
-    ).title;
-    navigate("/Medic/RelatedPage", { state: { sectionTitle } });
+    const section = sections.find((section) => section.id === sectionId);
+    navigate("/Medic/RelatedPage", { state: { sectionTitle: section.title } });
   };
 
   return (
