@@ -55,7 +55,7 @@ const DropdownButton = styled.button`
   font-weight: bold;
   background-color: #fff;
   border: none;
-  padding: 10px 16px;
+  padding: 10px 45px 10px 16px;
   cursor: pointer;
   font-size: 16px;
   display: flex;
@@ -68,7 +68,7 @@ const DropdownButton = styled.button`
 `;
 
 const IMG = styled.img`
-  margin-left: 8px;
+  margin-right: 16px;
 `;
 
 const DropdownContent = styled.div`
@@ -78,12 +78,12 @@ const DropdownContent = styled.div`
   font-size: 16px;
   top: 40px;
   left: 0;
-  width: 120px; /* Increased width for larger dropdown items */
-  height: auto;
+  width: 120px;
+  height: 66px;
   background-color: #b2d23e;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1000;
-  border-radius: 4px;
+  border-radius: 5px;
 
   & > div {
     display: flex;
@@ -92,10 +92,10 @@ const DropdownContent = styled.div`
     color: white;
     cursor: pointer;
     text-align: center;
-    height: 40px; /* Increased height for larger dropdown items */
-    padding: 5px 0; /* Added padding for better spacing */
+    height: 33px;
 
     &:hover {
+      border-radius: 5px;
       background-color: #99b93b;
     }
   }
@@ -245,8 +245,8 @@ const Header = () => {
           <Dropdown>
             <DropdownButton onClick={toggleDropdown}>
               {selectedOption}
-              <IMG src={dropdownOpen ? up : down} alt="dropdown icon" />
-            </DropdownButton>
+            </DropdownButton>{" "}
+            <IMG src={dropdownOpen ? up : down} alt="dropdown icon" />
             <DropdownContent show={dropdownOpen}>
               <div onClick={() => selectOption("제품")}>제품</div>
               <div onClick={() => selectOption("기능")}>기능</div>
