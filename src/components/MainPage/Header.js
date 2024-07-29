@@ -55,7 +55,7 @@ const DropdownButton = styled.button`
   font-weight: bold;
   background-color: #fff;
   border: none;
-  padding: 8px 12px;
+  padding: 10px 16px;
   cursor: pointer;
   font-size: 16px;
   display: flex;
@@ -68,7 +68,7 @@ const DropdownButton = styled.button`
 `;
 
 const IMG = styled.img`
-  margin-left: 68px;
+  margin-left: 8px;
 `;
 
 const DropdownContent = styled.div`
@@ -78,10 +78,9 @@ const DropdownContent = styled.div`
   font-size: 16px;
   top: 40px;
   left: 0;
-  width: 81px;
-  height: 65px;
+  width: 120px; /* Increased width for larger dropdown items */
+  height: auto;
   background-color: #b2d23e;
-  min-width: 120px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   border-radius: 4px;
@@ -93,7 +92,8 @@ const DropdownContent = styled.div`
     color: white;
     cursor: pointer;
     text-align: center;
-    height: 33px;
+    height: 40px; /* Increased height for larger dropdown items */
+    padding: 5px 0; /* Added padding for better spacing */
 
     &:hover {
       background-color: #99b93b;
@@ -108,9 +108,10 @@ const DropdownContent = styled.div`
 const SearchInput = styled.input`
   border: none;
   font-size: 16px;
-  width: 505px;
+  flex-grow: 1;
   color: #8c8c8c;
   font-family: "Pretendard-Regular";
+  padding: 8px;
   &:focus {
     outline: none;
   }
@@ -121,7 +122,6 @@ const SearchButton = styled.button`
   background-color: #b2d23e;
   font-family: "Pretendard-Regular";
   border: none;
-  width: 111px;
   height: 38px;
   cursor: pointer;
   color: white;
@@ -129,6 +129,7 @@ const SearchButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 12px;
 
   &:focus {
     outline: none;
@@ -140,7 +141,7 @@ const SearchButton = styled.button`
 `;
 
 const SearchIcon = styled.img`
-  margin-right: 3px;
+  margin-left: 8px;
 `;
 
 const UserContainer = styled.div`
@@ -219,8 +220,7 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    // 로그아웃 로직 추가 (지금은 로컬 스토리지에서 토큰 삭제로 대체)
-    localStorage.removeItem("token"); // 백엔드와 연결하기
+    localStorage.removeItem("token");
     navigate("/");
   };
 
@@ -238,8 +238,6 @@ const Header = () => {
       </UserContainer>
       <HeaderContainer>
         <Logo onClick={handleLogoClick}>
-          {" "}
-          {/* Logo 클릭 시 이동 */}
           <LogoImage src={logo} alt="Logo" />
           <Title>MEDIC</Title>
         </Logo>
