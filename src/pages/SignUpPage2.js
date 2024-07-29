@@ -95,7 +95,7 @@ const SignUpPage2 = () => {
   }, []);
 
   const goLoginPage = () => {
-    navigate("/Medic/LoginPage");
+    navigate("/");
   };
 
   return (

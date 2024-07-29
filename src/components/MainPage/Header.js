@@ -212,7 +212,7 @@ const Header = () => {
   const handleLogout = () => {
     // 로그아웃 로직 추가 (지금은 로컬 스토리지에서 토큰 삭제로 대체)
     localStorage.removeItem("token"); // 백엔드와 연결하기
-    navigate("/Medic/LoginPage");
+    navigate("/");
   };
 
   const handleLogoClick = () => {
