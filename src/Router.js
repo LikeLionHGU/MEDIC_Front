@@ -9,6 +9,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import HashtagPage from "./pages/HashtagPage";
 import CertificatePage from "./pages/CertificatePage";
 import RelatedPage from "./pages/RelatedPage";
+import SearchPage from "./pages/SearchPage";
 
 export default function Router() {
   return (
@@ -27,6 +28,7 @@ export default function Router() {
         <Route path="Medic/HashtagPage" element={<HashtagPage />} />
         <Route path="Medic/CertificatePage" element={<CertificatePage />} />
         <Route path="Medic/RelatedPage" element={<RelatedPage />} />
+        <Route path="Medic/SearchPage" element={<SearchPage />} />
       </Routes>
     </BrowserRouter>
   );

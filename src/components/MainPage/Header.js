@@ -191,6 +191,7 @@ const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("제품");
   const [userNickname, setUserNickname] = useState("건강이");
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -226,6 +227,10 @@ const Header = () => {
     navigate("/Medic");
   };
 
+  const handleSearch = () => {
+    navigate(`/Medic/SearchPage?query=${encodeURIComponent(searchQuery)}`);
+  };
+
   return (
     <>
       <UserContainer>
@@ -250,8 +255,13 @@ const Header = () => {
               <div onClick={() => selectOption("기능")}>기능</div>
             </DropdownContent>
           </Dropdown>
-          <SearchInput type="text" placeholder="검색어를 입력하세요" />
-          <SearchButton>
+          <SearchInput
+            type="text"
+            placeholder="검색어를 입력하세요"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <SearchButton onClick={handleSearch}>
             <SearchIcon src={search} alt="search icon" />
             검색하기
           </SearchButton>
