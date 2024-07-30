@@ -276,6 +276,7 @@ const Discount = styled.div`
 const SearchPage = () => {
   const [products, setProducts] = useState(dummyProducts);
   const [hoveredProduct, setHoveredProduct] = useState(null);
+  const [searchOption, setSearchOption] = useState("제품"); // default search option
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -309,13 +310,20 @@ const SearchPage = () => {
 
   const searchQuery = getQueryParams().get("query") || "";
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+    if (searchOption === "제품") {
+      return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    } else if (searchOption === "기능") {
+      return product.healthTags.some((tag) =>
+        tag.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    return false;
+  });
 
   return (
     <>
-      <Header />
+      <Header onSearchOptionChange={setSearchOption} />
       <ButtonContatiner>
         <Button1 onClick={() => handleFilter("review")}>리뷰 많은순</Button1>
         <Button onClick={() => handleFilter("highPrice")}>가격 높은순</Button>

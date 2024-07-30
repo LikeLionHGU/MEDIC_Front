@@ -187,7 +187,7 @@ const LogoutButton = styled.button`
   }
 `;
 
-const Header = () => {
+const Header = ({ onSearchOptionChange }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("제품");
   const [userNickname, setUserNickname] = useState("건강이");
@@ -216,6 +216,7 @@ const Header = () => {
   const selectOption = (option) => {
     setSelectedOption(option);
     setDropdownOpen(false);
+    onSearchOptionChange(option); // Pass the selected option to the parent component
   };
 
   const handleLogout = () => {
