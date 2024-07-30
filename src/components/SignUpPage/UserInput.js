@@ -33,10 +33,10 @@ const UserInput2 = ({
     <Input
       type={type}
       placeholder={placeholder}
-      onChange={onChange}
       value={value}
       name={name}
       isInvalid={isInvalid}
+      onChange={onChange}
     />
   );
 };

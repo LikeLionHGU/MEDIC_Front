@@ -14,29 +14,29 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   overflow: auto;
 `;
 
 const Logo = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px; /* Add some margin to the bottom */
+  margin-bottom: 20px;
 `;
+
 const LogoImage = styled.img`
   width: 45px;
   height: 52px;
   margin-right: 4px;
-  /* margin-bottom: 39.26px; */
   margin-top: 32px;
 `;
+
 const Title = styled.div`
   color: #b2d23e;
   font-family: "GongGothicMedium";
   font-size: 50.26px;
   margin-top: 40px;
-  /* margin-bottom: 34.26px; */
 `;
+
 const Email = styled.div`
   font-family: "Pretendard-Regular";
   color: ${({ isInvalid }) => (isInvalid ? "#E45D5D" : "black")};
@@ -54,6 +54,7 @@ const GEmail = styled.div`
   margin-bottom: 6px;
   margin-top: 20.24px;
 `;
+
 const UserFrame = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,6 +64,7 @@ const UserFrame = styled.div`
   font-size: 14px;
   font-family: "Pretendard-Regular";
 `;
+
 const ErrorMessage = styled.div`
   width: 570px;
   margin-top: 3px;
@@ -83,6 +85,7 @@ const Error = styled.div`
   margin-bottom: 7px;
   color: #a1a1a1;
 `;
+
 const ArrowImage = styled.img`
   position: absolute;
   top: 11px;
@@ -130,6 +133,7 @@ const HashtagInput = styled.input`
     }
   }
 `;
+
 const DropDownList = styled.ul`
   border: 1px solid #b2d23e;
   border-radius: 7.5px;
@@ -175,6 +179,7 @@ const DrugInUseList = styled.ul`
   width: 578px;
   padding: 0;
 `;
+
 const SupplementItem = styled.li`
   background-color: #fff;
   border-radius: 7.5px;
@@ -294,7 +299,6 @@ const SignUpPage = () => {
       }
       return { ...userInfo, drugInUse: newdrugInUse };
     });
-    // setIsOpenSupplement(false); // 클릭 시 닫히는 부분을 제거
   };
 
   const handleSupplementInputClick = (e) => {
@@ -340,13 +344,21 @@ const SignUpPage = () => {
   const checkEmailExists = async (userEmail) => {
     try {
       const response = await fetch(
-        `/auth/sign-up/validation?userEmail=${userEmail}`,
+        `${process.env.REACT_APP_API_BASE_URL}/auth/sign-up/validation?userEmail=${userEmail}`,
         {
           method: "GET",
+          credentials: "include",
         }
       );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
       const data = await response.json();
-      setEmailExists(!data.success);
+      if (data.success) {
+        setEmailExists(false);
+      } else {
+        setEmailExists(true);
+      }
     } catch (error) {
       console.error("Error checking email:", error);
     }
@@ -409,7 +421,7 @@ const SignUpPage = () => {
 
   const isInvalidNickname =
     nicknameTouched &&
-    (userInfo.userNickname.length > 4 || userInfo.userNickname.length === 0);
+    (userInfo.userNickname.length > 20 || userInfo.userNickname.length === 0);
 
   const isInvalidBirthday =
     birthdayTouched &&
@@ -431,8 +443,8 @@ const SignUpPage = () => {
 
   const navigate = useNavigate();
 
-  const loginProcess = () => {
-    fetch("/auth/sign-up", {
+  const signUpProcess = () => {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/sign-up`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -447,12 +459,25 @@ const SignUpPage = () => {
         drugInUse: userInfo.drugInUse,
       }),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then((data) => {
-        if (data.message === "SIGNUP SUCCESS") {
+        if (data.success) {
           localStorage.setItem("token", data.message);
           navigate("/medic/SignUpPage2");
+        } else {
+          alert("가입에 실패했습니다. 다시 시도해 주세요.");
         }
+      })
+      .catch((error) => {
+        console.error("Sign up error:", error);
+        console.log("API BASE URL:", process.env.REACT_APP_API_BASE_URL);
+
+        alert("가입 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
       });
   };
 
@@ -472,6 +497,7 @@ const SignUpPage = () => {
           value={userInfo.userEmail}
           name="userEmail"
           isInvalid={isInvalidEmail}
+          onChange={handleInputChange}
         />
         <ErrorMessage
           isInvalid={isInvalidEmail}
@@ -490,6 +516,7 @@ const SignUpPage = () => {
           value={userInfo.userPassword}
           name="userPassword"
           isInvalid={isInvalidPassword}
+          onChange={handleInputChange}
         />
 
         <ErrorMessage
@@ -502,27 +529,29 @@ const SignUpPage = () => {
 
         <Email isInvalid={isInvalidNickname}>닉네임</Email>
         <UserInput2
-          type="nickname"
+          type="text"
           placeholder=""
           value={userInfo.userNickname}
           name="userNickname"
           isInvalid={isInvalidNickname}
+          onChange={handleInputChange}
         />
         <ErrorMessage
           isInvalid={isInvalidNickname}
           touched={nicknameTouched}
           isVisible={isInvalidNickname || !nicknameTouched}
         >
-          최대 4글자로 입력해주세요.
+          최대 20글자로 입력해주세요.
         </ErrorMessage>
 
         <Email isInvalid={isInvalidBirthday}>생년월일</Email>
         <UserInput2
-          type="birthday"
+          type="text"
           placeholder=""
           value={userInfo.birthYear}
           name="birthYear"
           isInvalid={isInvalidBirthday}
+          onChange={handleInputChange}
         />
 
         <ErrorMessage
@@ -646,7 +675,7 @@ const SignUpPage = () => {
         </TagContainer>
         <SignUpButton
           onClick={() => {
-            loginProcess();
+            signUpProcess();
           }}
           text="가입하기"
           disabled={!isValid}

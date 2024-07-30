@@ -19,6 +19,60 @@ const Mark = styled.img`
   margin-bottom: 62px;
 `;
 
+const Modal = styled.div`
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background-color: rgba(132, 155, 45, 0.9);
+  padding: 19px 25px 16px 26px;
+  border-radius: 10px;
+  z-index: 1000;
+  width: 235px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ModalTriangle = styled.div`
+  position: absolute;
+  bottom: -19px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 20px solid rgba(132, 155, 45, 0.9);
+`;
+
+const ModalContent = styled.div`
+  color: white;
+  font-family: "Pretendard";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
+  text-align: center;
+`;
+
+const ModalButton = styled.button`
+  background-color: transparent;
+  color: #fff;
+  border-radius: 15px;
+  border: 0.8px solid #fff;
+  padding: 8px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-family: "Pretendard-Regular";
+  font-size: 11px;
+`;
+
+const PharmacistContainer = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
 const Pharmacist = styled.button`
   display: inline-flex;
   height: 33px;
@@ -149,6 +203,7 @@ const Detail = () => {
     ],
   });
   const [showModal, setShowModal] = useState(false);
+  const [showModal2, setShowModal2] = useState(true);
 
   // useEffect(() => {
   //   const fetchProductData = async () => {
@@ -172,14 +227,29 @@ const Detail = () => {
     setShowModal(false);
   };
 
+  const handleModalClose = () => {
+    setShowModal2(false);
+  };
+
   return (
     <>
       <Img1 src={img1} alt="Detail Image" />
       <Mark src={mark} alt="Mark" />
-      <Pharmacist onClick={handlePharmacistClick}>
-        약사 소견 보러가기
-        <SearchIcon src={search} alt="search" />
-      </Pharmacist>
+      <PharmacistContainer>
+        <Pharmacist onClick={handlePharmacistClick}>
+          약사 소견 보러가기
+          <SearchIcon src={search} alt="search" />
+        </Pharmacist>
+        {showModal2 && (
+          <Modal>
+            <ModalContent>
+              해당 제품의 인증을 담당한 약사의 정보와 소견을 살펴보세요
+            </ModalContent>
+            <ModalButton onClick={handleModalClose}>확인</ModalButton>
+            <ModalTriangle />
+          </Modal>
+        )}
+      </PharmacistContainer>
       <ProductDetailContainer>
         <Img2 src={img2} alt="Detail Image" />
         <ProductDetailText>제품 상세정보</ProductDetailText>

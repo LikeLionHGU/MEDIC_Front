@@ -38,6 +38,7 @@ const Logo = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
 `;
 
 const InnerTitle = styled.div`
@@ -135,6 +136,12 @@ const Img = styled.img`
   margin-left: 5px;
 `;
 
+const ButtonContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+
 const Button = styled.button`
   margin-top: 61px;
   padding: 8px 12px;
@@ -148,6 +155,8 @@ const Button = styled.button`
   height: 33px;
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 1;
 
   &:hover {
     color: #b2d23e;
@@ -211,10 +220,60 @@ const ProductPrice = styled.div`
   margin-top: 5px;
 `;
 
+const Modal = styled.div`
+  position: absolute;
+  bottom: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(132, 155, 45, 0.9);
+  padding: 19px 25px 16px 26px;
+  border-radius: 10px;
+  z-index: 1000;
+  width: 235px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ModalTriangle = styled.div`
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 20px solid rgba(132, 155, 45, 0.9);
+`;
+
+const ModalContent = styled.div`
+  color: white;
+  font-family: "Pretendard";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: normal;
+  text-align: center;
+`;
+
+const ModalButton = styled.button`
+  background-color: transparent;
+  color: #fff;
+  border-radius: 15px;
+  border: 0.8px solid #fff;
+  padding: 8px 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-family: "Pretendard-Regular";
+  font-size: 11px;
+`;
+
 const HashtagSelect = () => {
   const navigate = useNavigate();
   const [selectedTags, setSelectedTags] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const [showModal, setShowModal] = useState(true);
 
   const tags = [
     "관절/뼈 건강",
@@ -265,6 +324,10 @@ const HashtagSelect = () => {
       });
   };
 
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
   return (
     <>
       <Title>#맞춤형 건강해시태그</Title>
@@ -276,10 +339,26 @@ const HashtagSelect = () => {
               <InnerTitle style={{ marginRight: "21px" }}>
                 건강 맞춤형 해시태그
               </InnerTitle>
-              <Button onClick={() => navigate("/Medic/HashtagPage")}>
-                해시태그 알아보기
-                <Img src={search} alt="search icon" style={{ width: "19px" }} />
-              </Button>
+              <ButtonContainer>
+                {showModal && (
+                  <Modal>
+                    <ModalContent>
+                      해시태그별 상세정보를 읽고 나에게 필요한
+                      <br /> 건강기능식품을 알아보세요
+                    </ModalContent>
+                    <ModalButton onClick={handleModalClose}>확인</ModalButton>
+                    <ModalTriangle />
+                  </Modal>
+                )}
+                <Button onClick={() => navigate("/Medic/HashtagPage")}>
+                  해시태그 알아보기
+                  <Img
+                    src={search}
+                    alt="search icon"
+                    style={{ width: "19px" }}
+                  />
+                </Button>
+              </ButtonContainer>
             </Logo>
             <TagBox>
               {tags.slice(0, 5).map((tag) => (

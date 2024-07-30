@@ -145,12 +145,12 @@ const LoginPage = () => {
     userPassword: "",
   });
 
-  const [userEmailTouched, setuserEmailTouched] = useState(false);
-  const [userPasswordTouched, setuserPasswordTouched] = useState(false);
+  const [userEmailTouched, setUserEmailTouched] = useState(false);
+  const [userPasswordTouched, setUserPasswordTouched] = useState(false);
 
   useEffect(() => {
-    setuserEmailTouched(false);
-    setuserPasswordTouched(false);
+    setUserEmailTouched(false);
+    setUserPasswordTouched(false);
   }, []);
 
   const handleInputChange = (event) => {
@@ -160,23 +160,23 @@ const LoginPage = () => {
       [name]: value,
     }));
 
-    if (name === "userEmail") setuserEmailTouched(true);
-    if (name === "userPassword") setuserPasswordTouched(true);
+    if (name === "userEmail") setUserEmailTouched(true);
+    if (name === "userPassword") setUserPasswordTouched(true);
   };
 
-  const isInvaliduserEmail =
+  const isInvalidUserEmail =
     userEmailTouched &&
     (!userInfo.userEmail.includes("@") || !userInfo.userEmail.includes("."));
-  const isInvaliduserPassword =
+  const isInvalidUserPassword =
     userPasswordTouched &&
     (userInfo.userPassword.length < 8 ||
       !/[a-zA-Z]/.test(userInfo.userPassword) ||
       !/[0-9]/.test(userInfo.userPassword));
 
-  const isValiduserEmail = !isInvaliduserEmail && userEmailTouched;
-  const isValiduserPassword = !isInvaliduserPassword && userPasswordTouched;
+  const isValidUserEmail = !isInvalidUserEmail && userEmailTouched;
+  const isValidUserPassword = !isInvalidUserPassword && userPasswordTouched;
 
-  const isValid = isValiduserEmail && isValiduserPassword;
+  const isValid = isValidUserEmail && isValidUserPassword;
 
   const navigate = useNavigate();
 
@@ -210,11 +210,11 @@ const LoginPage = () => {
       })
       .then((data) => {
         console.log("Response data:", data);
-        if (data.success) {
+        if (data.isSuccessful) {
           localStorage.setItem("userEmail", userInfo.userEmail);
           navigate("/main");
         } else {
-          alert("가입되지 않은 정보입니다.");
+          alert(data.message || "가입되지 않은 정보입니다.");
         }
       })
       .catch((error) => {
@@ -247,9 +247,9 @@ const LoginPage = () => {
           name="userEmail"
         />
         <ErrorMessage
-          isInvalid={isInvaliduserEmail}
+          isInvalid={isInvalidUserEmail}
           touched={userEmailTouched}
-          isVisible={isInvaliduserEmail || !userEmailTouched}
+          isVisible={isInvalidUserEmail || !userEmailTouched}
         >
           이메일 주소를 입력해주세요.
         </ErrorMessage>
@@ -261,9 +261,9 @@ const LoginPage = () => {
           name="userPassword"
         />
         <ErrorMessage
-          isInvalid={isInvaliduserPassword}
+          isInvalid={isInvalidUserPassword}
           touched={userPasswordTouched}
-          isVisible={isInvaliduserPassword || !userPasswordTouched}
+          isVisible={isInvalidUserPassword || !userPasswordTouched}
         >
           영문, 숫자 포함 8자 이상으로 입력해주세요.
         </ErrorMessage>

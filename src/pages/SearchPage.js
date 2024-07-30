@@ -40,25 +40,25 @@ const dummyProducts = [
     name: "더좋은 면역 베타글루칸",
     originalPrice: 40000,
     discountPrice: 30000,
-    healthTags: ["#면역기능개선"],
+    healthTags: ["#면역기능개선", "#피부건강"],
     reviewCount: 95,
     imageUrl: img3,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440003",
-    name: "한달이면 반나바 퍼펙트케어",
+    name: "혈당엔 바나바 퍼펙트케어",
     originalPrice: 30000,
     discountPrice: 22000,
-    healthTags: ["#간기능개선"],
+    healthTags: ["#혈당 조절"],
     reviewCount: 75,
     imageUrl: img4,
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440004",
-    name: "반다요",
+    name: "뺀다요",
     originalPrice: 32000,
     discountPrice: 21000,
-    healthTags: ["#체중조절"],
+    healthTags: ["#체지방 감소", "#운동수행능력"],
     reviewCount: 60,
     imageUrl: img5,
   },
@@ -67,7 +67,7 @@ const dummyProducts = [
     name: "맥스컷 다이어트 부스터3.1",
     originalPrice: 50000,
     discountPrice: 40000,
-    healthTags: ["#체중조절"],
+    healthTags: ["#체지방 감소"],
     reviewCount: 110,
     imageUrl: img6,
   },
@@ -82,7 +82,7 @@ const dummyProducts = [
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440007",
-    name: "오늘은 것",
+    name: "오늘은 컷",
     originalPrice: 42000,
     discountPrice: 32000,
     healthTags: ["#체중조절"],
@@ -91,10 +91,10 @@ const dummyProducts = [
   },
   {
     productId: "550e8400-e29b-41d4-a716-446655440008",
-    name: "콜레스펌",
+    name: "콜레스홈런",
     originalPrice: 22000,
     discountPrice: 12000,
-    healthTags: ["#간기능개선"],
+    healthTags: ["#면역기능개선"],
     reviewCount: 90,
     imageUrl: img9,
   },
@@ -121,7 +121,7 @@ const dummyProducts = [
     name: "당 편한 세상",
     originalPrice: 22000,
     discountPrice: 15000,
-    healthTags: ["#혈당조절"],
+    healthTags: ["#관절/뼈 건강"],
     reviewCount: 100,
     imageUrl: img12,
   },
@@ -276,7 +276,7 @@ const Discount = styled.div`
 const SearchPage = () => {
   const [products, setProducts] = useState(dummyProducts);
   const [hoveredProduct, setHoveredProduct] = useState(null);
-  const [searchOption, setSearchOption] = useState("제품"); // default search option
+  const [searchOption, setSearchOption] = useState("제품");
   const navigate = useNavigate();
   const location = useLocation();
 

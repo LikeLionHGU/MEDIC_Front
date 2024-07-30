@@ -38,7 +38,7 @@ const dummyProducts = [
 
 const Modal = styled.div`
   position: fixed;
-  top: 130px;
+  top: 100px;
   right: 62px;
   width: 177px;
   max-height: 434px;
