@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import img from "../../img/Hashtag.png";
 import search from "../../img/searchh.svg";
+import search2 from "../../img/greensearch.svg";
 
 const Title = styled.div`
   font-family: "KIMM_Light";
@@ -131,7 +132,7 @@ const MoreTag = styled.div`
 `;
 
 const Img = styled.img`
-  margin-left: 8px;
+  margin-left: 5px;
 `;
 
 const Button = styled.button`
@@ -147,6 +148,16 @@ const Button = styled.button`
   height: 33px;
   display: flex;
   align-items: center;
+
+  &:hover {
+    color: #b2d23e;
+    border: 1px solid #b2d23e;
+
+    img {
+      content: url(${search2});
+      width: 17px;
+    }
+  }
 `;
 
 const Button2 = styled.button`
@@ -267,7 +278,7 @@ const HashtagSelect = () => {
               </InnerTitle>
               <Button onClick={() => navigate("/Medic/HashtagPage")}>
                 해시태그 알아보기
-                <Img src={search} alt="search icon" />
+                <Img src={search} alt="search icon" style={{ width: "19px" }} />
               </Button>
             </Logo>
             <TagBox>

@@ -5,6 +5,7 @@ import product1 from "../../img/product1.png";
 import product2 from "../../img/product2.png";
 import product3 from "../../img/product3.png";
 import cart from "../../img/cart2.svg";
+import cart2 from "../../img/greencart.svg";
 import { useNavigate } from "react-router-dom";
 
 const Div = styled.div`
@@ -115,6 +116,16 @@ const GoContainer = styled.button`
   margin-left: 30px;
   background-color: transparent;
   color: #8c8c8c;
+
+  &:hover {
+    color: #b2d23e;
+    border: 1px solid #b2d23e;
+
+    img {
+      content: url(${cart2});
+      width: 17px;
+    }
+  }
 `;
 
 const Img = styled.img`
