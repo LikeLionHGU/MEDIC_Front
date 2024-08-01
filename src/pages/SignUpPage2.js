@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LoginButton from "../components/SignUpPage2/LoginButton";
 import backgroundImage from "../img/SignUpPage.png";
-import logo from "../img/Logo.svg";
+import logo from "../img/logo.svg";
 
 const Container = styled.div`
   position: fixed;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import UserInput from "../components/LoginPage/UserInput";
 import LoginButton from "../components/LoginPage/LoginButton";
 import backgroundImage from "../img/LoginPage.png";
-import logo from "../img/Logo.svg";
+import logo from "../img/logo.svg";
 
 const Container = styled.div`
   position: fixed;
