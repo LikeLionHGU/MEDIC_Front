@@ -1,40 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import img1 from "../../img/1.png";
-import img2 from "../../img/2.png";
-import img3 from "../../img/3.png";
-
-const dummyUser = {
-  nickname: "건강이",
-};
-
-const dummyProducts = [
-  {
-    productId: "1",
-    name: "맥스컷 다이어트 부스터3",
-    originalPrice: 59000,
-    discountPrice: 40000,
-    healthTags: ["#체중조절"],
-    imageUrl: img1,
-  },
-  {
-    productId: "2",
-    name: "오늘은 잇",
-    originalPrice: 42000,
-    discountPrice: 32000,
-    healthTags: ["#면역기능개선", "#기억력개선"],
-    imageUrl: img2,
-  },
-  {
-    productId: "3",
-    name: "절대강자 바나바 퍼펙트케어",
-    originalPrice: 32000,
-    discountPrice: 22000,
-    healthTags: ["#간기능개선"],
-    imageUrl: img3,
-  },
-];
+import closeIcon from "../../img/goOut.svg";
 
 const Modal = styled.div`
   position: fixed;
@@ -193,6 +160,31 @@ const TagContainer = styled.div`
 
 const EffectiveProduct = () => {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/products/recommend`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUserName(data.userName);
+        setRecommendedProducts(data.recommendedProducts);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the data:", error);
+      });
+  }, []);
 
   const closeModal = () => {
     document.getElementById("modal").style.display = "none";
@@ -207,29 +199,29 @@ const EffectiveProduct = () => {
       <CloseButton onClick={closeModal}>&times;</CloseButton>
       <Header>
         <TitleContainer>
-          <User>{dummyUser.nickname}</User>
+          <User>{userName}</User>
           <Title>님이 복용중인 제품과</Title>
         </TitleContainer>
         <Subtitle>효과적인 추천 상품</Subtitle>
       </Header>
       <ProductContainer>
-        {dummyProducts.map((product, index) => (
-          <Product
-            key={index}
-            onClick={() => handleProductClick(product.productId)}
-          >
-            <ProductImage src={product.imageUrl} alt={product.name} />
+        {recommendedProducts.map((product, index) => (
+          <Product key={index} onClick={() => handleProductClick(product.id)}>
+            <ProductImage
+              src={`${process.env.REACT_APP_API_BASE_URL}/images/${product.imageUrl}`}
+              alt={product.name}
+            />
             <ProductName>{product.name}</ProductName>
             <ProductDetails>
               <ProductPrice>
-                {product.originalPrice.toLocaleString()}원
+                {product.normalPrice.toLocaleString()}원
               </ProductPrice>
               <ProductDiscountPrice>
-                {product.discountPrice.toLocaleString()}원
+                {product.salePrice.toLocaleString()}원
               </ProductDiscountPrice>
               <TagContainer>
-                {product.healthTags.map((tag, tagIndex) => (
-                  <Tag key={tagIndex}>{tag}</Tag>
+                {product.tag.split(", ").map((tag, tagIndex) => (
+                  <Tag key={tagIndex}>#{tag}</Tag>
                 ))}
               </TagContainer>
             </ProductDetails>

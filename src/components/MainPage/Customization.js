@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// import axios from "axios";
 import img from "../../img/Rectangle 5169.png";
-import hongsam from "../../img/hongsam.png";
 
 const Title = styled.div`
   font-family: "KIMM_Light";
@@ -119,92 +117,38 @@ const Arrow = styled.div`
 `;
 
 const Customization = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // const userEmail = localStorage.getItem("userEmail");
-
-    // if (!userEmail) {
-    //   console.warn(
-    //     "No user email found in local storage. Using default email for testing."
-    //   );
-    // }
-
-    // axios
-    //   .get(`/api/user/main?userEmail=${userEmail}`)
-    //   .then((response) => {
-    //     if (response.data.success) {
-    //       setData(response.data.data);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("There was an error fetching the data:", error);
-    //   });
-    // }, []);
-
-    const mockData = {
-      selectedHealthTags: ["기억력 개선", "혈당조절", "수면질개선"],
-      recommendedProducts: [
-        {
-          productId: 1,
-          productName: "상품A",
-          healthTags: ["혈당조절"],
-          image: hongsam,
-          price: "29,990",
-        },
-        {
-          productId: 2,
-          productName: "상품B",
-          healthTags: ["혈당조절"],
-          image: hongsam,
-          price: "19,990",
-        },
-        {
-          productId: 3,
-          productName: "상품C",
-          healthTags: ["수면질개선"],
-          image: hongsam,
-          price: "25,990",
-        },
-        {
-          productId: 4,
-          productName: "상품D",
-          healthTags: ["수면질개선"],
-          image: hongsam,
-          price: "23,990",
-        },
-        {
-          productId: 5,
-          productName: "상품G",
-          healthTags: ["기억력 개선"],
-          image: hongsam,
-          price: "27,990",
-        },
-        {
-          productId: 6,
-          productName: "상품H",
-          healthTags: ["기억력 개선"],
-          image: hongsam,
-          price: "24,990",
-        },
-      ],
-    };
-    setData(mockData);
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/products/custom`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setData(data);
+        } else {
+          console.error("Unexpected response format:", data);
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the data:", error);
+      });
   }, []);
 
-  if (!data) {
+  if (!data.length) {
     return <div>Loading...</div>;
   }
-
-  const { selectedHealthTags, recommendedProducts } = data;
-
-  const slides = selectedHealthTags.flatMap((tag) =>
-    recommendedProducts
-      .filter((product) => product.healthTags.includes(tag))
-      .slice(0, 2)
-      .map((product) => ({ ...product, tag }))
-  );
 
   const settings = {
     dots: true,
@@ -224,24 +168,26 @@ const Customization = () => {
     <>
       <Title>#나의건강해시태그 맞춤추천 상품</Title>
       <Subtitle>
-        {selectedHealthTags.map((tag, index) => (
-          <span key={index}>#{tag} </span>
+        {data.map((product) => (
+          <span key={product.id}>#{product.tag} </span>
         ))}
       </Subtitle>
       <CarouselContainer>
         <Slider {...settings}>
-          {slides.map((slide, index) => (
+          {data.map((product, index) => (
             <Slide
-              key={`${slide.tag}-${slide.productId}`}
-              bgImage={slide.image}
+              key={index}
+              bgImage={`${process.env.REACT_APP_API_BASE_URL}/images/${product.imageUrl}`}
             >
               <OverlayImage src={img} alt="Overlay" />
               <ProductInfo>
-                <Product>#{slide.productName}</Product>
-                <Product>#{slide.price}원</Product>
-                <Product>#{slide.tag}</Product>
+                <Product>#{product.name}</Product>
+                <Product>정상가격: {product.normalPrice}원</Product>
+                <Product>판매가격: {product.salePrice}원</Product>
+                <Product>리뷰개수: {product.reviewCnt}</Product>
+                <Product>#{product.tag}</Product>
               </ProductInfo>
-              <More onClick={() => handleMoreClick(slide.productId)}>
+              <More onClick={() => handleMoreClick(product.id)}>
                 더보기&nbsp;&nbsp;<Arrow>→</Arrow>
               </More>
             </Slide>

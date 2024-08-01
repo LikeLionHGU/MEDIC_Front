@@ -190,7 +190,7 @@ const LogoutButton = styled.button`
 const Header = ({ onSearchOptionChange }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("제품");
-  const [userNickname, setUserNickname] = useState("건강이");
+  const [userNickname, setUserNickname] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
@@ -216,12 +216,36 @@ const Header = ({ onSearchOptionChange }) => {
   const selectOption = (option) => {
     setSelectedOption(option);
     setDropdownOpen(false);
-    onSearchOptionChange(option); // Pass the selected option to the parent component
+    onSearchOptionChange(option);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/logout`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        localStorage.removeItem("token");
+        navigate("/");
+      } else {
+        console.error("Failed to logout");
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   const handleLogoClick = () => {

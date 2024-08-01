@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-// import axios from "axios";
 import star from "../../img/star.svg";
 import good from "../../img/good.svg";
 
@@ -228,72 +227,26 @@ const Review = ({ productId }) => {
   const filterDropdownRef = useRef(null);
 
   useEffect(() => {
-    // Fetch reviews from API
-    // const fetchReviews = async () => {
-    //   try {
-    //     const response = await axios.get(
-    //       `/products/detail/${productId}/reviews`
-    //     );
-    //     setReviews(response.data.filteredReviews);
-    //   } catch (error) {
-    //     console.error("Error fetching reviews:", error);
-    //   }
-    // };
-    // fetchReviews();
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/api/products/${productId}`,
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await response.json();
+        setReviews(data.reviews);
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
 
-    // Using dummy data for now
-    setReviews([
-      {
-        nickname: "건강한삶",
-        gender: "여성",
-        ageGroup: 30,
-        rating: 5,
-        reviewContent: "정말 효과가 좋아요!",
-        purchaseDate: "2023-01-10",
-        reviewDate: "2023-01-15",
-        likes: 15,
-      },
-      {
-        nickname: "활기찬청춘",
-        gender: "남성",
-        ageGroup: 40,
-        rating: 4,
-        reviewContent: "약간의 효과는 있는 것 같아요.",
-        purchaseDate: "2023-02-05",
-        reviewDate: "2023-02-10",
-        likes: 8,
-      },
-      {
-        nickname: "리얼핵",
-        gender: "여성",
-        ageGroup: 60,
-        rating: 3,
-        reviewContent: "아직은 잘 모르겠어요.",
-        purchaseDate: "2023-03-12",
-        reviewDate: "2023-03-20",
-        likes: 5,
-      },
-      {
-        nickname: "운동매니아",
-        gender: "남성",
-        ageGroup: 20,
-        rating: 4,
-        reviewContent: "운동 후에 먹으면 좋습니다.",
-        purchaseDate: "2023-04-01",
-        reviewDate: "2023-04-07",
-        likes: 10,
-      },
-      {
-        nickname: "건강챙기기",
-        gender: "여성",
-        ageGroup: 50,
-        rating: 5,
-        reviewContent: "꾸준히 먹어야 효과를 볼 수 있는 것 같아요.",
-        purchaseDate: "2023-05-18",
-        reviewDate: "2023-05-25",
-        likes: 20,
-      },
-    ]);
+    fetchReviews();
   }, [productId]);
 
   useEffect(() => {
@@ -339,17 +292,17 @@ const Review = ({ productId }) => {
 
   const filteredReviews = reviews.filter((review) => {
     if (appliedAgeGroup && appliedAgeGroup !== "전체") {
-      return review.ageGroup === appliedAgeGroup;
+      return review.ageRange === appliedAgeGroup;
     }
     return true;
   });
 
   const sortedReviews = sortByLikes
-    ? [...filteredReviews].sort((a, b) => b.likes - a.likes)
+    ? [...filteredReviews].sort((a, b) => b.likeCnt - a.likeCnt)
     : filteredReviews;
 
   const averageRating =
-    reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+    reviews.reduce((acc, review) => acc + review.star, 0) / reviews.length;
 
   return (
     <Container>
@@ -384,46 +337,46 @@ const Review = ({ productId }) => {
                   전체
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === 10}
-                  onClick={() => selectAgeGroup(10)}
+                  isActive={selectedAgeGroup === "10대 미만"}
+                  onClick={() => selectAgeGroup("10대 미만")}
                 >
-                  10대 이하
+                  10대 미만
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === 20}
-                  onClick={() => selectAgeGroup(20)}
+                  isActive={selectedAgeGroup === "20대"}
+                  onClick={() => selectAgeGroup("20대")}
                 >
                   20대
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === 30}
-                  onClick={() => selectAgeGroup(30)}
+                  isActive={selectedAgeGroup === "30대"}
+                  onClick={() => selectAgeGroup("30대")}
                 >
                   30대
                 </FilterOption>
               </FilterOptionRow>
               <FilterOptionRow>
                 <FilterOption
-                  isActive={selectedAgeGroup === 40}
-                  onClick={() => selectAgeGroup(40)}
+                  isActive={selectedAgeGroup === "40대"}
+                  onClick={() => selectAgeGroup("40대")}
                 >
                   40대
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === 50}
-                  onClick={() => selectAgeGroup(50)}
+                  isActive={selectedAgeGroup === "50대"}
+                  onClick={() => selectAgeGroup("50대")}
                 >
                   50대
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === 60}
-                  onClick={() => selectAgeGroup(60)}
+                  isActive={selectedAgeGroup === "60대"}
+                  onClick={() => selectAgeGroup("60대")}
                 >
                   60대
                 </FilterOption>
                 <FilterOption
-                  isActive={selectedAgeGroup === 70}
-                  onClick={() => selectAgeGroup(70)}
+                  isActive={selectedAgeGroup === "70대 이상"}
+                  onClick={() => selectAgeGroup("70대 이상")}
                 >
                   70대 이상
                 </FilterOption>
@@ -438,7 +391,7 @@ const Review = ({ productId }) => {
           <ReviewItem>
             <ReviewerInfo>
               <ReviewerDetail>
-                {maskNickname(review.nickname)}
+                {maskNickname(review.userName)}
                 <ReviewerDetail2>님</ReviewerDetail2>
               </ReviewerDetail>
               <ReviewerDetail>
@@ -446,12 +399,12 @@ const Review = ({ productId }) => {
               </ReviewerDetail>
               <ReviewerDetail>
                 연령대 |&nbsp;
-                <ReviewerDetail2>{review.ageGroup}대</ReviewerDetail2>
+                <ReviewerDetail2>{review.ageRange}</ReviewerDetail2>
               </ReviewerDetail>
               <ReviewerDetail>
                 별점 |&nbsp;
                 <StarRating>
-                  {Array.from({ length: review.rating }, (_, i) => (
+                  {Array.from({ length: review.star }, (_, i) => (
                     <Star2 key={i} src={star} alt="star" />
                   ))}
                 </StarRating>
@@ -462,7 +415,7 @@ const Review = ({ productId }) => {
                 제품명 | {review.productName}
               </ReviewerDetail>
               <ReviewerDetail2 style={{ marginBottom: "78.13px" }}>
-                {review.reviewContent}
+                {review.contents}
               </ReviewerDetail2>
               <Div>
                 <ReviewerDetail>
@@ -479,7 +432,7 @@ const Review = ({ productId }) => {
             </ReviewContent>
             <LikeButton>
               <LikeIcon src={good}></LikeIcon>
-              {review.likes}
+              {review.likeCnt}
             </LikeButton>
           </ReviewItem>
         </ReviewList>

@@ -1,9 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import img from "../../img/Rectangle 5171.png";
-import product1 from "../../img/product1.png";
-import product2 from "../../img/product2.png";
-import product3 from "../../img/product3.png";
 import cart from "../../img/cart2.svg";
 import cart2 from "../../img/greencart.svg";
 import { useNavigate } from "react-router-dom";
@@ -132,32 +129,28 @@ const Img = styled.img`
   margin-left: 8px;
 `;
 
-const products = [
-  {
-    productId: 1,
-    image: product1,
-    title: "베타글루칸",
-    price: "32,000원",
-    feature: "기억력 개선",
-  },
-  {
-    productId: 2,
-    image: product2,
-    title: "기억력플러스",
-    price: "30,000원",
-    feature: "집중력 향상",
-  },
-  {
-    productId: 3,
-    image: product3,
-    title: "더 좋은 면역",
-    price: "28,000원",
-    feature: "면역력 증진",
-  },
-];
-
 const BestProducts = () => {
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/products/best`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => {
+        console.error("There was an error fetching the data:", error);
+      });
+  }, []);
 
   const goAllProduct = () => {
     navigate("/Medic/AllProductPage");
@@ -180,14 +173,19 @@ const BestProducts = () => {
       <ProductContainer>
         {products.map((product) => (
           <ProductCard
-            key={product.productId}
-            onClick={() => handleProductClick(product.productId)}
+            key={product.id}
+            onClick={() => handleProductClick(product.id)}
           >
-            <img src={product.image} alt={product.title} />
+            <img
+              src={`${process.env.REACT_APP_API_BASE_URL}/images/${product.imageUrl}`}
+              alt={product.name}
+            />
             <Overlay className="overlay">
-              <ProductTitle>#{product.title}</ProductTitle>
-              <ProductPrice>#{product.price}</ProductPrice>
-              <ProductFeature>#{product.feature}</ProductFeature>
+              <ProductTitle>#{product.name}</ProductTitle>
+              <ProductPrice>정상가격: {product.normalPrice}원</ProductPrice>
+              <ProductPrice>판매가격: {product.salePrice}원</ProductPrice>
+              <ProductFeature>리뷰개수: {product.reviewCnt}</ProductFeature>
+              <ProductFeature>#{product.tag}</ProductFeature>
             </Overlay>
           </ProductCard>
         ))}

@@ -294,24 +294,48 @@ const HashtagSelect = () => {
 
   const handleRemoveTag = (tag) => {
     setSelectedTags(selectedTags.filter((t) => t !== tag));
+
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/users/tags`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ tag }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log("Tag removed successfully:", data);
+          setRecommendedProducts(data.updatedTags);
+          alert("해시태그가 성공적으로 제거되었습니다!");
+        } else {
+          console.error("Failed to remove tag:", data.message);
+          alert("해시태그 제거에 실패했습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("해시태그 제거 중 오류가 발생했습니다.");
+      });
   };
 
   const handleSave = () => {
     const selectedHealthTags = selectedTags;
-    const userEmail = localStorage.getItem("userEmail");
 
-    fetch(`/api/user/health-tags?userEmail=${userEmail}`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/users/tags`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ selectedHealthTags }),
+      body: JSON.stringify({ tag: selectedHealthTags }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           console.log("Health tags updated successfully:", data);
-          setRecommendedProducts(data.data.recommendedProducts);
+          setRecommendedProducts(data.updatedTags);
           alert("해시태그가 성공적으로 저장되었습니다!");
         } else {
           console.error("Failed to update health tags:", data.message);

@@ -141,8 +141,8 @@ const ActionButton = styled.button`
 
 const LoginPage = () => {
   const [userInfo, setUserInfo] = useState({
-    userEmail: "",
-    userPassword: "",
+    email: "",
+    password: "",
   });
 
   const [userEmailTouched, setUserEmailTouched] = useState(false);
@@ -160,18 +160,18 @@ const LoginPage = () => {
       [name]: value,
     }));
 
-    if (name === "userEmail") setUserEmailTouched(true);
-    if (name === "userPassword") setUserPasswordTouched(true);
+    if (name === "email") setUserEmailTouched(true);
+    if (name === "password") setUserPasswordTouched(true);
   };
 
   const isInvalidUserEmail =
     userEmailTouched &&
-    (!userInfo.userEmail.includes("@") || !userInfo.userEmail.includes("."));
+    (!userInfo.email.includes("@") || !userInfo.email.includes("."));
   const isInvalidUserPassword =
     userPasswordTouched &&
-    (userInfo.userPassword.length < 8 ||
-      !/[a-zA-Z]/.test(userInfo.userPassword) ||
-      !/[0-9]/.test(userInfo.userPassword));
+    (userInfo.password.length < 8 ||
+      !/[a-zA-Z]/.test(userInfo.password) ||
+      !/[0-9]/.test(userInfo.password));
 
   const isValidUserEmail = !isInvalidUserEmail && userEmailTouched;
   const isValidUserPassword = !isInvalidUserPassword && userPasswordTouched;
@@ -185,21 +185,22 @@ const LoginPage = () => {
   };
 
   const loginProcess = () => {
-    const apiUrl = `${process.env.REACT_APP_BASE_URL}/auth/log-in`;
+    const apiUrl = `${process.env.REACT_APP_API_BASE_URL}/api/login`;
     console.log("Login attempt to URL:", apiUrl);
     console.log("Login attempt:", {
-      userEmail: userInfo.userEmail,
-      userPassword: userInfo.userPassword,
+      email: userInfo.email,
+      password: userInfo.password,
     });
 
     fetch(apiUrl, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify({
-        userEmail: userInfo.userEmail,
-        userPassword: userInfo.userPassword,
+        email: userInfo.email,
+        password: userInfo.password,
       }),
     })
       .then((response) => {
@@ -210,8 +211,8 @@ const LoginPage = () => {
       })
       .then((data) => {
         console.log("Response data:", data);
-        if (data.isSuccessful) {
-          localStorage.setItem("userEmail", userInfo.userEmail);
+        if (data.id) {
+          localStorage.setItem("userEmail", userInfo.email);
           navigate("/main");
         } else {
           alert(data.message || "가입되지 않은 정보입니다.");
@@ -243,8 +244,8 @@ const LoginPage = () => {
         <UserInput
           type="text"
           placeholder=""
-          value={userInfo.userEmail}
-          name="userEmail"
+          value={userInfo.email}
+          name="email"
         />
         <ErrorMessage
           isInvalid={isInvalidUserEmail}
@@ -257,8 +258,8 @@ const LoginPage = () => {
         <UserInput
           type="password"
           placeholder=""
-          value={userInfo.userPassword}
-          name="userPassword"
+          value={userInfo.password}
+          name="password"
         />
         <ErrorMessage
           isInvalid={isInvalidUserPassword}

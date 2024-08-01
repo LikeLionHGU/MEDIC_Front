@@ -251,11 +251,18 @@ const SignUpPage = () => {
   const [isGenderFocused, setIsGenderFocused] = useState(false);
   const [isHashtagFocused, setIsHashtagFocused] = useState(false);
 
-  // 이메일 중복 검사 상태
-  const [emailExists, setEmailExists] = useState(false);
-
   const genderList = ["남성", "여성"];
-  const supplementList = ["없음", "닥터 비타민D 2000IU", "밀크씨슬"];
+  const supplementList = [
+    "없음",
+    "관절솔루션 보스웰리아 7",
+    "굿바디 카르니틴 1000",
+    "세이헬스 녹차추출물",
+    "피부건강엔 N 실키어린 콜라겐",
+    "닥터 비타민 D 200IU",
+    "엑스트라 스트렝스 징코",
+    "베타 알라닌",
+    "내츄럴플러스 알티지 오메가3",
+  ];
   const hashtagList = [
     "피부건강",
     "혈당 조절",
@@ -341,29 +348,6 @@ const SignUpPage = () => {
     };
   }, [isOpenSupplement]);
 
-  const checkEmailExists = async (userEmail) => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/auth/sign-up/validation?userEmail=${userEmail}`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      if (data.success) {
-        setEmailExists(false);
-      } else {
-        setEmailExists(true);
-      }
-    } catch (error) {
-      console.error("Error checking email:", error);
-    }
-  };
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserInfo((userInfo) => ({
@@ -373,7 +357,6 @@ const SignUpPage = () => {
 
     if (name === "userEmail") {
       setEmailTouched(true);
-      checkEmailExists(value);
     }
     if (name === "userPassword") setPasswordTouched(true);
     if (name === "userNickname") setNicknameTouched(true);
@@ -409,9 +392,7 @@ const SignUpPage = () => {
 
   const isInvalidEmail =
     emailTouched &&
-    (!userInfo.userEmail.includes("@") ||
-      !userInfo.userEmail.includes(".") ||
-      emailExists);
+    (!userInfo.userEmail.includes("@") || !userInfo.userEmail.includes("."));
 
   const isInvalidPassword =
     passwordTouched &&
@@ -444,18 +425,19 @@ const SignUpPage = () => {
   const navigate = useNavigate();
 
   const signUpProcess = () => {
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/sign-up`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/signup`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify({
-        userEmail: userInfo.userEmail,
-        userPassword: userInfo.userPassword,
-        userNickname: userInfo.userNickname,
-        birthYear: userInfo.birthYear,
-        gender: userInfo.gender === "여성" ? true : false,
-        healthHashTag: userInfo.healthHashTag,
+        email: userInfo.userEmail,
+        password: userInfo.userPassword,
+        name: userInfo.userNickname,
+        birthDate: userInfo.birthYear,
+        genderType: userInfo.gender,
+        tagTypes: userInfo.healthHashTag,
         drugInUse: userInfo.drugInUse,
       }),
     })
@@ -504,9 +486,7 @@ const SignUpPage = () => {
           touched={emailTouched}
           isVisible={isInvalidEmail || !emailTouched}
         >
-          {emailExists
-            ? "이미 존재하는 이메일입니다."
-            : "이메일 형식으로 입력해주세요."}
+          이메일 형식으로 입력해주세요.
         </ErrorMessage>
 
         <Email isInvalid={isInvalidPassword}>비밀번호</Email>
