@@ -4,7 +4,6 @@ import styled from "styled-components";
 import LoginButton from "../components/SignUpPage2/LoginButton";
 import backgroundImage from "../img/SignUpPage.png";
 import logo from "../img/Logo.svg";
-import axios from "axios"; // axios를 사용하여 API 요청
 
 const Container = styled.div`
   position: fixed;
@@ -68,23 +67,28 @@ const WelcomeMessage = styled.div`
 `;
 
 const Nickname = styled.span`
-  color: #b2d23e; // 닉네임의 색상 설정
+  color: #b2d23e;
 `;
 
 const SignUpPage2 = () => {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState(""); // 닉네임을 초기 상태로 설정
+  const [nickname, setNickname] = useState("");
 
   useEffect(() => {
-    // 백엔드에서 닉네임을 가져오는 함수
     const fetchNickname = async () => {
       try {
-        const userEmail = localStorage.getItem("userEmail"); // 로컬 저장소에서 사용자 이메일 가져오기
-        const response = await axios.get(`/auth/sign-up/welcome/info`, {
-          params: { userEmail },
+        const userEmail = localStorage.getItem("userEmail");
+        const response = await fetch(`/api/signup`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          params: JSON.stringify({ userEmail }),
         });
-        if (response.data.success) {
-          setNickname(response.data.data.userNickname);
+        const data = await response.json();
+        if (data.success) {
+          setNickname(data.data.userNickname);
         }
       } catch (error) {
         console.error("Failed to fetch nickname:", error);
@@ -110,15 +114,11 @@ const SignUpPage2 = () => {
         <SubTitle2>신뢰</SubTitle2>
         <SubTitle>를 더하다</SubTitle>
       </Logo>
-      {/* {nickname && (
+      {nickname && (
         <WelcomeMessage>
           <Nickname>{nickname}</Nickname>님 회원가입이<br></br> 완료되었습니다!
         </WelcomeMessage>
-      )} */}
-
-      <WelcomeMessage>
-        <Nickname>건강이</Nickname>님 회원가입이<br></br> 완료되었습니다!
-      </WelcomeMessage>
+      )}
 
       <LoginButton
         text="로그인하고 맞춤 건강기능식품 추천받기"
