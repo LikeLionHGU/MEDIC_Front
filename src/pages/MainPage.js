@@ -51,7 +51,8 @@ const ModalButton = styled.button`
   color: #fff;
   border-radius: 15px;
   border: 0.8px solid #fff;
-  padding: 8px 12px;
+  width: 36.788px;
+  height: 22px;
   margin-top: 10px;
   cursor: pointer;
   font-family: "Pretendard-Regular";

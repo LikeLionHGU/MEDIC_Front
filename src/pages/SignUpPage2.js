@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LoginButton from "../components/SignUpPage2/LoginButton";
 import backgroundImage from "../img/SignUpPage.png";
-import logo from "../img/Logo.png";
+import logo from "../img/Logo.svg";
 import axios from "axios"; // axios를 사용하여 API 요청
 
 const Container = styled.div`

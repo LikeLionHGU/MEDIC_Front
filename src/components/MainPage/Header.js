@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../../img/Logo.png";
-import up from "../../img/up.png";
-import down from "../../img/down.png";
+import logo from "../../img/Logo.svg";
+import up from "../../img/up.svg";
+import down from "../../img/down.svg";
 import search from "../../img/search.png";
 
 const HeaderContainer = styled.div`
@@ -39,7 +39,7 @@ const SearchContainer = styled.div`
   align-items: center;
   position: relative;
   border: 1.2px solid #b2d23e;
-  border-radius: 7.5px;
+  border-radius: 10px;
   width: 770px;
   overflow: visible;
 `;
@@ -51,10 +51,10 @@ const Dropdown = styled.div`
 `;
 
 const DropdownButton = styled.button`
-  border-radius: 7.5px;
   font-weight: bold;
   background-color: #fff;
   border: none;
+  border-radius: 10px;
   padding: 10px 45px 10px 16px;
   cursor: pointer;
   font-size: 16px;
@@ -118,7 +118,7 @@ const SearchInput = styled.input`
 `;
 
 const SearchButton = styled.button`
-  border-radius: 0 7.5px 7.5px 0;
+  border-radius: 0 10px 10px 0;
   background-color: #b2d23e;
   font-family: "Pretendard-Regular";
   border: none;

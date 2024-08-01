@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import SignUpButton from "../components/SignUpPage/SignUpButton";
-import logo from "../img/Logo.png";
+import logo from "../img/Logo.svg";
 import UserInput2 from "../components/SignUpPage/UserInput";
 import useDetectClose from "../components/SignUpPage/UseDetectClose";
 import arrow from "../img/arrow.png";
@@ -27,7 +27,7 @@ const LogoImage = styled.img`
   width: 45px;
   height: 52px;
   margin-right: 4px;
-  margin-top: 32px;
+  margin-top: 28px;
 `;
 
 const Title = styled.div`

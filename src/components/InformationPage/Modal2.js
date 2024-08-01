@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import closeIcon from "../../img/goOut.svg";
 import profileimg from "../../img/Profile.svg";
 import left from "../../img/left.svg";
-import logo from "../../img/logo.svg";
+import logo from "../../img/Logo.svg";
 
 const RecommendationBox = styled.div`
   display: flex;
