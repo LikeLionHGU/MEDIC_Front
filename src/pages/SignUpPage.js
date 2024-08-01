@@ -450,6 +450,7 @@ const SignUpPage = () => {
       .then((data) => {
         if (data.success) {
           localStorage.setItem("token", data.message);
+          localStorage.setItem("userNickname", userInfo.userNickname); // 닉네임을 로컬 스토리지에 저장
           navigate("/medic/SignUpPage2");
         } else {
           alert("가입에 실패했습니다. 다시 시도해 주세요.");

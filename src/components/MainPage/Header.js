@@ -4,7 +4,7 @@ import styled from "styled-components";
 import logo from "../../img/logo.svg";
 import up from "../../img/up.svg";
 import down from "../../img/down.svg";
-import search from "../../img/search.png";
+import search from "../../img/whitesearch.svg";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -32,16 +32,6 @@ const Title = styled.div`
   font-family: "GongGothicMedium";
   font-size: 35px;
   margin-right: 35px;
-`;
-
-const SearchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  border: 1.2px solid #b2d23e;
-  border-radius: 10px;
-  width: 770px;
-  overflow: visible;
 `;
 
 const Dropdown = styled.div`
@@ -105,6 +95,16 @@ const DropdownContent = styled.div`
   }
 `;
 
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 1.2px solid #b2d23e;
+  border-radius: 10px;
+  width: 770px;
+  overflow: hidden;
+`;
+
 const SearchInput = styled.input`
   border: none;
   font-size: 16px;
@@ -118,7 +118,7 @@ const SearchInput = styled.input`
 `;
 
 const SearchButton = styled.button`
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 8px 8px 0;
   background-color: #b2d23e;
   font-family: "Pretendard-Regular";
   border: none;
@@ -140,7 +140,9 @@ const SearchButton = styled.button`
   }
 `;
 
-const SearchIcon = styled.img``;
+const SearchIcon = styled.img`
+  margin-right: 3px;
+`;
 
 const UserContainer = styled.div`
   display: flex;
@@ -195,20 +197,10 @@ const Header = ({ onSearchOptionChange }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const userEmail = localStorage.getItem("userEmail");
-        const response = await fetch(`/api/user/info?userEmail=${userEmail}`);
-        const data = await response.json();
-        if (data.success) {
-          setUserNickname(data.data.userNickname);
-        }
-      } catch (error) {
-        console.error("Failed to fetch user info", error);
-      }
-    };
-
-    fetchUserInfo();
+    const storedNickname = localStorage.getItem("userNickname");
+    if (storedNickname) {
+      setUserNickname(storedNickname);
+    }
   }, []);
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
@@ -239,6 +231,7 @@ const Header = ({ onSearchOptionChange }) => {
       const data = await response.json();
       if (data.success) {
         localStorage.removeItem("token");
+        localStorage.removeItem("userNickname"); // 로그아웃 시 닉네임 삭제
         navigate("/");
       } else {
         console.error("Failed to logout");

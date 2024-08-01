@@ -67,6 +67,10 @@ const ModalButton = styled.button`
   cursor: pointer;
   font-family: "Pretendard-Regular";
   font-size: 11px;
+  &:hover {
+    background-color: white;
+    color: #b2d23e;
+  }
 `;
 
 const PharmacistContainer = styled.div`

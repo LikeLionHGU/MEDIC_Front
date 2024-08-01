@@ -75,27 +75,10 @@ const SignUpPage2 = () => {
   const [nickname, setNickname] = useState("");
 
   useEffect(() => {
-    const fetchNickname = async () => {
-      try {
-        const userEmail = localStorage.getItem("userEmail");
-        const response = await fetch(`/api/signup`, {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          params: JSON.stringify({ userEmail }),
-        });
-        const data = await response.json();
-        if (data.success) {
-          setNickname(data.data.userNickname);
-        }
-      } catch (error) {
-        console.error("Failed to fetch nickname:", error);
-      }
-    };
-
-    fetchNickname();
+    const storedNickname = localStorage.getItem("userNickname");
+    if (storedNickname) {
+      setNickname(storedNickname);
+    }
   }, []);
 
   const goLoginPage = () => {
