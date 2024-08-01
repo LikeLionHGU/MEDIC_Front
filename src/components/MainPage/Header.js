@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../../img/Logo.svg";
+import logo from "../../img/logo.svg";
 import up from "../../img/up.svg";
 import down from "../../img/down.svg";
 import search from "../../img/search.png";
