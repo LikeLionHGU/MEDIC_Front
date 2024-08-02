@@ -241,7 +241,7 @@ const SignUpPage = () => {
     birthYear: "",
     gender: "",
     healthHashTag: [],
-    drugInUse: [],
+    supplementTypes: [],
   });
 
   const [emailTouched, setEmailTouched] = useState(false);
@@ -293,18 +293,18 @@ const SignUpPage = () => {
 
   const handleSupplementClick = (supplement) => {
     setUserInfo((userInfo) => {
-      let newdrugInUse;
+      let newsupplementTypes;
       if (supplement === "없음") {
-        newdrugInUse = [];
+        newsupplementTypes = [];
       } else {
-        newdrugInUse = [...userInfo.drugInUse];
-        if (newdrugInUse.includes(supplement)) {
-          newdrugInUse.splice(newdrugInUse.indexOf(supplement), 1);
+        newsupplementTypes = [...userInfo.supplementTypes];
+        if (newsupplementTypes.includes(supplement)) {
+          newsupplementTypes.splice(newsupplementTypes.indexOf(supplement), 1);
         } else {
-          newdrugInUse.push(supplement);
+          newsupplementTypes.push(supplement);
         }
       }
-      return { ...userInfo, drugInUse: newdrugInUse };
+      return { ...userInfo, supplementTypes: newsupplementTypes };
     });
   };
 
@@ -438,7 +438,7 @@ const SignUpPage = () => {
         birthDate: userInfo.birthYear,
         genderType: userInfo.gender,
         tagTypes: userInfo.healthHashTag,
-        drugInUse: userInfo.drugInUse,
+        supplementTypes: userInfo.supplementTypes,
       }),
     })
       .then((response) => {
@@ -450,7 +450,7 @@ const SignUpPage = () => {
       .then((data) => {
         if (data.success) {
           localStorage.setItem("token", data.message);
-          localStorage.setItem("userNickname", userInfo.userNickname); // 닉네임을 로컬 스토리지에 저장
+          localStorage.setItem("userNickname", userInfo.userNickname);
           navigate("/medic/SignUpPage2");
         } else {
           alert("가입에 실패했습니다. 다시 시도해 주세요.");
@@ -621,7 +621,9 @@ const SignUpPage = () => {
             readOnly
             onClick={handleSupplementInputClick}
             value={
-              userInfo.drugInUse.length > 0 ? userInfo.drugInUse.join(", ") : ""
+              userInfo.supplementTypes.length > 0
+                ? userInfo.supplementTypes.join(", ")
+                : ""
             }
           />
           <ArrowImage src={arrow} onClick={handleSupplementInputClick} />
@@ -630,7 +632,7 @@ const SignUpPage = () => {
               {supplementList.map((supplement) => (
                 <SupplementItem
                   key={supplement}
-                  isActive={userInfo.drugInUse.includes(supplement)}
+                  isActive={userInfo.supplementTypes.includes(supplement)}
                   onClick={() => handleSupplementClick(supplement)}
                 >
                   {supplement}
@@ -640,7 +642,7 @@ const SignUpPage = () => {
           )}
         </HashtagContainer>
         <TagContainer>
-          {userInfo.drugInUse.map((supplement, index) => (
+          {userInfo.supplementTypes.map((supplement, index) => (
             <Tag
               key={index}
               onClick={() => handleSupplementClick(supplement)}

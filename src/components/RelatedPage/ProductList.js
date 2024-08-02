@@ -129,7 +129,7 @@ const ProductList = () => {
   }, []);
 
   const filteredProducts = sectionTitle
-    ? products.filter((product) => product.tag === sectionTitle)
+    ? products.filter((product) => product.tag.includes(sectionTitle))
     : products;
 
   const handleCardClick = (productId) => {
@@ -148,7 +148,7 @@ const ProductList = () => {
           >
             <ImageWrapper>
               <ProductImage
-                src={product.imageUrl}
+                src={`${process.env.REACT_APP_API_BASE_URL}/images/${product.imageUrl}`}
                 alt={product.name}
                 style={{
                   transform:
@@ -163,7 +163,10 @@ const ProductList = () => {
               <Discount>{product.salePrice.toLocaleString()}원</Discount>
             </Product>
             <TagContainer>
-              <Tag>{product.tag}</Tag>
+              {product.tag &&
+                product.tag
+                  .split("_")
+                  .map((tag, tagIndex) => <Tag key={tagIndex}>{tag}</Tag>)}
             </TagContainer>
           </ProductCard>
         ))}

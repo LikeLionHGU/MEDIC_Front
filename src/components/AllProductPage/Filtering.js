@@ -156,8 +156,18 @@ const Filtering = () => {
   const fetchProducts = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/api/products`
+        `${process.env.REACT_APP_API_BASE_URL}/api/products`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
       const data = await response.json();
       setProducts(data);
     } catch (error) {
