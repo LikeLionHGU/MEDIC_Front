@@ -150,6 +150,9 @@ const Customization = () => {
     return <div>Loading...</div>;
   }
 
+  // 중복 태그 제거
+  const uniqueTags = [...new Set(data.map((product) => product.tag))];
+
   const settings = {
     dots: true,
     infinite: true,
@@ -168,8 +171,8 @@ const Customization = () => {
     <>
       <Title>#나의건강해시태그 맞춤추천 상품</Title>
       <Subtitle>
-        {data.map((product) => (
-          <span key={product.id}>#{product.tag} </span>
+        {uniqueTags.map((tag, index) => (
+          <span key={index}>#{tag} </span>
         ))}
       </Subtitle>
       <CarouselContainer>
@@ -179,9 +182,7 @@ const Customization = () => {
               <OverlayImage src={img} alt="Overlay" />
               <ProductInfo>
                 <Product>#{product.name}</Product>
-                <Product>정상가격: {product.normalPrice}원</Product>
-                <Product>판매가격: {product.salePrice}원</Product>
-                <Product>리뷰개수: {product.reviewCnt}</Product>
+                <Product>{product.salePrice}</Product>
                 <Product>#{product.tag}</Product>
               </ProductInfo>
               <More onClick={() => handleMoreClick(product.id)}>
