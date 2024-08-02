@@ -179,9 +179,7 @@ const BestProducts = () => {
             <img src={`/images/${product.imageUrl}`} alt={product.name} />
             <Overlay className="overlay">
               <ProductTitle>#{product.name}</ProductTitle>
-              <ProductPrice>정상가격: {product.normalPrice}원</ProductPrice>
-              <ProductPrice>판매가격: {product.salePrice}원</ProductPrice>
-              <ProductFeature>리뷰개수: {product.reviewCnt}</ProductFeature>
+              <ProductPrice>#{product.salePrice}원</ProductPrice>
               <ProductFeature>#{product.tag}</ProductFeature>
             </Overlay>
           </ProductCard>

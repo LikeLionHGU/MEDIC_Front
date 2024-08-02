@@ -179,10 +179,14 @@ const Customization = () => {
         <Slider {...settings}>
           {data.map((product, index) => (
             <Slide key={index} bgImage={`/images/${product.imageUrl}`}>
-              <OverlayImage src={img} alt="Overlay" />
+              <OverlayImage
+                src={img}
+                alt="Overlay"
+                onError={(e) => (e.target.style.display = "none")}
+              />
               <ProductInfo>
                 <Product>#{product.name}</Product>
-                <Product>{product.salePrice}</Product>
+                <Product>#{product.salePrice}원</Product>
                 <Product>#{product.tag}</Product>
               </ProductInfo>
               <More onClick={() => handleMoreClick(product.id)}>
