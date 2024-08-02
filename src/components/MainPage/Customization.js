@@ -146,11 +146,6 @@ const Customization = () => {
       });
   }, []);
 
-  if (!data.length) {
-    return <div>Loading...</div>;
-  }
-
-  // 중복 태그 제거
   const uniqueTags = [...new Set(data.map((product) => product.tag))];
 
   const settings = {
