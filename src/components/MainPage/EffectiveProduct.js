@@ -167,9 +167,6 @@ const EffectiveProduct = () => {
     fetch(`/api/products/recommend`, {
       method: "GET",
       credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
     })
       .then((response) => {
         if (!response.ok) {

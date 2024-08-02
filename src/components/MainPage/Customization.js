@@ -122,12 +122,9 @@ const Customization = () => {
 
   useEffect(() => {
     console.log("Fetching data from /api/products/custom...");
-    fetch("https://52.78.188.110:8001/api/products/custom", {
+    fetch("/api/products/custom", {
       method: "GET",
       credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
     })
       .then((response) => {
         console.log(`Response status: ${response.status}`);
