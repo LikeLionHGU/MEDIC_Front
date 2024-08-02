@@ -197,7 +197,7 @@ const Filtering = () => {
   };
 
   return (
-    <div style={{ width: "1170px" }}>
+    <div style={{ width: "1240px" }}>
       <Button1 onClick={() => handleFilter("review")}>리뷰 많은순</Button1>
       <Button onClick={() => handleFilter("highPrice")}>가격 높은순</Button>
       <Button2 onClick={() => handleFilter("lowPrice")}>가격 낮은순</Button2>
