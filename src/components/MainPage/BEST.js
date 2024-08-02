@@ -66,6 +66,7 @@ const Overlay = styled.div`
   font-family: "KIMM_Light";
   font-size: 25px;
   padding-left: 37px;
+  padding-right: 47px;
   padding-bottom: 24px;
   box-sizing: border-box;
 `;

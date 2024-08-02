@@ -121,7 +121,8 @@ const Customization = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/api/products/custom", {
+    console.log("Fetching data from /api/products/custom...");
+    fetch("https://52.78.188.110:8001/api/products/custom", {
       method: "GET",
       credentials: "include",
       headers: {
@@ -129,12 +130,14 @@ const Customization = () => {
       },
     })
       .then((response) => {
+        console.log(`Response status: ${response.status}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
+        console.log("Data received:", data);
         if (Array.isArray(data)) {
           setData(data);
         } else {
