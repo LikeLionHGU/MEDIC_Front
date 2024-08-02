@@ -175,6 +175,7 @@ const EffectiveProduct = () => {
         return response.json();
       })
       .then((data) => {
+        console.log("API Response Data: ", data);
         setUserName(data.userName);
         setRecommendedProducts(data.recommendedProducts);
       })
@@ -217,7 +218,7 @@ const EffectiveProduct = () => {
                 {product.salePrice.toLocaleString()}원
               </ProductDiscountPrice>
               <TagContainer>
-                {product.tag.split(", ").map((tag, tagIndex) => (
+                {product.tag.split("_").map((tag, tagIndex) => (
                   <Tag key={tagIndex}>#{tag}</Tag>
                 ))}
               </TagContainer>
