@@ -219,6 +219,8 @@ const maskNickname = (nickname) => {
 
 const Review = ({ productId }) => {
   const [reviews, setReviews] = useState([]);
+  const [reviewCount, setReviewCount] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedAgeGroup, setSelectedAgeGroup] = useState(null);
   const [appliedAgeGroup, setAppliedAgeGroup] = useState(null);
@@ -230,7 +232,7 @@ const Review = ({ productId }) => {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_BASE_URL}/api/products/${productId}`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/products/${productId}/reviews`,
           {
             method: "GET",
             credentials: "include",
@@ -241,6 +243,8 @@ const Review = ({ productId }) => {
         );
         const data = await response.json();
         setReviews(data.reviews);
+        setReviewCount(data.reviewCount);
+        setAverageRating(data.averageRating);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
@@ -301,12 +305,9 @@ const Review = ({ productId }) => {
     ? [...filteredReviews].sort((a, b) => b.likeCnt - a.likeCnt)
     : filteredReviews;
 
-  const averageRating =
-    reviews.reduce((acc, review) => acc + review.star, 0) / reviews.length;
-
   return (
     <Container>
-      <Title>REVIEW ({reviews.length})</Title>
+      <Title>REVIEW ({reviewCount})</Title>
       <Header>
         <Rating>
           <Star src={star} alt="star" />
