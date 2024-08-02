@@ -185,11 +185,10 @@ const LoginPage = () => {
   };
 
   const loginProcess = () => {
-    const apiUrl = `http://52.78.188.110:8001/api/login`;
+    const apiUrl = `/api/login`;
     console.log("Login attempt to URL:", apiUrl);
     console.log("Login attempt:", {
       email: userInfo.email,
-      password: userInfo.password,
     });
 
     fetch(apiUrl, {
