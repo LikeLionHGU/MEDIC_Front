@@ -5,7 +5,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import img from "../../img/Rectangle 5169.png";
-import hongsam from "../../img/hongsam.png";
 
 const Title = styled.div`
   font-family: "KIMM_Light";
@@ -122,7 +121,7 @@ const Customization = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/api/products/custom`, {
+    fetch("/api/products/custom", {
       method: "GET",
       credentials: "include",
       headers: {
@@ -150,15 +149,6 @@ const Customization = () => {
   if (!data.length) {
     return <div>Loading...</div>;
   }
-
-  const { selectedHealthTags, recommendedProducts } = data;
-
-  const slides = selectedHealthTags.flatMap((tag) =>
-    recommendedProducts
-      .filter((product) => product.healthTags.includes(tag))
-      .slice(0, 2)
-      .map((product) => ({ ...product, tag }))
-  );
 
   const settings = {
     dots: true,
@@ -189,7 +179,9 @@ const Customization = () => {
               <OverlayImage src={img} alt="Overlay" />
               <ProductInfo>
                 <Product>#{product.name}</Product>
-                <Product>{product.salePrice}</Product>
+                <Product>정상가격: {product.normalPrice}원</Product>
+                <Product>판매가격: {product.salePrice}원</Product>
+                <Product>리뷰개수: {product.reviewCnt}</Product>
                 <Product>#{product.tag}</Product>
               </ProductInfo>
               <More onClick={() => handleMoreClick(product.id)}>
