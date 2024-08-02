@@ -68,8 +68,8 @@ const ModalButton = styled.button`
   font-family: "Pretendard-Regular";
   font-size: 11px;
   &:hover {
-    background-color: white;
     color: #b2d23e;
+    border: 0.8px solid #b2d23e;
   }
 `;
 
