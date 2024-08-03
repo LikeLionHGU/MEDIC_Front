@@ -206,7 +206,7 @@ const EffectiveProduct = () => {
         {recommendedProducts.map((product, index) => (
           <Product key={index} onClick={() => handleProductClick(product.id)}>
             <ProductImage
-              src={`/${process.env.REACT_APP_API_BASE_URL}/product/${product.imageUrl}`}
+              src={`/product/${product.imageUrl}`}
               alt={product.name}
             />
             <ProductName>{product.name}</ProductName>

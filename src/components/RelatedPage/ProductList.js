@@ -145,7 +145,7 @@ const ProductList = () => {
           >
             <ImageWrapper>
               <ProductImage
-                src={`/${process.env.REACT_APP_API_BASE_URL}/product/${product.imageUrl}`}
+                src={`/product/${product.imageUrl}`}
                 alt={product.name}
                 style={{
                   transform:
