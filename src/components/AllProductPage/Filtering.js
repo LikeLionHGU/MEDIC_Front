@@ -71,7 +71,7 @@ const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: 30px; /* Add border-radius here */
   transition: border-radius 0.3s ease-in-out;
 
   &:hover {
@@ -83,7 +83,9 @@ const ProductImage = styled.img`
   height: auto;
   width: 269px;
   height: 284px;
+  border-radius: 30px;
   transition: transform 0.3s ease-in-out;
+
   &:hover {
     transform: scale(1.1);
   }
@@ -98,12 +100,14 @@ const BaguniImage = styled.img`
 `;
 
 const Tag = styled.span`
-  display: inline-block;
+  display: flex;
   background-color: transparent;
   color: #b2d23e;
   border: 1.3px solid #b2d23e;
   border-radius: 10px;
-  padding: 5px;
+  height: 33px;
+  padding: 0px 10px;
+  align-items: center;
   font-family: "Pretendard-Regular";
   font-size: 14px;
   margin-right: 5px;
@@ -127,6 +131,10 @@ const Name = styled.div`
   padding-bottom: 2px;
   padding-top: 10px;
   color: ${(props) => (props.hover ? "#3e82d2" : "inherit")};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
 `;
 
 const Original = styled.div`
@@ -229,7 +237,9 @@ const Filtering = () => {
               {product.tag &&
                 product.tag
                   .split(",")
-                  .map((tag, tagIndex) => <Tag key={tagIndex}>{tag}</Tag>)}
+                  .map((tag, tagIndex) => (
+                    <Tag key={tagIndex}>#{tag.replace(/_/g, "")}</Tag>
+                  ))}
             </TagContainer>
           </ProductCard>
         ))}

@@ -192,6 +192,10 @@ const EffectiveProduct = () => {
     navigate(`/Medic/InformationPage/${productId}`);
   };
 
+  if (recommendedProducts.length === 0) {
+    return null;
+  }
+
   return (
     <Modal id="modal">
       <CloseButton onClick={closeModal}>&times;</CloseButton>

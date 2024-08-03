@@ -338,9 +338,9 @@ const TopInformation = ({ productId }) => {
                     {productData.salePrice.toLocaleString()}원
                   </Fluid>
                   <Fluid>
-                    {productData.tag.split("_").map((tag, index) => (
+                    {productData.tag.split(",").map((tag, index) => (
                       <Tag key={index} style={{ marginRight: "5px" }}>
-                        {tag}
+                        #{tag.replace(/_/g, "")}
                       </Tag>
                     ))}
                   </Fluid>
