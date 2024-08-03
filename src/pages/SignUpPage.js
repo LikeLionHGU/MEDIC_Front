@@ -252,15 +252,15 @@ const SignUpPage = () => {
   const [isHashtagFocused, setIsHashtagFocused] = useState(false);
 
   const genderList = ["남성", "여성"];
+
   const supplementList = [
     "없음",
     "관절솔루션 보스웰리아 7",
     "굿바디 카르니틴 1000",
     "세이헬스 녹차추출물",
     "피부건강엔 N 실키어린 콜라겐",
-    "닥터 비타민 D 200IU",
+    "바디픽 멀티비타민 포우먼",
     "엑스트라 스트렝스 징코",
-    "베타 알라닌",
     "내츄럴플러스 알티지 오메가3",
   ];
   const hashtagList = [
@@ -273,6 +273,28 @@ const SignUpPage = () => {
     "운동수행 능력",
     "혈중 중성지방 개선",
   ];
+
+  const backendSupplementList = {
+    없음: "",
+    "관절솔루션 보스웰리아 7": "관절솔루션_보스웰리아_7",
+    "굿바디 카르니틴 1000": "굿바디_카르니틴_1000",
+    "세이헬스 녹차추출물": "세이헬스_녹차추출물",
+    "피부건강엔 N 실키어린 콜라겐": "피부건강엔_N_실키어린_콜라겐",
+    "바디픽 멀티비타민 포우먼": "바디픽_멀티비타민_포우먼",
+    "엑스트라 스트렝스 징코": "엑스트라_스트렝스_징코",
+    "내츄럴플러스 알티지 오메가3": "내츄럴플러스_알티지_오메가3",
+  };
+
+  const backendHashtagList = {
+    피부건강: "피부건강",
+    "혈당 조절": "혈당조절",
+    기억력개선: "기억력_개선",
+    "체지방 감소": "체지방감소",
+    "관절/뼈건강": "관절_뼈건강",
+    면역기능개선: "면역기능_개선",
+    "운동수행 능력": "운동수행_능력",
+    "혈중 중성지방 개선": "혈중_중성지방_개선",
+  };
 
   const genderDropDownRef = useRef();
   const hashtagDropDownRef = useRef();
@@ -433,12 +455,11 @@ const SignUpPage = () => {
       name: userInfo.userNickname,
       birthDate: userInfo.birthYear,
       genderType: userInfo.gender,
-      tagTypes: userInfo.healthHashTag,
+      tagTypes: userInfo.healthHashTag.map((tag) => backendHashtagList[tag]),
+      supplementTypes: userInfo.supplementTypes.map(
+        (supp) => backendSupplementList[supp]
+      ),
     };
-
-    if (userInfo.supplementTypes && userInfo.supplementTypes.length > 0) {
-      requestBody.supplementTypes = userInfo.supplementTypes;
-    }
 
     console.log("Request Body:", JSON.stringify(requestBody));
 
@@ -451,20 +472,32 @@ const SignUpPage = () => {
       body: JSON.stringify(requestBody),
     })
       .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(`Error: ${data.message}`);
-          });
-        }
-        return response.json();
+        console.log("Response Status:", response.status);
+        return response.text();
       })
-      .then((data) => {
-        if (data.success) {
-          localStorage.setItem("token", data.message);
+      .then((responseText) => {
+        console.log("Response Text:", responseText);
+
+        if (responseText === "success") {
+          console.log("Navigating to SignUpPage2");
+          localStorage.setItem("token", "your_token_here");
           localStorage.setItem("userNickname", userInfo.userNickname);
           navigate("/medic/SignUpPage2");
         } else {
-          alert("가입에 실패했습니다. 다시 시도해 주세요.");
+          let data;
+          try {
+            data = JSON.parse(responseText);
+          } catch (error) {
+            throw new Error(`Invalid JSON: ${responseText}`);
+          }
+          console.log("Parsed Response Data:", data);
+          if (data.code === "E007") {
+            alert("중복된 이메일입니다.");
+          } else if (data.code === "E008") {
+            alert("중복된 이름입니다.");
+          } else {
+            alert("가입에 실패했습니다. 다시 시도해 주세요.");
+          }
         }
       })
       .catch((error) => {

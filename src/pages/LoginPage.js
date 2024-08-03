@@ -186,9 +186,9 @@ const LoginPage = () => {
 
   const loginProcess = () => {
     const apiUrl = `/api/login`;
-    console.log("Login attempt to URL:", apiUrl);
     console.log("Login attempt:", {
       email: userInfo.email,
+      password: userInfo.password,
     });
 
     fetch(apiUrl, {
@@ -203,8 +203,11 @@ const LoginPage = () => {
       }),
     })
       .then((response) => {
+        console.log("Response status:", response.status);
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          return response.json().then((data) => {
+            throw new Error(`${data.message}`);
+          });
         }
         return response.json();
       })
@@ -215,11 +218,19 @@ const LoginPage = () => {
           localStorage.setItem("userNickname", data.name);
           navigate("/medic");
         } else {
-          alert(data.message || "가입되지 않은 정보입니다.");
+          if (data.code === "E009") {
+            alert("존재하지 않는 이메일입니다.");
+          } else if (data.code === "E010") {
+            alert("비밀번호가 맞지 않습니다.");
+          }
         }
       })
       .catch((error) => {
         console.error("Login error:", error);
+        alert(
+          error.message ||
+            "로그인 중 오류가 발생했습니다. 나중에 다시 시도해 주세요."
+        );
       });
   };
 
