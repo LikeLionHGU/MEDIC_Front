@@ -1,12 +1,12 @@
 [build]
-publish = "build" # 또는 "public" 등 배포 폴더
+  publish = "build"
 
 [[redirects]]
-from = "/api/*"
-to = "http://52.78.188.110:8001/api/:splat"
-status = 200
+  from = "/api/*"
+  to = "http://52.78.188.110:8001/api/:splat"
+  status = 200
 
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+  from = "/*"
+  to = "/index.html"
+  status = 200

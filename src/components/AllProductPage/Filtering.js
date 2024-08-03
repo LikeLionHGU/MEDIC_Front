@@ -211,7 +211,7 @@ const Filtering = () => {
           >
             <ImageWrapper>
               <ProductImage
-                src={`/product/${product.imageUrl}`}
+                src={`/${process.env.REACT_APP_API_BASE_URL}/product/${product.imageUrl}`}
                 alt={product.name}
                 style={{
                   transform:
