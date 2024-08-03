@@ -221,14 +221,12 @@ const Header = ({ onSearchOptionChange }) => {
         },
       });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      const text = await response.text();
+      console.log("Logout response text:", text);
 
-      const data = await response.json();
-      if (data.success) {
+      if (text === "success") {
         localStorage.removeItem("token");
-        localStorage.removeItem("userNickname"); // 로그아웃 시 닉네임 삭제
+        localStorage.removeItem("userNickname");
         navigate("/");
       } else {
         console.error("Failed to logout");

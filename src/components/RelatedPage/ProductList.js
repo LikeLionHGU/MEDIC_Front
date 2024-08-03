@@ -145,7 +145,7 @@ const ProductList = () => {
           >
             <ImageWrapper>
               <ProductImage
-                src={`/${product.imageUrl}`}
+                src={`/product/${product.imageUrl}`}
                 alt={product.name}
                 style={{
                   transform:

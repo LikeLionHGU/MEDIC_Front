@@ -297,7 +297,9 @@ const SignUpPage = () => {
       if (supplement === "없음") {
         newsupplementTypes = [];
       } else {
-        newsupplementTypes = [...userInfo.supplementTypes];
+        newsupplementTypes = userInfo.supplementTypes
+          ? [...userInfo.supplementTypes]
+          : [];
         if (newsupplementTypes.includes(supplement)) {
           newsupplementTypes.splice(newsupplementTypes.indexOf(supplement), 1);
         } else {
@@ -309,7 +311,7 @@ const SignUpPage = () => {
   };
 
   const handleSupplementInputClick = (e) => {
-    e.stopPropagation(); // 이벤트 전파 중단
+    e.stopPropagation();
     setIsOpenSupplement((prev) => !prev);
   };
 
@@ -425,25 +427,34 @@ const SignUpPage = () => {
   const navigate = useNavigate();
 
   const signUpProcess = () => {
+    const requestBody = {
+      email: userInfo.userEmail,
+      password: userInfo.userPassword,
+      name: userInfo.userNickname,
+      birthDate: userInfo.birthYear,
+      genderType: userInfo.gender,
+      tagTypes: userInfo.healthHashTag,
+    };
+
+    if (userInfo.supplementTypes && userInfo.supplementTypes.length > 0) {
+      requestBody.supplementTypes = userInfo.supplementTypes;
+    }
+
+    console.log("Request Body:", JSON.stringify(requestBody));
+
     fetch(`/api/signup`, {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-      body: JSON.stringify({
-        email: userInfo.userEmail,
-        password: userInfo.userPassword,
-        name: userInfo.userNickname,
-        birthDate: userInfo.birthYear,
-        genderType: userInfo.gender,
-        tagTypes: userInfo.healthHashTag,
-        supplementTypes: userInfo.supplementTypes,
-      }),
+      body: JSON.stringify(requestBody),
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          return response.json().then((data) => {
+            throw new Error(`Error: ${data.message}`);
+          });
         }
         return response.json();
       })
@@ -458,8 +469,6 @@ const SignUpPage = () => {
       })
       .catch((error) => {
         console.error("Sign up error:", error);
-        console.log("API BASE URL:", process.env.REACT_APP_API_BASE_URL);
-
         alert("가입 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.");
       });
   };
@@ -621,7 +630,7 @@ const SignUpPage = () => {
             readOnly
             onClick={handleSupplementInputClick}
             value={
-              userInfo.supplementTypes.length > 0
+              userInfo.supplementTypes && userInfo.supplementTypes.length > 0
                 ? userInfo.supplementTypes.join(", ")
                 : ""
             }
@@ -632,7 +641,10 @@ const SignUpPage = () => {
               {supplementList.map((supplement) => (
                 <SupplementItem
                   key={supplement}
-                  isActive={userInfo.supplementTypes.includes(supplement)}
+                  isActive={
+                    userInfo.supplementTypes &&
+                    userInfo.supplementTypes.includes(supplement)
+                  }
                   onClick={() => handleSupplementClick(supplement)}
                 >
                   {supplement}
@@ -642,19 +654,20 @@ const SignUpPage = () => {
           )}
         </HashtagContainer>
         <TagContainer>
-          {userInfo.supplementTypes.map((supplement, index) => (
-            <Tag
-              key={index}
-              onClick={() => handleSupplementClick(supplement)}
-              style={{
-                display: "inline-block",
-                marginTop: "5px",
-                marginRight: "14px",
-              }}
-            >
-              {supplement} x
-            </Tag>
-          ))}
+          {userInfo.supplementTypes &&
+            userInfo.supplementTypes.map((supplement, index) => (
+              <Tag
+                key={index}
+                onClick={() => handleSupplementClick(supplement)}
+                style={{
+                  display: "inline-block",
+                  marginTop: "5px",
+                  marginRight: "14px",
+                }}
+              >
+                {supplement} x
+              </Tag>
+            ))}
         </TagContainer>
         <SignUpButton
           onClick={() => {

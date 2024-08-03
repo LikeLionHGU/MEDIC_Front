@@ -205,7 +205,10 @@ const EffectiveProduct = () => {
       <ProductContainer>
         {recommendedProducts.map((product, index) => (
           <Product key={index} onClick={() => handleProductClick(product.id)}>
-            <ProductImage src={`/${product.imageUrl}`} alt={product.name} />
+            <ProductImage
+              src={`/product/${product.imageUrl}`}
+              alt={product.name}
+            />
             <ProductName>{product.name}</ProductName>
             <ProductDetails>
               <ProductPrice>

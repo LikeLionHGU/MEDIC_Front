@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import closeIcon from "../../img/goOut.svg";
 import profileimg from "../../img/Profile.svg";
 import left from "../../img/left.svg";
-import logo from "../../img/logo.svg";
+import logo from "../../img/Mark.svg";
+import left2 from "../../img/greenright.svg";
 
 const RecommendationBox = styled.div`
   display: flex;
@@ -129,6 +130,14 @@ const CertificateBtn = styled.button`
   font-weight: 300;
   line-height: normal;
   cursor: pointer;
+  &:hover {
+    color: #b2d23e;
+    border: 0.8px solid #b2d23e;
+
+    img {
+      content: url(${left2});
+    }
+  }
 `;
 
 const Tag = styled.div`
@@ -143,7 +152,6 @@ const Tag = styled.div`
   height: 25px;
   border: 1px solid #b2d23e;
   border-radius: 30px;
-  padding: 0px 10px;
   align-items: center;
   justify-content: center;
 `;
@@ -171,7 +179,7 @@ const Modal2 = ({ onClose }) => {
           <img
             src={logo}
             alt="logo"
-            style={{ height: "179px", marginTop: "20px" }}
+            style={{ height: "179px", marginTop: "10px" }}
           />
         </Profile>
         <RecommendationBox>

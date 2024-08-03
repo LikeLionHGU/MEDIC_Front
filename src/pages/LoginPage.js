@@ -213,7 +213,7 @@ const LoginPage = () => {
         if (data.id) {
           localStorage.setItem("userEmail", userInfo.email);
           localStorage.setItem("userNickname", data.name);
-          navigate("/main");
+          navigate("/medic");
         } else {
           alert(data.message || "가입되지 않은 정보입니다.");
         }
