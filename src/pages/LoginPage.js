@@ -185,7 +185,7 @@ const LoginPage = () => {
   };
 
   const loginProcess = () => {
-    const apiUrl = `/api/login`;
+    const apiUrl = `/api/api/login`;
     console.log("Login attempt:", {
       email: userInfo.email,
       password: userInfo.password,

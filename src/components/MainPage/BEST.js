@@ -135,7 +135,7 @@ const BestProducts = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/api/products/best`, {
+    fetch(`/api/api/products/best`, {
       method: "GET",
       credentials: "include",
     })

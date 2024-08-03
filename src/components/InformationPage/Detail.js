@@ -188,7 +188,7 @@ const Detail = ({ productId }) => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await fetch(`/api/products/${productId}`, {
+        const response = await fetch(`/api/api/products/${productId}`, {
           method: "GET",
           credentials: "include",
           headers: {
