@@ -291,6 +291,17 @@ const HashtagSelect = () => {
     "혈중 중성지방 개선",
   ];
 
+  const backendHashtagList = {
+    "관절/뼈 건강": "관절_뼈건강",
+    기억력개선: "기억력_개선",
+    "혈당 조절": "혈당조절",
+    "체지방 감소": "체지방감소",
+    피부건강: "피부건강",
+    "운동수행 능력": "운동수행_능력",
+    면역기능개선: "면역기능_개선",
+    "혈중 중성지방 개선": "혈중_중성지방_개선",
+  };
+
   const handleTagClick = (tag) => {
     if (selectedTags.length < 3 && !selectedTags.includes(tag)) {
       setSelectedTags([...selectedTags, tag]);
@@ -298,7 +309,7 @@ const HashtagSelect = () => {
   };
 
   const handleRemoveTag = (tag) => {
-    setSelectedTags(selectedTags.filter((t) => t !== tag));
+    const backendTag = backendHashtagList[tag];
 
     fetch(`/api/users/tags`, {
       method: "DELETE",
@@ -306,27 +317,33 @@ const HashtagSelect = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tag }),
+      body: JSON.stringify({ tag: [backendTag] }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          console.log("Tag removed successfully:", data);
-          setRecommendedProducts(data.updatedTags);
-          alert("해시태그가 성공적으로 제거되었습니다!");
-        } else {
-          console.error("Failed to remove tag:", data.message);
-          alert("해시태그 제거에 실패했습니다.");
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            throw new Error(data.message || "해시태그 제거에 실패했습니다.");
+          });
         }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Tag removed successfully:", data);
+        setRecommendedProducts(data.updatedTag);
+        alert("해시태그가 성공적으로 제거되었습니다!");
       })
       .catch((error) => {
         console.error("Error:", error);
         alert("해시태그 제거 중 오류가 발생했습니다.");
       });
+
+    setSelectedTags(selectedTags.filter((t) => t !== tag));
   };
 
   const handleSave = () => {
-    const selectedHealthTags = selectedTags;
+    const selectedHealthTags = selectedTags.map(
+      (tag) => backendHashtagList[tag]
+    );
 
     fetch(`/api/users/tags`, {
       method: "POST",
@@ -336,16 +353,18 @@ const HashtagSelect = () => {
       },
       body: JSON.stringify({ tag: selectedHealthTags }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          console.log("Health tags updated successfully:", data);
-          setRecommendedProducts(data.updatedTags);
-          alert("해시태그가 성공적으로 저장되었습니다!");
-        } else {
-          console.error("Failed to update health tags:", data.message);
-          alert("해시태그 저장에 실패했습니다.");
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then((data) => {
+            throw new Error(data.message || "해시태그 저장에 실패했습니다.");
+          });
         }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Health tags updated successfully:", data);
+        setRecommendedProducts(data.updatedTag);
+        alert("해시태그가 성공적으로 저장되었습니다!");
       })
       .catch((error) => {
         console.error("Error:", error);
