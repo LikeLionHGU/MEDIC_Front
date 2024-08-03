@@ -463,7 +463,7 @@ const SignUpPage = () => {
 
     console.log("Request Body:", JSON.stringify(requestBody));
 
-    fetch(`/api/signup`, {
+    fetch(`/api/api/signup`, {
       method: "POST",
       credentials: "include",
       headers: {
