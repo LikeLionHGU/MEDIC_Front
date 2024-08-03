@@ -258,6 +258,7 @@ const TotalAmount = styled.div`
   font-family: "Pretendard-Regular";
   font-size: 20px;
   font-weight: 500;
+  justify-content: space-evenly;
 `;
 
 const TopInformation = ({ productId }) => {
@@ -361,15 +362,15 @@ const TopInformation = ({ productId }) => {
                       <ArrowDown onClick={handleDecrease} />
                     </QuantityArrows>
                   </QuantityInputWrapper>
-                  <TotalPrice>{totalPrice.toLocaleString()}원</TotalPrice>
+                  <TotalPrice>{totalPrice.toLocaleString()}</TotalPrice>
                 </QuantityControl>
               </Quantity>
               <TotalAmount>
                 <ProductName style={{ marginLeft: "323px" }}>
                   총 상품 금액 (수량):
                 </ProductName>
-                <TotalPrice style={{ marginTop: "22px", marginLeft: "4px" }}>
-                  {totalPrice.toLocaleString()}원
+                <TotalPrice style={{ marginTop: "22px" }}>
+                  {totalPrice.toLocaleString()}
                   <Quantity2>({quantity}개)</Quantity2>
                 </TotalPrice>
               </TotalAmount>

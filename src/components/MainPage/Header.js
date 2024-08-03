@@ -102,7 +102,7 @@ const SearchContainer = styled.div`
   border: 1.2px solid #b2d23e;
   border-radius: 10px;
   width: 770px;
-  overflow: hidden;
+  overflow: visible;
 `;
 
 const SearchInput = styled.input`
