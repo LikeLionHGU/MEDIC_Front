@@ -313,7 +313,7 @@ const TopInformation = ({ productId }) => {
         <>
           <Content>
             <ProductImg
-              src={`/images/${productData.imageUrl}`}
+              src={`/${productData.imageUrl}`}
               alt={productData.name}
             />
             <ProductDetails>
