@@ -177,7 +177,7 @@ const BestProducts = () => {
             key={product.id}
             onClick={() => handleProductClick(product.id)}
           >
-            <img src={`/product/${product.imageUrl}`} alt={product.name} />
+            <img src={`api/product/${product.imageUrl}`} alt={product.name} />
             <Overlay className="overlay">
               <ProductTitle>#{product.name}</ProductTitle>
               <ProductPrice>#{product.salePrice}원</ProductPrice>
