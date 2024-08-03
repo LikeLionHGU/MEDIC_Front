@@ -173,10 +173,7 @@ const Customization = () => {
       <CarouselContainer>
         <Slider {...settings}>
           {data.map((product, index) => (
-            <Slide
-              key={index}
-              bgImage={`/${process.env.REACT_APP_API_BASE_URL}/product/${product.imageUrl}`}
-            >
+            <Slide key={index} bgImage={`/api/product/${product.imageUrl}`}>
               <OverlayImage
                 src={img}
                 alt="Overlay"
