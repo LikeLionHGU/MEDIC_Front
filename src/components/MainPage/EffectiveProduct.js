@@ -164,7 +164,7 @@ const EffectiveProduct = () => {
   const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`/api/products/recommend`, {
+    fetch(`/api/api/products/recommend`, {
       method: "GET",
       credentials: "include",
     })

@@ -213,7 +213,7 @@ const Header = ({ onSearchOptionChange }) => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`/api/logout`, {
+      const response = await fetch(`/api/api/logout`, {
         method: "POST",
         credentials: "include",
         headers: {

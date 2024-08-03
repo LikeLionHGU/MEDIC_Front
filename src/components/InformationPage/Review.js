@@ -231,7 +231,7 @@ const Review = ({ productId }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch(`/api/products/${productId}/reviews`, {
+        const response = await fetch(`/api/api/products/${productId}/reviews`, {
           method: "GET",
           credentials: "include",
           headers: {

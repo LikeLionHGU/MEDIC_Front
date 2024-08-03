@@ -135,7 +135,7 @@ const BestProducts = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/api/products/best`, {
+    fetch(`/api/api/products/best`, {
       method: "GET",
       credentials: "include",
     })
@@ -160,6 +160,8 @@ const BestProducts = () => {
   const handleProductClick = (productId) => {
     navigate(`/Medic/InformationPage/${productId}`);
   };
+
+  console.log(cart);
 
   return (
     <>

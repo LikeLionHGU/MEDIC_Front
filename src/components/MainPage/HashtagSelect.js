@@ -311,7 +311,7 @@ const HashtagSelect = () => {
   const handleRemoveTag = (tag) => {
     const backendTag = backendHashtagList[tag];
 
-    fetch(`/api/users/tags`, {
+    fetch(`/api/api/users/tags`, {
       method: "DELETE",
       credentials: "include",
       headers: {
@@ -345,7 +345,7 @@ const HashtagSelect = () => {
       (tag) => backendHashtagList[tag]
     );
 
-    fetch(`/api/users/tags`, {
+    fetch(`/api/api/users/tags`, {
       method: "POST",
       credentials: "include",
       headers: {

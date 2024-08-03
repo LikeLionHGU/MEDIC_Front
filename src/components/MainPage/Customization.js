@@ -121,8 +121,8 @@ const Customization = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Fetching data from /api/products/custom...");
-    fetch("/api/products/custom", {
+    console.log("Fetching data from /api/api/products/custom...");
+    fetch("/api/api/products/custom", {
       method: "GET",
       credentials: "include",
     })

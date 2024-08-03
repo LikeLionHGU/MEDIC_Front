@@ -155,7 +155,7 @@ const Filtering = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(`/api/products`, {
+      const response = await fetch(`/api/api/products`, {
         method: "GET",
         credentials: "include",
         headers: {
