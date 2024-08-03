@@ -18,7 +18,14 @@ const Input = styled.input`
   }
 `;
 
-const UserInput = ({ type, placeholder, value, name, onChange }) => {
+const UserInput = ({
+  type,
+  placeholder,
+  value,
+  name,
+  onChange,
+  autoComplete,
+}) => {
   return (
     <Input
       type={type}
@@ -26,6 +33,7 @@ const UserInput = ({ type, placeholder, value, name, onChange }) => {
       onChange={onChange}
       value={value}
       name={name}
+      autoComplete={autoComplete}
     />
   );
 };

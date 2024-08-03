@@ -257,6 +257,7 @@ const LoginPage = () => {
           placeholder=""
           value={userInfo.email}
           name="email"
+          autoComplete="off"
         />
         <ErrorMessage
           isInvalid={isInvalidUserEmail}
