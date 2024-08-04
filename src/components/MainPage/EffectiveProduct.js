@@ -222,8 +222,8 @@ const EffectiveProduct = () => {
                 {product.salePrice.toLocaleString()}원
               </ProductDiscountPrice>
               <TagContainer>
-                {product.tag.split("_").map((tag, tagIndex) => (
-                  <Tag key={tagIndex}>#{tag}</Tag>
+                {product.tag.split(",").map((tag, tagIndex) => (
+                  <Tag key={tagIndex}>#{tag.replace(/_/g, "")}</Tag>
                 ))}
               </TagContainer>
             </ProductDetails>
