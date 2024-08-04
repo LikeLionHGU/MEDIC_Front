@@ -197,17 +197,10 @@ const Header = ({ onSearchOptionChange }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserNickname = async () => {
-      try {
-        const response = await fetch("api/api/name");
-        const name = await response.text();
-        setUserNickname(name);
-      } catch (error) {
-        console.error("Failed to fetch user nickname:", error);
-      }
-    };
-
-    fetchUserNickname();
+    const storedNickname = localStorage.getItem("userNickname");
+    if (storedNickname) {
+      setUserNickname(storedNickname);
+    }
   }, []);
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
@@ -220,7 +213,7 @@ const Header = ({ onSearchOptionChange }) => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`/api/api/logout`, {
+      const response = await fetch("/api/api/logout", {
         method: "POST",
         credentials: "include",
         headers: {
