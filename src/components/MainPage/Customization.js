@@ -154,6 +154,12 @@ const Customization = ({ selectedTags }) => {
       });
   }, []);
 
+  const filteredData = selectedTags.length
+    ? data.filter((product) =>
+        selectedTags.some((tag) => product.tag.includes(tag))
+      )
+    : data;
+
   const uniqueTags =
     selectedTags.length > 0
       ? selectedTags
@@ -183,7 +189,7 @@ const Customization = ({ selectedTags }) => {
       </Subtitle>
       <CarouselContainer>
         <Slider {...settings}>
-          {data.map((product, index) => {
+          {filteredData.map((product, index) => {
             const encodedImageUrl = encodeURIComponent(product.imageUrl);
             const bgImage = `/api/product/${encodedImageUrl}`;
             return (

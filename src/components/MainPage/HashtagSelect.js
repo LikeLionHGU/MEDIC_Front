@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom"; // useNavigate import 추가
+import { useNavigate } from "react-router-dom";
 import img from "../../img/Hashtag.png";
 import search from "../../img/searchh.svg";
 import search2 from "../../img/greensearch.svg";
@@ -103,6 +103,11 @@ const Tag = styled.div`
     font-weight: bold;
     transform: scale(1.2);
     z-index: 1;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.6;
   }
 `;
 
@@ -275,10 +280,29 @@ const ModalButton = styled.button`
 `;
 
 const HashtagSelect = ({ onSave }) => {
-  const navigate = useNavigate(); // navigate 함수 정의
+  const navigate = useNavigate();
   const [selectedTags, setSelectedTags] = useState([]);
-  const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [showModal, setShowModal] = useState(true);
+
+  useEffect(() => {
+    fetch("api/api/tags")
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          const filteredTags = data.filter((tag) => tag !== null);
+          const formattedTags = filteredTags.map(
+            (tag) =>
+              Object.keys(backendHashtagList).find(
+                (key) => backendHashtagList[key] === tag
+              ) || tag
+          );
+          setSelectedTags(formattedTags);
+        } else {
+          console.error("Fetched data is not an array:", data);
+        }
+      })
+      .catch((error) => console.error("Error fetching tags:", error));
+  }, []);
 
   const tags = [
     "관절/뼈 건강",
@@ -303,39 +327,16 @@ const HashtagSelect = ({ onSave }) => {
   };
 
   const handleTagClick = (tag) => {
-    if (selectedTags.length < 3 && !selectedTags.includes(tag)) {
-      setSelectedTags([...selectedTags, tag]);
+    if (!selectedTags.includes(tag)) {
+      setSelectedTags((prevTags) => {
+        const newTags = [...prevTags, tag];
+        return newTags.length <= 3 ? newTags : prevTags;
+      });
     }
   };
 
   const handleRemoveTag = (tag) => {
-    const backendTag = backendHashtagList[tag];
-    const url = new URL("/api/api/users/tags", window.location.origin);
-    url.searchParams.append("tag", backendTag);
-
-    fetch(url, {
-      method: "DELETE",
-      credentials: "include",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.json().then((data) => {
-            throw new Error(data.message || "해시태그 제거에 실패했습니다.");
-          });
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Tag removed successfully:", data);
-        const newSelectedTags = selectedTags.filter((t) => t !== tag);
-        setSelectedTags(newSelectedTags);
-        alert("해시태그가 성공적으로 제거되었습니다!");
-        onSave(newSelectedTags); // 태그를 부모 컴포넌트로 전달
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        alert("해시태그 제거 중 오류가 발생했습니다.");
-      });
+    setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
   };
 
   const handleSave = () => {
@@ -349,7 +350,7 @@ const HashtagSelect = ({ onSave }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tags: selectedHealthTags }), // 리스트 형식으로 변경
+      body: JSON.stringify({ tags: selectedHealthTags }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -361,7 +362,7 @@ const HashtagSelect = ({ onSave }) => {
       })
       .then((data) => {
         alert("해시태그가 성공적으로 저장되었습니다!");
-        onSave(selectedTags); // 태그를 부모 컴포넌트로 전달
+        onSave(selectedTags);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -406,14 +407,12 @@ const HashtagSelect = ({ onSave }) => {
               </ButtonContainer>
             </Logo>
             <TagBox>
-              {tags.slice(0, 5).map((tag) => (
-                <Tag key={tag} onClick={() => handleTagClick(tag)}>
-                  {tag}
-                </Tag>
-              ))}
-              <br />
-              {tags.slice(5, 8).map((tag) => (
-                <Tag key={tag} onClick={() => handleTagClick(tag)}>
+              {tags.map((tag) => (
+                <Tag
+                  key={tag}
+                  onClick={() => handleTagClick(tag)}
+                  className={selectedTags.includes(tag) ? "disabled" : ""}
+                >
                   {tag}
                 </Tag>
               ))}
@@ -437,23 +436,6 @@ const HashtagSelect = ({ onSave }) => {
           <Button2 onClick={handleSave}>저장하기</Button2>
         </div>
       </Container>
-
-      <RecommendedProducts>
-        {recommendedProducts.length > 0 && (
-          <>
-            <Title>추천 제품</Title>
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
-              {recommendedProducts.map((product) => (
-                <ProductCard key={product.productId}>
-                  <ProductImage src={product.image} alt={product.productName} />
-                  <ProductName>{product.productName}</ProductName>
-                  <ProductPrice>{product.price}원</ProductPrice>
-                </ProductCard>
-              ))}
-            </div>
-          </>
-        )}
-      </RecommendedProducts>
     </>
   );
 };
