@@ -363,6 +363,7 @@ const HashtagSelect = ({ onSave }) => {
       .then((data) => {
         alert("해시태그가 성공적으로 저장되었습니다!");
         onSave(selectedTags);
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error:", error);

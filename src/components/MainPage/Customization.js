@@ -129,10 +129,11 @@ const Arrow = styled.div`
 
 const Customization = ({ selectedTags }) => {
   const [data, setData] = useState([]);
+  const [uniqueTags, setUniqueTags] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/api/api/products/custom", {
+    fetch("api/api/products/custom", {
       method: "GET",
       credentials: "include",
     })
@@ -154,16 +155,24 @@ const Customization = ({ selectedTags }) => {
       });
   }, []);
 
+  useEffect(() => {
+    fetch("api/api/tags")
+      .then((response) => response.json())
+      .then((tags) => {
+        if (Array.isArray(tags)) {
+          setUniqueTags(tags.map((tag) => tag.replace(/_/g, "")));
+        } else {
+          console.error("Fetched tags are not an array:", tags);
+        }
+      })
+      .catch((error) => console.error("Error fetching tags:", error));
+  }, []);
+
   const filteredData = selectedTags.length
     ? data.filter((product) =>
-        selectedTags.some((tag) => product.tag.includes(tag))
+        selectedTags.some((tag) => product.tag.includes(tag.replace(/_/g, "")))
       )
     : data;
-
-  const uniqueTags =
-    selectedTags.length > 0
-      ? selectedTags
-      : [...new Set(data.map((product) => product.tag.replace(/_/g, "")))];
 
   const settings = {
     dots: true,
@@ -184,7 +193,7 @@ const Customization = ({ selectedTags }) => {
       <Title>#나의건강해시태그 맞춤추천 상품</Title>
       <Subtitle>
         {uniqueTags.map((tag, index) => (
-          <span key={index}>#{tag.replace(/_/g, "")} </span>
+          <span key={index}>#{tag} </span>
         ))}
       </Subtitle>
       <CarouselContainer>
