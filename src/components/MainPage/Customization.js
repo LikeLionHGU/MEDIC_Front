@@ -73,6 +73,17 @@ const OverlayImage = styled.img`
   border-radius: 30px;
 `;
 
+const TopOverlayImage = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  border-radius: 30px;
+`;
+
 const ProductInfo = styled.div`
   font-family: "KIMM_Light";
   font-size: 25px;
@@ -172,23 +183,32 @@ const Customization = () => {
       </Subtitle>
       <CarouselContainer>
         <Slider {...settings}>
-          {data.map((product, index) => (
-            <Slide key={index} bgImage={`/api/product/${product.imageUrl}`}>
-              <OverlayImage
-                src={img}
-                alt="Overlay"
-                onError={(e) => (e.target.style.display = "none")}
-              />
-              <ProductInfo>
-                <Product>#{product.name}</Product>
-                <Product>#{product.salePrice}원</Product>
-                <Product>#{product.tag}</Product>
-              </ProductInfo>
-              <More onClick={() => handleMoreClick(product.id)}>
-                더보기&nbsp;&nbsp;<Arrow>→</Arrow>
-              </More>
-            </Slide>
-          ))}
+          {data.map((product, index) => {
+            const encodedImageUrl = encodeURIComponent(product.imageUrl);
+            const bgImage = `/api/product/${encodedImageUrl}`;
+            console.log(`Product ID: ${product.id}, Image URL: ${bgImage}`);
+            return (
+              <Slide key={index} bgImage={bgImage}>
+                <TopOverlayImage src={img} alt="Overlay" />
+                <OverlayImage
+                  src={bgImage}
+                  alt="Overlay"
+                  onError={(e) => {
+                    console.error(`Error loading image: ${bgImage}`);
+                    e.target.style.display = "none";
+                  }}
+                />
+                <ProductInfo>
+                  <Product>#{product.name}</Product>
+                  <Product>#{product.salePrice}원</Product>
+                  <Product>#{product.tag}</Product>
+                </ProductInfo>
+                <More onClick={() => handleMoreClick(product.id)}>
+                  더보기&nbsp;&nbsp;<Arrow>→</Arrow>
+                </More>
+              </Slide>
+            );
+          })}
         </Slider>
       </CarouselContainer>
     </>
