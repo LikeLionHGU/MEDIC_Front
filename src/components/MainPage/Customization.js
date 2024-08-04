@@ -157,7 +157,7 @@ const Customization = ({ selectedTags }) => {
   const uniqueTags =
     selectedTags.length > 0
       ? selectedTags
-      : [...new Set(data.map((product) => product.tag))];
+      : [...new Set(data.map((product) => product.tag.replace(/_/g, "")))];
 
   const settings = {
     dots: true,
@@ -178,7 +178,7 @@ const Customization = ({ selectedTags }) => {
       <Title>#나의건강해시태그 맞춤추천 상품</Title>
       <Subtitle>
         {uniqueTags.map((tag, index) => (
-          <span key={index}>#{tag} </span>
+          <span key={index}>#{tag.replace(/_/g, "")} </span>
         ))}
       </Subtitle>
       <CarouselContainer>
@@ -200,7 +200,7 @@ const Customization = ({ selectedTags }) => {
                 <ProductInfo>
                   <Product>#{product.name}</Product>
                   <Product>#{product.salePrice}원</Product>
-                  <Product>#{product.tag}</Product>
+                  <Product>#{product.tag.replace(/_/g, "")}</Product>
                 </ProductInfo>
                 <More onClick={() => handleMoreClick(product.id)}>
                   더보기&nbsp;&nbsp;<Arrow>→</Arrow>
