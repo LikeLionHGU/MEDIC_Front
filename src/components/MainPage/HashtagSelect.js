@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // useNavigate import 추가
 import img from "../../img/Hashtag.png";
 import search from "../../img/searchh.svg";
 import search2 from "../../img/greensearch.svg";
@@ -222,9 +222,9 @@ const ProductPrice = styled.div`
 
 const Modal = styled.div`
   position: absolute;
-  bottom: 60%;
+  top: -12%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   background-color: rgba(132, 155, 45, 0.9);
   padding: 19px 25px 16px 26px;
   border-radius: 10px;
@@ -274,8 +274,8 @@ const ModalButton = styled.button`
   }
 `;
 
-const HashtagSelect = () => {
-  const navigate = useNavigate();
+const HashtagSelect = ({ onSave }) => {
+  const navigate = useNavigate(); // navigate 함수 정의
   const [selectedTags, setSelectedTags] = useState([]);
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [showModal, setShowModal] = useState(true);
@@ -310,14 +310,12 @@ const HashtagSelect = () => {
 
   const handleRemoveTag = (tag) => {
     const backendTag = backendHashtagList[tag];
+    const url = new URL("/api/api/users/tags", window.location.origin);
+    url.searchParams.append("tag", backendTag);
 
-    fetch(`/api/api/users/tags`, {
+    fetch(url, {
       method: "DELETE",
       credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ tag: [backendTag] }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -329,15 +327,15 @@ const HashtagSelect = () => {
       })
       .then((data) => {
         console.log("Tag removed successfully:", data);
-        setRecommendedProducts(data.updatedTag);
+        const newSelectedTags = selectedTags.filter((t) => t !== tag);
+        setSelectedTags(newSelectedTags);
         alert("해시태그가 성공적으로 제거되었습니다!");
+        onSave(newSelectedTags); // 태그를 부모 컴포넌트로 전달
       })
       .catch((error) => {
         console.error("Error:", error);
         alert("해시태그 제거 중 오류가 발생했습니다.");
       });
-
-    setSelectedTags(selectedTags.filter((t) => t !== tag));
   };
 
   const handleSave = () => {
@@ -351,7 +349,7 @@ const HashtagSelect = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tag: selectedHealthTags }),
+      body: JSON.stringify({ tags: selectedHealthTags }), // 리스트 형식으로 변경
     })
       .then((response) => {
         if (!response.ok) {
@@ -362,9 +360,8 @@ const HashtagSelect = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("Health tags updated successfully:", data);
-        setRecommendedProducts(data.updatedTag);
         alert("해시태그가 성공적으로 저장되었습니다!");
+        onSave(selectedTags); // 태그를 부모 컴포넌트로 전달
       })
       .catch((error) => {
         console.error("Error:", error);

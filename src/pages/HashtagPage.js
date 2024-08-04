@@ -182,12 +182,12 @@ const HashtagPage = () => {
     {
       id: "joint_bone_health",
       title: "관절/뼈 건강",
+      backendTag: "관절_뼈건강",
       content: (
         <>
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              관절/뼈 건강
+              <img src={search} alt="search icon" /> 관절/뼈 건강
             </SectionTitle3>
             이란 무엇일까요?
           </SectionTitle2>
@@ -198,11 +198,9 @@ const HashtagPage = () => {
             상태를 유지하여 관절을 부드럽게 움직이며, 정상적인 뼈의 분해와
             재형성이 일어나는 것을 건강한 관절/뼈라고 합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              관절/뼈 건강
+              <img src={search} alt="search icon" /> 관절/뼈 건강
             </SectionTitle3>
             이 왜 중요할까요?
           </SectionTitle2>
@@ -211,11 +209,9 @@ const HashtagPage = () => {
             재형성 균형이 깨지게 되면 골다공증, 골관절염 등 골 관련 질환이 생길
             수 있습니다. 따라서 관절/뼈 건강을 유지하는 것이 중요합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              관절/뼈 건강
+              <img src={search} alt="search icon" /> 관절/뼈 건강
             </SectionTitle3>
             과 관련된 건강기능식품은 우리 몸에 어떤 도움을 줄까요?
           </SectionTitle2>
@@ -245,12 +241,12 @@ const HashtagPage = () => {
     {
       id: "memory_improvement",
       title: "기억력 개선",
+      backendTag: "기억력_개선",
       content: (
         <>
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              기억력
+              <img src={search} alt="search icon" /> 기억력
             </SectionTitle3>
             이란 무엇일까요?
           </SectionTitle2>
@@ -268,11 +264,9 @@ const HashtagPage = () => {
             인자들의 순기능을 높이거나 관련 부위 신경세포의 작용과 생리를
             활성화시킬 수 있는 조치가 필요합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              기억력
+              <img src={search} alt="search icon" /> 기억력
             </SectionTitle3>
             을 유지하는 것이 왜 중요할까요?
           </SectionTitle2>
@@ -284,40 +278,32 @@ const HashtagPage = () => {
             형 치매를 유발할 수 있으므로 건강한 뇌세포를 유지하는 것이
             중요합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              기억력 개선
+              <img src={search} alt="search icon" /> 기억력 개선
             </SectionTitle3>
             과 관련된 건강기능식품은 우리 몸에 어떤 도움을 줄까요?
           </SectionTitle2>
           <SectionContent>
             [유해물질을 조절하여 인지 능력의 유지에 도움을 줄 수 있습니다]
-            <br />
-            뇌세포를 손상시키는 물질은 여러 가지가 있습니다. 에너지를 만드는
-            과정에서 생긴 활성산소뿐만 아니라 베타아밀로우즈라는 독성물질 역시
-            뇌세포를 공격할 수 있습니다. 참당귀주정추출분말 등을 함유한
+            <br /> 뇌세포를 손상시키는 물질은 여러 가지가 있습니다. 에너지를
+            만드는 과정에서 생긴 활성산소뿐만 아니라 베타아밀로우즈라는 독성물질
+            역시 뇌세포를 공격할 수 있습니다. 참당귀주정추출분말 등을 함유한
             건강기능식품은 이런 유해물질을 조절하여 뇌세포가 손상 받지 않도록
-            보호하는데 도움을 줄 수 있습니다. <br />
-            <br />
-            [뇌의 신경전달물질을 조절하여 저하된 인지능력을 개선하는데 도움을 줄
-            수 있습니다]
-            <br /> 기억력은 대뇌의 피질 특히 해마와 관련이 많습니다. 해마에서
+            보호하는데 도움을 줄 수 있습니다. <br /> <br /> [뇌의 신경전달물질을
+            조절하여 저하된 인지능력을 개선하는데 도움을 줄 수 있습니다] <br />
+            기억력은 대뇌의 피질 특히 해마와 관련이 많습니다. 해마에서
             신경전달물질이 필요한 양만큼 존재해야 뇌세포 간에 신호가 원활히
             이루어 질 수 있고, 인지 능력이 저하된 상태에서는 신경전달물질의
             활동이 적어지는 것을 볼 수가 있습니다. 녹차에 있는 테아닌은
             신경전달물질을 조절하여 저하된 인지능력을 개선하는데 도움을 줄 수
-            있습니다. <br />
-            <br />
-            [뇌의 신경세포나 뇌기능에 필요한 물질로 뇌 기능을 유지하는데 도움을
-            줄 수 있습니다]
-            <br />
-            뇌세포는 다른 세포에 비해 특히 인지질(레시틴, 포스파티딜세린 등)이
-            많이 함유되어 있습니다. 인지질은 세포를 보호하는 막을 구성하여,
-            뇌세포가 그 기능을 원활히 수행할 수 있도록 도와줍니다. 특히 달걀
-            노른자에 있는 레시틴은 신경전달물질인 아세틸콜린의 원료가 되므로
-            뇌기능 유지에 도움을 줄 수 있습니다.
+            있습니다. <br /> <br /> [뇌의 신경세포나 뇌기능에 필요한 물질로 뇌
+            기능을 유지하는데 도움을 줄 수 있습니다] <br /> 뇌세포는 다른 세포에
+            비해 특히 인지질(레시틴, 포스파티딜세린 등)이 많이 함유되어
+            있습니다. 인지질은 세포를 보호하는 막을 구성하여, 뇌세포가 그 기능을
+            원활히 수행할 수 있도록 도와줍니다. 특히 달걀 노른자에 있는 레시틴은
+            신경전달물질인 아세틸콜린의 원료가 되므로 뇌기능 유지에 도움을 줄 수
+            있습니다.
           </SectionContent>
         </>
       ),
@@ -325,12 +311,12 @@ const HashtagPage = () => {
     {
       id: "sugar_control",
       title: "혈당 조절",
+      backendTag: "혈당조절",
       content: (
         <>
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              혈당
+              <img src={search} alt="search icon" /> 혈당
             </SectionTitle3>
             이란 무엇일까요?
           </SectionTitle2>
@@ -339,11 +325,9 @@ const HashtagPage = () => {
             공급된 혈당은 인슐린이라는 호르몬의 도움을 받아 세포 내부로 들어가
             에너지를 만들어냅니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              혈당조절
+              <img src={search} alt="search icon" /> 혈당조절
             </SectionTitle3>
             이 왜 중요할까요?
           </SectionTitle2>
@@ -357,18 +341,15 @@ const HashtagPage = () => {
             혈당 공급이 더욱더 중요합니다. 따라서 혈당이 항상 일정수준으로
             유지되어야 우리 몸이 에너지를 원활하게 공급 받을 수 있게 됩니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              혈당조절
+              <img src={search} alt="search icon" /> 혈당조절
             </SectionTitle3>
             과 관련된 건강기능식품은 우리 몸에 어떤 도움을 줄까요?
           </SectionTitle2>
           <SectionContent>
             [세포에서 포도당을 효율적으로 이용하도록 도와줄 수 있습니다]
-            <br />
-            포도당을 세포에서 이용할 수 있게 하려면 혈액에 있는 포도당이
+            <br /> 포도당을 세포에서 이용할 수 있게 하려면 혈액에 있는 포도당이
             원활하게 세포로 들어가야 합니다. 또한, 식후의 급격한 혈당 상승을
             억제하여 높은 혈당으로 부터의 위험을 줄여야 합니다.
             난소화성말토덱스트린, 구아바잎추출물 등이 함유된 건강기능식품은 장내
@@ -381,12 +362,12 @@ const HashtagPage = () => {
     {
       id: "body_fat_reduction",
       title: "체지방 감소",
+      backendTag: "체지방감소",
       content: (
         <>
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              체지방
+              <img src={search} alt="search icon" /> 체지방
             </SectionTitle3>
             이란 무엇일까요?
           </SectionTitle2>
@@ -397,11 +378,9 @@ const HashtagPage = () => {
             몸에 지방의 형태로 축적됩니다. 이렇게 저장된 체지방은 우리 몸을
             보호하며, 에너지가 부족할 경우 공급원이 되기도 합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              체지방 감소
+              <img src={search} alt="search icon" /> 체지방 감소
             </SectionTitle3>
             가 왜 중요할까요?
           </SectionTitle2>
@@ -411,11 +390,9 @@ const HashtagPage = () => {
             체지방이 과도한 경우 적정수준 감량을 통해 일정량의 에너지를 생산하여
             체력을 유지하는 것이 중요합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              체지방 감소
+              <img src={search} alt="search icon" /> 체지방 감소
             </SectionTitle3>
             와 관련된 건강기능식품은 우리 몸에 어떤 도움을 줄까요?
           </SectionTitle2>
@@ -441,12 +418,12 @@ const HashtagPage = () => {
     {
       id: "skin_health",
       title: "피부 건강",
+      backendTag: "피부건강",
       content: (
         <>
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              피부
+              <img src={search} alt="search icon" /> 피부
             </SectionTitle3>
             의 역할은 무엇일까요?
           </SectionTitle2>
@@ -456,11 +433,9 @@ const HashtagPage = () => {
             피부가 하는 역할은 외부 환경에 대해 병원균으로부터 신체를 보호하고
             체온을 조절하고 감각을 느끼는 등의 기능을 합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              건강한 피부
+              <img src={search} alt="search icon" /> 건강한 피부
             </SectionTitle3>
             를 유지하는 것이 왜 중요할까요?
           </SectionTitle2>
@@ -476,24 +451,21 @@ const HashtagPage = () => {
             주름이 생기고, 탄력이 저하되며 검버섯이나 잡티 등이 생기게 됩니다.
             그러므로 건강한 피부의 유지가 무엇보다 중요합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              피부 건강
+              <img src={search} alt="search icon" /> 피부 건강
             </SectionTitle3>
             과 관련된 건강기능식품은 우리 몸에 어떤 도움을 줄까요?
           </SectionTitle2>
           <SectionContent>
             [피부보습에 도움을 줄 수 있습니다]
-            <br />
-            N-아세틸글루코사민, 히알우론산나트륨, 곤약감자추출물, 쌀겨추출물,
-            지초추출물은 피부의 건조 정도와 수분의 보유량 등을 개선시킴으로써
-            피부상태를 개선시키는데 도움을 줄 수 있습니다. 햇볕 또는 자외선에
-            의한 피부손상으로부터 피부건강을 유지하는데 도움을 줄 수 있습니다.
-            소나무껍질추출물등 복합물, 홍삼, 사상자, 산수유 복합추출물은 햇볕
+            <br /> N-아세틸글루코사민, 히알우론산나트륨, 곤약감자추출물,
+            쌀겨추출물, 지초추출물은 피부의 건조 정도와 수분의 보유량 등을
+            개선시킴으로써 피부상태를 개선시키는데 도움을 줄 수 있습니다. 햇볕
             또는 자외선에 의한 피부손상으로부터 피부건강을 유지하는데 도움을 줄
-            수 있습니다.
+            수 있습니다. 소나무껍질추출물등 복합물, 홍삼, 사상자, 산수유
+            복합추출물은 햇볕 또는 자외선에 의한 피부손상으로부터 피부건강을
+            유지하는데 도움을 줄 수 있습니다.
           </SectionContent>
         </>
       ),
@@ -501,12 +473,12 @@ const HashtagPage = () => {
     {
       id: "exercise_performance",
       title: "운동 수행 능력",
+      backendTag: "운동수행_능력",
       content: (
         <>
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              근력
+              <img src={search} alt="search icon" /> 근력
               <SectionTitle2 style={{ marginTop: "15px" }}>
                 과&nbsp;
               </SectionTitle2>
@@ -529,11 +501,9 @@ const HashtagPage = () => {
             인산크레아틴이 원활히 공급되거나, 근육을 많이 사용할수록 근력 및
             운동수행능력을 향상하는데 도움이 됩니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              운동수행능력의 향상
+              <img src={search} alt="search icon" /> 운동수행능력의 향상
             </SectionTitle3>
             은 왜 중요할까요?
           </SectionTitle2>
@@ -546,22 +516,21 @@ const HashtagPage = () => {
             위해서는 적절한 근력을 유지하여 운동수행능력을 향상하도록 해야
             합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              운동수행능력
+              <img src={search} alt="search icon" /> 운동수행능력
             </SectionTitle3>
             과 관련된 건강기능식품은 우리 몸에 어떤 도움을 줄까요?
           </SectionTitle2>
           <SectionContent>
             [에너지 대사에 관여하여 운동수행능력을 향상시키는데 도움을 줄 수
-            있습니다] <br />
-            운동량이 많고 운동시간이 길 경우 보다 많은 에너지를 필요로 하는데,
-            근육에 저장되어 있는 글리코겐과 지방을 효율적으로 써야 에너지의
-            부족현상이 나타나지 않습니다. 크레아틴을 함유한 건강기능식품은
-            체내에서 인산크레아틴이 전환되어 에너지를 생성하는 과정에 사용되므로
-            근력 운동 시 운동수행능력 향상에 도움을 줄 수 있습니다.
+            있습니다]
+            <br /> 운동량이 많고 운동시간이 길 경우 보다 많은 에너지를 필요로
+            하는데, 근육에 저장되어 있는 글리코겐과 지방을 효율적으로 써야
+            에너지의 부족현상이 나타나지 않습니다. 크레아틴을 함유한
+            건강기능식품은 체내에서 인산크레아틴이 전환되어 에너지를 생성하는
+            과정에 사용되므로 근력 운동 시 운동수행능력 향상에 도움을 줄 수
+            있습니다.
           </SectionContent>
         </>
       ),
@@ -569,12 +538,12 @@ const HashtagPage = () => {
     {
       id: "immune_function_improvement",
       title: "면역기능개선",
+      backendTag: "면역기능_개선",
       content: (
         <>
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              면역 기능
+              <img src={search} alt="search icon" /> 면역 기능
             </SectionTitle3>
             이란 무엇일까요?
           </SectionTitle2>
@@ -583,11 +552,9 @@ const HashtagPage = () => {
             몸에 원래 내재된 면역과 적응에 의해 만들어진 면역 기능으로 나눌 수
             있습니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              면역 기능
+              <img src={search} alt="search icon" /> 면역 기능
             </SectionTitle3>
             이 왜 중요할까요?
           </SectionTitle2>
@@ -599,17 +566,16 @@ const HashtagPage = () => {
           </SectionContent>
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              면역 기능
+              <img src={search} alt="search icon" /> 면역 기능
             </SectionTitle3>
             과 관련된 건강기능식품은 우리 몸에 어떤 도움을 줄까요?
           </SectionTitle2>
           <SectionContent>
-            [면역세포의 활성을 증가시킵니다] <br />
-            건강한 면역 기능을 유지하기 위해서는 적절한 면역세포가 제 역할을
-            원활히 수행해야 합니다. 인삼/홍삼 등을 함유한 건강기능식품은 필요한
-            면역세포를 증가시키거나 그 기능을 조절하여 면역 능력에 도움을 줄 수
-            있습니다.
+            [면역세포의 활성을 증가시킵니다]
+            <br /> 건강한 면역 기능을 유지하기 위해서는 적절한 면역세포가 제
+            역할을 원활히 수행해야 합니다. 인삼/홍삼 등을 함유한 건강기능식품은
+            필요한 면역세포를 증가시키거나 그 기능을 조절하여 면역 능력에 도움을
+            줄 수 있습니다.
           </SectionContent>
         </>
       ),
@@ -617,12 +583,12 @@ const HashtagPage = () => {
     {
       id: "blood_circulation_improvement",
       title: "혈중 중성지방 개선",
+      backendTag: "혈중_중성지방_개선",
       content: (
         <>
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              혈중 중성지방
+              <img src={search} alt="search icon" /> 혈중 중성지방
             </SectionTitle3>
             이란 무엇일까요?
           </SectionTitle2>
@@ -633,11 +599,9 @@ const HashtagPage = () => {
             경계수준, 400㎎/㎗ 이상이면 고위험군으로 인체에 나쁜 영향을 미칠 수
             있으므로 주의해야 합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              혈중 중성지방
+              <img src={search} alt="search icon" /> 혈중 중성지방
             </SectionTitle3>
             을 개선하는 것이 왜 중요할까요?
           </SectionTitle2>
@@ -649,11 +613,9 @@ const HashtagPage = () => {
             않도록 주의해야 하며, 특히 당뇨병 환자는 혈중 중성지방 수치가
             높아지지 않도록 유지하는 것이 중요합니다.
           </SectionContent>
-
           <SectionTitle2>
             <SectionTitle3>
-              <img src={search} alt="search icon" />
-              혈중 중성지방 개선
+              <img src={search} alt="search icon" /> 혈중 중성지방 개선
             </SectionTitle3>
             과 관련된 건강기능식품은 우리 몸에 어떤 도움을 줄까요?
           </SectionTitle2>
@@ -664,10 +626,8 @@ const HashtagPage = () => {
             EPA 및 DHA는 청어, 고등어, 정어리, 참치, 연어 등에 많이 들어
             있습니다. 이들은 간에서의 중성지방 합성을 감소시켜 혈중 중성지방
             농도를 낮추며 혈소판이 뭉쳐서 굳는 것을 억제하여 혈전 생성을
-            방지하는 효과가 있습니다. <br />
-            <br />
-            [섬유소는 당질과 지방의 소화와 흡수를 억제하여 체지방 감소에 도움을
-            줄 수 있습니다] <br />
+            방지하는 효과가 있습니다. <br /> <br /> [섬유소는 당질과 지방의
+            소화와 흡수를 억제하여 체지방 감소에 도움을 줄 수 있습니다] <br />{" "}
             수용성 섬유소는 음식물이 위에서 장으로 배출되는 것을 느리게 하고,
             장에서의 음식물 이동시간을 증가시키며, 혈당이 급격히 상승하는 것을
             막아주며, 혈중 중성지방을 저하시키는 작용을 갖고 있습니다. 음식이
@@ -682,7 +642,11 @@ const HashtagPage = () => {
 
   const handleButtonClick = (sectionId) => {
     const section = sections.find((section) => section.id === sectionId);
-    navigate("/Medic/RelatedPage", { state: { sectionTitle: section.title } });
+    const tag = section.backendTag;
+    console.log(tag);
+    navigate(`/Medic/RelatedPage`, {
+      state: { sectionTitle: section.title, tag },
+    });
   };
 
   return (

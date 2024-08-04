@@ -127,25 +127,22 @@ const Arrow = styled.div`
   font-family: "Pretendard-Regular";
 `;
 
-const Customization = () => {
+const Customization = ({ selectedTags }) => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Fetching data from /api/api/products/custom...");
     fetch("/api/api/products/custom", {
       method: "GET",
       credentials: "include",
     })
       .then((response) => {
-        console.log(`Response status: ${response.status}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
       .then((data) => {
-        console.log("Data received:", data);
         if (Array.isArray(data)) {
           setData(data);
         } else {
@@ -157,7 +154,10 @@ const Customization = () => {
       });
   }, []);
 
-  const uniqueTags = [...new Set(data.map((product) => product.tag))];
+  const uniqueTags =
+    selectedTags.length > 0
+      ? selectedTags
+      : [...new Set(data.map((product) => product.tag))];
 
   const settings = {
     dots: true,
@@ -186,7 +186,6 @@ const Customization = () => {
           {data.map((product, index) => {
             const encodedImageUrl = encodeURIComponent(product.imageUrl);
             const bgImage = `/api/product/${encodedImageUrl}`;
-            console.log(`Product ID: ${product.id}, Image URL: ${bgImage}`);
             return (
               <Slide key={index} bgImage={bgImage}>
                 <TopOverlayImage src={img} alt="Overlay" />

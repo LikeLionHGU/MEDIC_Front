@@ -4,7 +4,6 @@ import Customization from "../components/MainPage/Customization";
 import Header from "../components/MainPage/Header";
 import BEST from "../components/MainPage/BEST";
 import EffectiveProduct from "../components/MainPage/EffectiveProduct";
-
 import modalImage from "../img/Frame 15595.svg";
 import Modal from "../components/MainPage/Modal";
 import styled from "styled-components";
@@ -72,6 +71,7 @@ const ImageContainer = styled.div`
 
 const MainPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -87,11 +87,15 @@ const MainPage = () => {
     setShowModal(false);
   };
 
+  const handleTagSave = (tags) => {
+    setSelectedTags(tags);
+  };
+
   return (
     <>
       <Header />
-      <HashtagSelect />
-      <Customization />
+      <HashtagSelect onSave={handleTagSave} />
+      <Customization selectedTags={selectedTags} />
       <BEST />
       <EffectiveProduct />
       <ImageContainer>
