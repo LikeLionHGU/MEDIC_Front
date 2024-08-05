@@ -127,52 +127,58 @@ const Arrow = styled.div`
   font-family: "Pretendard-Regular";
 `;
 
-const Customization = ({ selectedTags }) => {
+const Customization = ({ selectedTags, products }) => {
   const [data, setData] = useState([]);
   const [uniqueTags, setUniqueTags] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("api/api/products/custom", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setData(data);
-        } else {
-          console.error("Unexpected response format:", data);
-        }
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the data:", error);
-      });
-  }, []);
+    if (!selectedTags || selectedTags.length === 0) {
+      // 태그가 선택되지 않은 경우 기본 태그 데이터를 가져옴
+      fetch("api/api/tags")
+        .then((response) => response.json())
+        .then((tags) => {
+          if (Array.isArray(tags)) {
+            setUniqueTags(tags.map((tag) => tag.replace(/_/g, "")));
+          } else {
+            console.error("Fetched tags are not an array:", tags);
+          }
+        })
+        .catch((error) => console.error("Error fetching tags:", error));
+    } else {
+      // 태그가 선택된 경우 선택된 태그를 사용
+      setUniqueTags(selectedTags.map((tag) => tag.replace(/_/g, "")));
+    }
+  }, [selectedTags]);
 
   useEffect(() => {
-    fetch("api/api/tags")
-      .then((response) => response.json())
-      .then((tags) => {
-        if (Array.isArray(tags)) {
-          setUniqueTags(tags.map((tag) => tag.replace(/_/g, "")));
-        } else {
-          console.error("Fetched tags are not an array:", tags);
-        }
+    if (!products) {
+      // products가 없을 때만 기본 API를 통해 데이터 가져오기
+      fetch("api/api/products/custom", {
+        method: "GET",
+        credentials: "include",
       })
-      .catch((error) => console.error("Error fetching tags:", error));
-  }, []);
-
-  const filteredData = selectedTags.length
-    ? data.filter((product) =>
-        selectedTags.some((tag) => product.tag.includes(tag.replace(/_/g, "")))
-      )
-    : data;
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (Array.isArray(data)) {
+            setData(data);
+          } else {
+            console.error("Unexpected response format:", data);
+          }
+        })
+        .catch((error) => {
+          console.error("There was an error fetching the data:", error);
+        });
+    } else {
+      // products가 있으면 해당 데이터를 사용
+      setData(products);
+    }
+  }, [products]);
 
   const settings = {
     dots: true,
@@ -198,7 +204,7 @@ const Customization = ({ selectedTags }) => {
       </Subtitle>
       <CarouselContainer>
         <Slider {...settings}>
-          {filteredData.map((product, index) => {
+          {data.map((product, index) => {
             const encodedImageUrl = encodeURIComponent(product.imageUrl);
             const bgImage = `/api/product/${encodedImageUrl}`;
             return (

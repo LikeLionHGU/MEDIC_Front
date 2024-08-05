@@ -73,6 +73,7 @@ const MainPage = ({ searchOption, onSearchOptionChange }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
   const [showModal, setShowModal] = useState(true);
+  const [products, setProducts] = useState(null); // 제품 데이터를 저장할 상태
 
   const openModal = () => {
     setModalOpen(true);
@@ -86,15 +87,17 @@ const MainPage = ({ searchOption, onSearchOptionChange }) => {
     setShowModal(false);
   };
 
-  const handleTagSave = (tags) => {
+  const handleTagSave = (tags, products) => {
     setSelectedTags(tags);
+    setProducts(products); // API 응답 데이터를 저장
   };
 
   return (
     <>
       <Header onSearchOptionChange={onSearchOptionChange} />
       <HashtagSelect onSave={handleTagSave} />
-      <Customization selectedTags={selectedTags} />
+      <Customization selectedTags={selectedTags} products={products} />{" "}
+      {/* 제품 데이터를 전달 */}
       <BEST />
       <EffectiveProduct />
       <ImageContainer>
