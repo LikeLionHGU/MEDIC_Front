@@ -173,7 +173,7 @@ const SectionContent = styled.div`
   color: white;
 `;
 
-const HashtagPage = () => {
+const HashtagPage = ({ onSearchOptionChange }) => {
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("joint_bone_health");
   const [hoverSection, setHoverSection] = useState(null);
@@ -651,7 +651,7 @@ const HashtagPage = () => {
 
   return (
     <>
-      <Header />
+      <Header onSearchOptionChange={onSearchOptionChange} />
       <Title>
         건강 맞춤형 해시태그 알아보기
         <img src={search2} alt="search icon" />

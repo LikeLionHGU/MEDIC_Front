@@ -44,10 +44,10 @@ const Div2 = styled.div`
   margin-bottom: 73.57px;
 `;
 
-const AllProductPage = () => {
+const AllProductPage = ({ onSearchOptionChange }) => {
   return (
     <>
-      <Header />
+      <Header onSearchOptionChange={onSearchOptionChange} />
       <Div>
         <MessageContainer>
           <Highlight>MEDIC</Highlight>

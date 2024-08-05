@@ -35,13 +35,13 @@ const Title = styled.div`
   gap: 10px;
 `;
 
-const RelatedPage = () => {
+const RelatedPage = ({ onSearchOptionChange }) => {
   const location = useLocation();
   const { sectionTitle } = location.state || {};
 
   return (
     <>
-      <Header />
+      <Header onSearchOptionChange={onSearchOptionChange} />
       <SectionInfo>
         <Title>#{sectionTitle}</Title>&nbsp;에 대한 제품입니다
       </SectionInfo>

@@ -5,12 +5,12 @@ import TopInformation from "../components/InformationPage/TopInformation";
 import Detail from "../components/InformationPage/Detail";
 import Review from "../components/InformationPage/Review";
 
-const InformationPage = () => {
+const InformationPage = ({ onSearchOptionChange }) => {
   const { productId } = useParams();
 
   return (
     <>
-      <Header />
+      <Header onSearchOptionChange={onSearchOptionChange} />
       <TopInformation productId={productId} />
       <Detail productId={productId} />
       <Review productId={productId} />

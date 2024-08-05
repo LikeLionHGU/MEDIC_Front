@@ -69,9 +69,10 @@ const ImageContainer = styled.div`
   z-index: 1000;
 `;
 
-const MainPage = () => {
+const MainPage = ({ searchOption, onSearchOptionChange }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [showModal, setShowModal] = useState(true);
 
   const openModal = () => {
     setModalOpen(true);
@@ -80,8 +81,6 @@ const MainPage = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
-
-  const [showModal, setShowModal] = useState(true);
 
   const handleModalClose = () => {
     setShowModal(false);
@@ -93,7 +92,7 @@ const MainPage = () => {
 
   return (
     <>
-      <Header />
+      <Header onSearchOptionChange={onSearchOptionChange} />
       <HashtagSelect onSave={handleTagSave} />
       <Customization selectedTags={selectedTags} />
       <BEST />
