@@ -329,8 +329,8 @@ const HashtagSelect = ({ onSave }) => {
       })
       .then((data) => {
         alert("해시태그가 성공적으로 저장되었습니다!");
-        localStorage.setItem("selectedTags", JSON.stringify(selectedTags)); // 저장
-        onSave(selectedTags, data); // 상위 컴포넌트로 선택된 태그와 API 응답 데이터 전달
+        localStorage.setItem("selectedTags", JSON.stringify(selectedTags));
+        onSave(selectedTags, data);
       })
       .catch((error) => {
         console.error("Error:", error);
