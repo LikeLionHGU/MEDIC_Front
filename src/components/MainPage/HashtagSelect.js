@@ -192,39 +192,6 @@ const Button2 = styled.button`
   }
 `;
 
-const RecommendedProducts = styled.div`
-  width: 1170px;
-  margin-top: 20px;
-`;
-
-const ProductCard = styled.div`
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 10px;
-  width: 200px;
-  text-align: center;
-`;
-
-const ProductImage = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-`;
-
-const ProductName = styled.div`
-  font-family: "Pretendard-Regular";
-  font-size: 16px;
-  margin-top: 10px;
-`;
-
-const ProductPrice = styled.div`
-  font-family: "Pretendard-Regular";
-  font-size: 14px;
-  color: #8c8c8c;
-  margin-top: 5px;
-`;
-
 const Modal = styled.div`
   position: absolute;
   top: -12%;

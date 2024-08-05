@@ -71,7 +71,7 @@ const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 30px; /* Add border-radius here */
+  border-radius: 30px;
   transition: border-radius 0.3s ease-in-out;
 
   &:hover {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import img from "../../img/1.png";
 import warning from "../../img/warning.png";
 
 const Container = styled.div`
