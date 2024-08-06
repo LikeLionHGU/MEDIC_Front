@@ -6,6 +6,7 @@ import logo from "../img/logo.svg";
 import UserInput2 from "../components/SignUpPage/UserInput";
 import useDetectClose from "../components/SignUpPage/UseDetectClose";
 import arrow from "../img/arrow.png";
+import ximg from "../img/xx.svg";
 
 const Container = styled.div`
   position: relative;
@@ -648,7 +649,7 @@ const SignUpPage = () => {
                 style={{ cursor: "pointer", marginLeft: "4px" }}
                 onClick={() => handleHashtagRemove(hashtag)}
               >
-                X
+                <img src={ximg} alt="ximg" style={{ marginLeft: "4px" }} />
               </span>
             </Tag>
           ))}
@@ -698,7 +699,8 @@ const SignUpPage = () => {
                   marginRight: "14px",
                 }}
               >
-                {supplement} x
+                {supplement}{" "}
+                <img src={ximg} alt="ximg" style={{ marginLeft: "8px" }} />
               </Tag>
             ))}
         </TagContainer>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import warning from "../../img/warning.png";
+import warning from "../../img/warning.svg";
 
 const Container = styled.div`
   display: flex;
