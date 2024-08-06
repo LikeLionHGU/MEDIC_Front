@@ -61,7 +61,7 @@ const CloseButton = styled.button`
   margin-right: 23px;
 
   &:hover {
-    color: #ccc;
+    color: #b2d23e;
   }
 `;
 

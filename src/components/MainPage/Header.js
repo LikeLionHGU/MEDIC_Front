@@ -161,7 +161,8 @@ const UserContainer = styled.div`
   width: 95%;
   justify-content: flex-end;
   padding-right: 62px;
-  padding-top: 50px;
+  padding-top: 30px;
+  padding-bottom: 10px;
 `;
 
 const WelcomeMessage = styled.div`
