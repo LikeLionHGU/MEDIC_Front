@@ -5,7 +5,7 @@ import mark from "../../img/Frame 15533.svg";
 import search from "../../img/search.svg";
 import img2 from "../../img/Frame 15538.svg";
 import Modal2 from "../InformationPage/Modal2";
-import search2 from "../../img/greensearch.svg";
+import search2 from "../../img/greensearchh.svg";
 
 const Img1 = styled.img`
   width: 1169.999px;
@@ -259,12 +259,7 @@ const SearchDetail = ({ productId, products = [] }) => {
                   {"알레르기가 있는 분은 섭취를 피하세요."}
                 </TableCell2>
               </TableRow>
-              <TableRow>
-                <TableCell>기능성 내용</TableCell>
-                <TableCell2>
-                  {productData.healthTags.join(", ") || "N/A"}
-                </TableCell2>
-              </TableRow>
+
               <TableRow>
                 <TableCell>기타 원료</TableCell>
                 <TableCell2>{"비타민 C, 비타민 D"}</TableCell2>

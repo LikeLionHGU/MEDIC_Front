@@ -5,7 +5,7 @@ import mark from "../../img/Frame 15533.svg";
 import search from "../../img/search.svg";
 import img2 from "../../img/Frame 15538.svg";
 import Modal2 from "./Modal2";
-import search2 from "../../img/greensearch.svg";
+import search2 from "../../img/greensearchh.svg";
 
 const Img1 = styled.img`
   width: 1169.999px;
@@ -36,14 +36,14 @@ const Modal = styled.div`
 
 const ModalTriangle = styled.div`
   position: absolute;
-  bottom: -19px;
+  bottom: -17.1px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 20px solid rgba(132, 155, 45, 0.9);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 18px solid rgba(132, 155, 45, 0.9);
 `;
 
 const ModalContent = styled.div`
@@ -272,10 +272,7 @@ const Detail = ({ productId }) => {
                 <TableCell>섭취 시 주의사항</TableCell>
                 <TableCell2>{data.ingestPrecaution}</TableCell2>
               </TableRow>
-              <TableRow>
-                <TableCell>기능성 내용</TableCell>
-                <TableCell2>{data.functionallyContents || "N/A"}</TableCell2>
-              </TableRow>
+
               <TableRow>
                 <TableCell>기타 원료</TableCell>
                 <TableCell2>{data.otherMaterials}</TableCell2>

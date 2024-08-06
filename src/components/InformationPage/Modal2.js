@@ -96,10 +96,10 @@ const Profile = styled.div`
 `;
 
 const ProfileImg = styled.img`
-  height: 163px;
-  width: 163px;
+  height: 153px;
+  width: 153px;
   margin-left: 7px;
-  margin-bottom: 26px;
+  margin-bottom: 24px;
 `;
 
 const Information = styled.div`
@@ -110,7 +110,7 @@ const Information = styled.div`
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-  margin-bottom: 22px;
+  margin-bottom: 13px;
 `;
 
 const CertificateBtn = styled.button`
@@ -179,7 +179,7 @@ const Modal2 = ({ onClose }) => {
           <img
             src={logo}
             alt="logo"
-            style={{ height: "179px", marginTop: "10px" }}
+            style={{ height: "163px", marginTop: "10px" }}
           />
         </Profile>
         <RecommendationBox>
