@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import img from "../../img/Hashtag.png";
 import search from "../../img/searchh.svg";
 import search2 from "../../img/greensearch.svg";
+import x from "../../img/x.svg";
 
 const Title = styled.div`
   font-family: "KIMM_Light";
@@ -12,7 +13,7 @@ const Title = styled.div`
   width: 1170px;
   text-align: start;
   margin-bottom: 12px;
-  margin-top: 67px;
+  margin-top: 73px;
 `;
 
 const Subtitle = styled.div`
@@ -20,6 +21,7 @@ const Subtitle = styled.div`
   font-size: 20px;
   font-style: normal;
   font-weight: 100;
+  line-height: normal;
   color: black;
   width: 1170px;
   text-align: start;
@@ -87,7 +89,7 @@ const TagBox2 = styled.div`
 const Tag = styled.div`
   display: inline-block;
   padding: 8px 12px;
-  margin: 8px;
+  margin: 10px;
   color: #b7b7b7;
   border-radius: 20px;
   cursor: pointer;
@@ -175,16 +177,17 @@ const Button = styled.button`
 `;
 
 const Button2 = styled.button`
-  padding: 8px 12px;
+  padding: 9.863px 14.795px;
   border: 1.3px solid white;
   color: white;
   background-color: transparent;
   border-radius: 12.33px;
   cursor: pointer;
-  width: 90px;
   height: 38px;
   font-family: "Pretendard-Regular";
-  font-size: 14px;
+  font-size: 17.26px;
+  display: flex;
+  align-items: center;
 
   &:hover {
     border: 1.3px solid #b2d23e;
@@ -209,14 +212,14 @@ const Modal = styled.div`
 
 const ModalTriangle = styled.div`
   position: absolute;
-  bottom: -20px;
+  bottom: -14.274px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 20px solid rgba(132, 155, 45, 0.9);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 15px solid rgba(132, 155, 45, 0.9);
 `;
 
 const ModalContent = styled.div`
@@ -392,7 +395,8 @@ const HashtagSelect = ({ onSave }) => {
             <TagBox2>
               {selectedTags.map((tag) => (
                 <Tag2 key={tag} onClick={() => handleRemoveTag(tag)}>
-                  {tag} x
+                  {tag}{" "}
+                  <img src={x} alt="ximg" style={{ marginLeft: "12.33px" }} />
                 </Tag2>
               ))}
             </TagBox2>

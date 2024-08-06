@@ -45,9 +45,13 @@ const DropdownButton = styled.button`
   background-color: #fff;
   border: none;
   border-radius: 10px;
-  padding: 10px 45px 10px 16px;
+  padding: 10px 35px 10px 16px;
   cursor: pointer;
   font-size: 16px;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
   display: flex;
   align-items: center;
   height: 38px;
@@ -66,12 +70,11 @@ const DropdownContent = styled.div`
   position: absolute;
   font-family: "Pretendard-Regular";
   font-size: 16px;
-  top: 40px;
-  left: 0;
-  width: 120px;
+  top: 43px;
+  left: 8px;
+  width: 81px;
   height: 66px;
   background-color: #b2d23e;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   border-radius: 5px;
 
@@ -85,13 +88,17 @@ const DropdownContent = styled.div`
     height: 33px;
 
     &:hover {
-      border-radius: 5px;
       background-color: #99b93b;
     }
   }
 
-  & > div:not(:last-child) {
-    border-bottom: 1px solid #8c8c8c;
+  & > div:first-child {
+    border-radius: 5px 5px 0px 0px;
+    border-bottom: 0.3px solid #939090;
+  }
+
+  & > div:last-child {
+    border-radius: 0px 0px 5px 5px;
   }
 `;
 
@@ -107,13 +114,17 @@ const SearchContainer = styled.div`
 
 const SearchInput = styled.input`
   border: none;
-  font-size: 16px;
   flex-grow: 1;
   color: #8c8c8c;
-  font-family: "Pretendard-Regular";
+  font-family: "Pretendard";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
   padding: 8px;
   &:focus {
     outline: none;
+    color: black;
   }
 `;
 
@@ -271,6 +282,8 @@ const Header = ({ onSearchOptionChange }) => {
           <SearchInput
             type="text"
             placeholder="검색어를 입력하세요"
+            onFocus={(e) => (e.target.placeholder = "")}
+            onBlur={(e) => (e.target.placeholder = "검색어를 입력하세요")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

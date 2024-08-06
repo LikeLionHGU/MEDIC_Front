@@ -6,7 +6,7 @@ const Modal = styled.div`
   position: fixed;
   top: 100px;
   right: 62px;
-  width: 177px;
+  width: 198px;
   max-height: 434px;
   background-color: rgba(52, 52, 52, 0.7);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -21,35 +21,32 @@ const Modal = styled.div`
 
 const Header = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
   flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  width: 100%;
+  padding: 0 20px;
 `;
 
 const TitleContainer = styled.div`
   display: flex;
-  align-items: center;
-  white-space: nowrap;
+  flex-direction: column;
+  align-items: flex-start;
 `;
 
 const Title = styled.div`
   font-family: "KIMM_Light";
-  font-size: 9.34px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 150%;
   color: white;
+  word-wrap: break-word;
+  text-align: left;
+  padding: 0px 23px;
 `;
 
-const Subtitle = styled.div`
-  font-family: "KIMM_Light";
-  font-size: 9.34px;
-  color: white;
-  margin-top: 4px;
-  width: 120.5px;
-`;
-
-const User = styled.div`
-  font-family: "KIMM_Light";
-  font-size: 9.34px;
+const User = styled.span`
   color: #b2d23e;
 `;
 
@@ -96,8 +93,8 @@ const Product = styled.div`
 `;
 
 const ProductImage = styled.img`
-  width: 120.48px;
-  height: 132.62px;
+  width: 151.711px;
+  height: 151.711px;
   border-radius: 14.01px;
 `;
 
@@ -105,8 +102,10 @@ const ProductName = styled.div`
   font-family: "Pretendard-Regular";
   display: flex;
   align-items: center;
-  font-size: 8.41px;
+  font-size: 11px;
+  font-style: normal;
   font-weight: 600;
+  line-height: normal;
   color: white;
   margin-top: 5px;
 `;
@@ -121,7 +120,10 @@ const ProductDetails = styled.div`
 
 const ProductPrice = styled.p`
   font-family: "Pretendard-Regular";
-  font-size: 9.34px;
+  font-size: 11px;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 600;
   color: #8c8c8c;
   margin: 0;
   text-decoration: line-through;
@@ -131,25 +133,28 @@ const ProductDiscountPrice = styled.p`
   font-family: "Pretendard-Regular";
   margin-top: 3px;
   margin-bottom: 0px;
-  font-size: 10.27px;
-  font-weight: bold;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   color: white;
 `;
 
 const Tag = styled.span`
   font-family: "Pretendard-Regular";
-  font-weight: 600;
   display: inline-block;
   background-color: transparent;
   color: #b2d23e;
   border: 1px solid #b2d23e;
-  border-radius: 4.67px;
-  padding: 3px;
+  border-radius: 6.48px;
+  padding: 5.696px 8.545px;
   margin-top: 5px;
   font-family: "Pretendard-Regular";
-  font-size: 6.54px;
+  font-size: 9.968px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   margin-right: 5px;
-  margin-bottom: 14px;
 `;
 
 const TagContainer = styled.div`
@@ -200,10 +205,10 @@ const EffectiveProduct = () => {
       <CloseButton onClick={closeModal}>&times;</CloseButton>
       <Header>
         <TitleContainer>
-          <User>{userName}</User>
-          <Title>님이 복용중인 제품과</Title>
+          <Title>
+            <User>{userName}</User>님이 복용중인 제품과 효과적인 추천 상품
+          </Title>
         </TitleContainer>
-        <Subtitle>효과적인 추천 상품</Subtitle>
       </Header>
       <ProductContainer>
         {recommendedProducts.map((product, index) => (

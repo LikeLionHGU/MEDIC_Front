@@ -4,14 +4,14 @@ import Customization from "../components/MainPage/Customization";
 import Header from "../components/MainPage/Header";
 import BEST from "../components/MainPage/BEST";
 import EffectiveProduct from "../components/MainPage/EffectiveProduct";
-import modalImage from "../img/Frame 15595.svg";
+import modalImage from "../img/Logoo.svg";
 import Modal from "../components/MainPage/Modal";
 import styled from "styled-components";
 
 const Modal1 = styled.div`
   position: absolute;
-  top: 50%;
-  right: 100%;
+  top: 40%;
+  right: 90%;
   transform: translateY(-50%) translateX(-20px);
   background-color: rgba(132, 155, 45, 0.9);
   padding: 19px 25px 16px 26px;
@@ -26,13 +26,13 @@ const Modal1 = styled.div`
 const ModalTriangle = styled.div`
   position: absolute;
   top: 50%;
-  right: -12px;
+  right: -13.7px;
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-left: 12px solid rgba(132, 155, 45, 0.9);
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
+  border-left: 15px solid rgba(132, 155, 45, 0.9);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
 `;
 
 const ModalContent = styled.div`

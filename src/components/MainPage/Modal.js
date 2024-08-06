@@ -49,7 +49,7 @@ const CloseButton = styled.img`
 
 const UploadBtn = styled.button`
   display: flex;
-  width: 246px;
+  width: 237px;
   padding: 8px 12px;
   justify-content: center;
   border-radius: 10px;
@@ -121,11 +121,12 @@ const RecommendationContent = styled.p`
   font-weight: 300;
   text-align: start;
   margin-bottom: 20px;
-  border: 1px solid black;
+  border: ${(props) =>
+    props.isAnalyzed ? "1px solid black;" : "1px solid black;"};
   border-radius: 10px;
   width: 434px;
   height: 152px;
-  padding: 33px 27px;
+  padding: 13px 27px;
   line-height: 160%;
 `;
 
@@ -167,9 +168,9 @@ const Modal = ({ onClose }) => {
   const handleAnalyzeClick = () => {
     if (file) {
       setRecommendationContent(
-        "이 제품의 성분을 하나하나 고려해보았을 때 ~에 사용되는 제품입니다. 이러한 제품들은 일반적으로 ~를 예방하거나 개선하기 위해 사용됩니다. 하지만, ~~와 같은 점을 주의할 필요가 있습니다. ~~"
+        "건강검진 결과, 혈당 조절이 필요합니다. 인슐린과 식후 혈당 상승 억제가 중요하며, 난소화성말토덱스트린과 구아바잎추출물 포함 건강기능식품을 권장합니다. 이 성분들은 정상적인 혈당 유지를 돕고, 높은 혈당으로 인한 위험을 줄이는 데 기여합니다."
       );
-      setHashtags(["#면역기능개선", "#피부건강개선", "#혈행흐름개선"]);
+      setHashtags(["#혈당조절", "#혈중 중성지방 개선", "#체지방 감소"]);
       setIsAnalyzed(true);
     }
   };
@@ -211,7 +212,7 @@ const Modal = ({ onClose }) => {
           </UploadContainer>
           <RecommendationBox>
             <RecommendationTitle>건강검진 결과에 대한 소견</RecommendationTitle>
-            <RecommendationContent>
+            <RecommendationContent isAnalyzed={isAnalyzed}>
               {recommendationContent}
             </RecommendationContent>
             <RecommendationTitle

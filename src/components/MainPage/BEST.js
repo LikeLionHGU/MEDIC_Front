@@ -18,8 +18,8 @@ const ProductContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 20px;
-  width: 1300px;
+  padding-top: 20px;
+  width: 1220px;
 `;
 
 const ProductCard = styled.div`
@@ -28,7 +28,6 @@ const ProductCard = styled.div`
   height: 389px;
   border-radius: 30px;
   overflow: hidden;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
   cursor: pointer;
 
@@ -87,16 +86,19 @@ const Title = styled.div`
   font-size: 22px;
   width: 1170px;
   text-align: start;
-  margin-bottom: 12px;
+  margin-bottom: 7px;
   margin-top: 67px;
 `;
 
 const Subtitle = styled.div`
   font-family: "Pretendard";
+  font-style: normal;
   font-weight: 100;
+  line-height: normal;
   font-size: 20px;
   color: black;
   text-align: start;
+  margin: 0px;
 `;
 
 const GoContainer = styled.button`

@@ -17,9 +17,12 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
+  padding-left: 3px;
   font-family: "Pretendard";
-  font-weight: 100;
   font-size: 20px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
   color: black;
   width: 1170px;
   text-align: start;

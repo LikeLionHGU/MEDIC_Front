@@ -191,10 +191,11 @@ const Modal2 = ({ onClose }) => {
           </RecommendationContent2>
           <RecommendationTitle>제품에 대한 소견</RecommendationTitle>
           <RecommendationContent>
-            이 제품의 성분을 하나하나 고려해보았을 때 ~에 사용되는 제품입니다.
-            <br />
-            이러한 제품들은 일반적으로 ~를 예방하거나 개선하기 위해 사용됩니다.
-            하지만, 임신부시다 몸과 같은 점을 주의할 필요가 있습니다. ~~
+            이 제품의 성분을 하나하나 고려해보았을 때 건강에 도움되는
+            제품입니다. 이러한 제품들은 일반적으로 암을 예방하거나 개선하기 위해
+            사용됩니다. 자당지방산에스테르 성분이 암 예방에 도움을 줄 것입니다.
+            또한, 이 제품은 항산화 작용을 통해 체내 유해 물질을 제거하는 데
+            기여할 수 있습니다.
           </RecommendationContent>
         </RecommendationBox>
       </ModalContent>
