@@ -16,7 +16,7 @@ const Img1 = styled.img`
 const Mark = styled.img`
   width: 569.76px;
   height: auto;
-  margin-bottom: 62px;
+  margin-bottom: 42px;
 `;
 
 const Modal = styled.div`
@@ -129,7 +129,7 @@ const ProductDetailText = styled.p`
   padding: 10px;
   color: white;
   font-family: "Pretendard-Regular";
-  font-size: 28px;
+  font-size: 24px;
   font-style: normal;
   font-weight: 700;
   margin: 0;
@@ -155,7 +155,7 @@ const TableCell = styled.td`
   padding: 15px;
   text-align: center;
   color: #616625;
-  font-size: 22px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 600;
   &:first-child {
@@ -169,7 +169,7 @@ const TableCell2 = styled.td`
   padding: 15px;
   text-align: left;
   color: black;
-  font-size: 22px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 300;
   white-space: pre-line;
@@ -219,7 +219,11 @@ const Detail = ({ productId }) => {
 
   return (
     <>
-      <Img1 src={img1} alt="Detail Image" />
+      <ProductDetailContainer style={{ marginBottom: "73px" }}>
+        <Img1 src={img1} alt="Detail Image" />
+        <ProductDetailText>제품 보유 인증마크</ProductDetailText>
+      </ProductDetailContainer>
+
       <Mark src={mark} alt="Mark" />
       <PharmacistContainer>
         <Pharmacist onClick={handlePharmacistClick}>
