@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import closeIcon from "../../img/goOut.svg";
+import hoverCloseIcon from "../../img/hoverx.svg";
 import profileimg from "../../img/Profile.svg";
 import left from "../../img/left.svg";
 import logo from "../../img/Mark.svg";
@@ -85,6 +86,9 @@ const CloseButton = styled.img`
   width: 24px;
   height: 24px;
   cursor: pointer;
+  &:hover {
+    content: url(${hoverCloseIcon});
+  }
 `;
 
 const Profile = styled.div`
@@ -179,7 +183,7 @@ const Modal2 = ({ onClose }) => {
           <img
             src={logo}
             alt="logo"
-            style={{ height: "163px", marginTop: "10px" }}
+            style={{ height: "163px", marginTop: "20px" }}
           />
         </Profile>
         <RecommendationBox>
